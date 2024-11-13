@@ -19,6 +19,7 @@ public class TitleSceneManager : MonoBehaviour
         {
             selectedPlayerCount = playerCount;
             Debug.Log($"選択されたプレイヤー人数: {selectedPlayerCount}");
+            StartGame();
         }
         else
         {

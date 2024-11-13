@@ -6,6 +6,7 @@ public class CharacterSelection : MonoBehaviour
 {
     public List<Character> availableCharacters;  // 使用可能なキャラクターリスト
     private List<Character> selectedCharacters = new List<Character>();  // 選択されたキャラクターのリスト
+    public List<NPC> npcs;  // NPCのリスト
     private int currentPlayer = 0;  // 現在キャラを選んでいるプレイヤー番号
     private int maxPlayers = 4;     // 最大プレイヤー数
 
@@ -22,7 +23,20 @@ public class CharacterSelection : MonoBehaviour
             StartGame();  // 全プレイヤーが選択を終えたらゲーム開始
         }
     }
+    public void SetNPCStrength(int npcIndex, NPCStrength strength)
+    {
+        npcs[npcIndex].npcStrength = strength;
+    }
 
+    public void AssignNPCStrength()
+    {
+        for (int i = 0; i < npcs.Count; i++)
+        {
+            // NPCの強さをランダムに設定（例: Weak, Normal, Strong）
+            NPCStrength randomStrength = (NPCStrength)Random.Range(0, 3);
+            npcs[i].npcStrength = randomStrength;
+        }
+    }
     // ゲーム開始メソッド
     private void StartGame()
     {

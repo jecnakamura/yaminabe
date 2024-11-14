@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class SettingsOpener : MonoBehaviour
 {
     private static SettingsOpener instance;
-
     private void Awake()
     {
         // インスタンスが既に存在する場合は、新しいものを破棄して重複を避ける
@@ -22,7 +21,7 @@ public class SettingsOpener : MonoBehaviour
     private void Update()
     {
         // Tabキーまたはコントローラーボタンで設定シーンに遷移
-        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetButtonDown("OpenSettings"))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             OpenSettingsScene();
         }
@@ -30,6 +29,14 @@ public class SettingsOpener : MonoBehaviour
 
     private void OpenSettingsScene()
     {
+        // SettingsSceneが既にロードされているかを確認
+        Scene settingsScene = SceneManager.GetSceneByName("SettingsScene");
+        if (settingsScene.isLoaded)
+        {
+            // 既にSettingsSceneがロードされている場合、何もしない
+            return;
+        }
+
         SceneManager.LoadScene("SettingsScene", LoadSceneMode.Additive);
     }
 }

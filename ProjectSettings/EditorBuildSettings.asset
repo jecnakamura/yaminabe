@@ -4,5 +4,26 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Kouda/Scene/TitleScene.unity
+    guid: b3b9e089dc42e5f41b6d0f7b1a019518
+  - enabled: 1
+    path: Assets/Kouda/Scene/SettingsScene.unity
+    guid: 6fc3bd72b0475b941b86152777d94159
+  - enabled: 1
+    path: Assets/Kouda/Scene/RuleScene.unity
+    guid: 6cd75c0ba7348354491da717aaea4035
+  - enabled: 1
+    path: Assets/Kouda/Scene/CharacterSelectionScene.unity
+    guid: b1dfa39f634652f40958c25f6870cfa8
+  - enabled: 1
+    path: Assets/Kouda/Scene/GameScene.unity
+    guid: e07170fe06544794487014166d2aa3a9
+  - enabled: 1
+    path: Assets/Kouda/Scene/MiniGameScene.unity
+    guid: be3c2d5d1f1000740876ffe87b22a654
+  - enabled: 1
+    path: Assets/Kouda/Scene/ResultScene.unity
+    guid: b844b3a80f8361740bfd863c2f2f9268
   m_configObjects: {}

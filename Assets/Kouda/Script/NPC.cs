@@ -2,6 +2,7 @@ using UnityEngine;
 
 public enum NPCStrength
 {
+    Unset,  // 追加: 初期状態の設定
     Weak,
     Normal,
     Strong
@@ -9,8 +10,9 @@ public enum NPCStrength
 
 public class NPC : MonoBehaviour
 {
-    public NPCStrength npcStrength;  // NPCの強さ
-    public int playerIndex;          // プレイヤーのインデックス（NPCが何番目か）
+    public NPCStrength npcStrength = NPCStrength.Unset;  // 初期状態をUnsetに
+    public int playerIndex;           // NPCのインデックス（何番目のNPCか）
+    public Character assignedCharacter; // NPCに割り当てられたキャラクター
 
     // ルート選択の処理
     public void ChooseRoute()
@@ -50,7 +52,7 @@ public class NPC : MonoBehaviour
         // 食材に基づいたルート選択処理（鍵ルートを含む）
     }
 
-    // ミニゲームでの強さ（実装例として強さに応じたダメージなど）
+    // ミニゲームでの強さ
     public void PlayMiniGame()
     {
         switch (npcStrength)

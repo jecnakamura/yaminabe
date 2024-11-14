@@ -1,47 +1,63 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CharacterSelection : MonoBehaviour
 {
-    public List<Character> availableCharacters;  // 使用可能なキャラクターリスト
-    private List<Character> selectedCharacters = new List<Character>();  // 選択されたキャラクターのリスト
-    public List<NPC> npcs;  // NPCのリスト
-    private int currentPlayer = 0;  // 現在キャラを選んでいるプレイヤー番号
-    private int maxPlayers = 4;     // 最大プレイヤー数
+    public List<Character> availableCharacters;  // 全キャラクターリスト
+    public List<Image> characterImages;          // 各プレイヤーのキャラクター画像
+    public List<TextMeshProUGUI> characterNames; // 各プレイヤーのキャラクター名 (TextMeshProに変更)
+    public List<Button> nextButtons;             // 「＞」ボタン
+    public List<Button> prevButtons;             // 「＜」ボタン
+    public List<Button> confirmButtons;          // 決定ボタン
+    public List<Button> npcStrengthButtons;      // NPC強さボタン
 
-    // キャラクターを選択するメソッド
-    public void SelectCharacter(Character character)
+    private int[] currentIndices;                // プレイヤーごとの現在インデックス
+    private int maxPlayers = 4;
+
+    private void Start()
     {
-        if (selectedCharacters.Contains(character)) return; // キャラが選択済みの場合は何もしない
-        selectedCharacters.Add(character);
-
-        currentPlayer++;
-
-        if (currentPlayer >= maxPlayers)
-        {
-            StartGame();  // 全プレイヤーが選択を終えたらゲーム開始
-        }
+        currentIndices = new int[maxPlayers];
+        UpdateCharacterDisplay();
     }
+
+    // 「＞」ボタンが押されたとき
+    public void ShowNextCharacter(int playerIndex)
+    {
+        currentIndices[playerIndex] = (currentIndices[playerIndex] + 1) % availableCharacters.Count;
+        UpdateCharacterDisplay();
+    }
+
+    // 「＜」ボタンが押されたとき
+    public void ShowPreviousCharacter(int playerIndex)
+    {
+        currentIndices[playerIndex] = (currentIndices[playerIndex] - 1 + availableCharacters.Count) % availableCharacters.Count;
+        UpdateCharacterDisplay();
+    }
+
+    // キャラクターを確定
+    public void ConfirmCharacter(int playerIndex)
+    {
+        Character selected = availableCharacters[currentIndices[playerIndex]];
+        Debug.Log($"Player {playerIndex + 1} has selected {selected.name}");
+        // 確定キャラクターの設定処理を追加
+    }
+
+    // NPCの強さを設定
     public void SetNPCStrength(int npcIndex, NPCStrength strength)
     {
-        npcs[npcIndex].npcStrength = strength;
+        // NPCの強さを設定する処理
+        Debug.Log($"NPC {npcIndex + 1} の強さが {strength} に設定されました");
     }
 
-    public void AssignNPCStrength()
+    private void UpdateCharacterDisplay()
     {
-        for (int i = 0; i < npcs.Count; i++)
+        for (int i = 0; i < maxPlayers; i++)
         {
-            // NPCの強さをランダムに設定（例: Weak, Normal, Strong）
-            NPCStrength randomStrength = (NPCStrength)Random.Range(0, 3);
-            npcs[i].npcStrength = randomStrength;
+            Character currentCharacter = availableCharacters[currentIndices[i]];
+            characterImages[i].sprite = currentCharacter.image;
+            characterNames[i].text = currentCharacter.name;  // TextMeshProにキャラクター名を表示
         }
-    }
-    // ゲーム開始メソッド
-    private void StartGame()
-    {
-        // 選択したキャラクターを次のシーンで使えるように保存（プレイヤー情報の転送など）
-        GameData.selectedCharacters = selectedCharacters;
-        SceneManager.LoadScene("GameScene");  // ゲーム本編シーンへ遷移
     }
 }

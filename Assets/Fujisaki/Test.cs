@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test : MonoBehaviour
+[System.Serializable]
+public class Test
 {
     public int ID;
     public string name;

@@ -4,11 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class CharacterSelection : MonoBehaviour
 {
-    public List<Character> availableCharacters;  // 使用可能なキャラクターリスト
-    private List<Character> selectedCharacters = new List<Character>();  // 選択されたキャラクターのリスト
-    public List<NPC> npcs;  // NPCのリスト
-    private int currentPlayer = 0;  // 現在キャラを選んでいるプレイヤー番号
-    private int maxPlayers = 4;     // 最大プレイヤー数
+    public List<Character> availableCharacters; // 使用可能なキャラクターリスト
+    private List<Character> selectedCharacters = new List<Character>(); // 選択されたキャラクターのリスト
+    public List<NPC> npcs; // NPCのリスト
+    private int currentPlayer = 0; // 現在キャラを選んでいるプレイヤー番号
+    private int maxPlayers = 4;    // 最大プレイヤー数
 
     // キャラクターを選択するメソッド
     public void SelectCharacter(Character character)
@@ -20,28 +20,27 @@ public class CharacterSelection : MonoBehaviour
 
         if (currentPlayer >= maxPlayers)
         {
-            StartGame();  // 全プレイヤーが選択を終えたらゲーム開始
+            StartGame(); // 全プレイヤーが選択を終えたらゲーム開始
         }
-    }
-    public void SetNPCStrength(int npcIndex, NPCStrength strength)
-    {
-        npcs[npcIndex].npcStrength = strength;
     }
 
-    public void AssignNPCStrength()
+    // NPCの強さを設定するメソッド（UIから呼び出し）
+    public void SetNPCStrength(int npcIndex, NPCStrength strength)
     {
-        for (int i = 0; i < npcs.Count; i++)
+        if (npcIndex < npcs.Count)
         {
-            // NPCの強さをランダムに設定（例: Weak, Normal, Strong）
-            NPCStrength randomStrength = (NPCStrength)Random.Range(0, 3);
-            npcs[i].npcStrength = randomStrength;
+            npcs[npcIndex].npcStrength = strength;
+            Debug.Log($"NPC {npcIndex + 1} の強さが {strength} に設定されました");
         }
     }
+
     // ゲーム開始メソッド
     private void StartGame()
     {
-        // 選択したキャラクターを次のシーンで使えるように保存（プレイヤー情報の転送など）
+        // 選択したキャラクターとNPC情報を次のシーンで使えるように保存
         GameData.selectedCharacters = selectedCharacters;
-        SceneManager.LoadScene("GameScene");  // ゲーム本編シーンへ遷移
+        GameData.npcs = npcs;
+
+        SceneManager.LoadScene("GameScene"); // ゲーム本編シーンへ遷移
     }
 }

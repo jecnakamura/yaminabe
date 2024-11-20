@@ -70,7 +70,7 @@ public class Rotation : MonoBehaviour
 
     public int ReceiveTimes(int inp)
     {
-        return piece;
+        return inp;
     }
 
 }

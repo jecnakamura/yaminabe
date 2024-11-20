@@ -59,6 +59,7 @@ public class Rotation : MonoBehaviour
                     if (hit.collider)
                     {
                         var piece = hit.collider.gameObject.GetComponent<RoulettePiece>();
+                        ReceiveTimes(piece);
                         Debug.Log(piece.No);
                     }
                     state = State.Standby;
@@ -66,4 +67,10 @@ public class Rotation : MonoBehaviour
                 break;
         }
     }
+
+    public int ReceiveTimes(int inp)
+    {
+        return piece;
+    }
+
 }

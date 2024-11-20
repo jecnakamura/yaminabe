@@ -4,5 +4,5 @@ using UnityEngine;
 public class Character : ScriptableObject
 {
     public string characterName;
-    public Sprite characterIcon;  // ƒAƒCƒRƒ“‚È‚Ç
+    public Sprite image;
 }

@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Nakamura\player.cs" />
-    <Compile Include="Assets\Nakamura\masu_MAX.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

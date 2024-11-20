@@ -59,7 +59,7 @@ public class Rotation : MonoBehaviour
                     if (hit.collider)
                     {
                         var piece = hit.collider.gameObject.GetComponent<RoulettePiece>();
-                        ReceiveTimes(piece);
+                        ReceiveTimes(piece.No);
                         Debug.Log(piece.No);
                     }
                     state = State.Standby;

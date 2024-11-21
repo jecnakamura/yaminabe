@@ -28,7 +28,7 @@ public class CSVReader : MonoBehaviour
         for (int i = 0; i < csvDatas.Count; i++) // csvDataリストの条件を満たす値の数（全て）
         {
             // データの表示
-            Debug.Log("ID：" + csvDatas[i][0] + ", 名前：" + csvDatas[i][1]  );
+            Debug.Log("ID：" + csvDatas[i][0] + ", 名前：" + csvDatas[i][1] + ", ジャンル：" + csvDatas[i][2] + ", 相性値：" + csvDatas[i][3] );
         }
 
     }

@@ -107,6 +107,7 @@
     <Compile Include="Assets\Kouda\Script\GameData.cs" />
     <Compile Include="Assets\Kouda\Script\SettingsManager.cs" />
     <Compile Include="Assets\Yoshida\Script\roulette.cs" />
+    <Compile Include="Assets\Saitou\Title.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Kouda\Script\NPC.cs" />
     <Compile Include="Assets\Kouda\Script\Player.cs" />
@@ -130,6 +131,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\RocknRoll-master\OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Saitou\memo.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Saitou\具材.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />

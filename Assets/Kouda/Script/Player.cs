@@ -3,7 +3,10 @@ using System.Linq;
 
 public class Player
 {
+    public int ID;
+    public Character chara;
     public List<Ingredient> ingredients; // プレイヤーが所持している食材リスト
+    
 
     public Player()
     {

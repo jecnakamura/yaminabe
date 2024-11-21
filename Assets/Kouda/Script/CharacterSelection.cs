@@ -1,126 +1,207 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharacterSelection : MonoBehaviour
 {
-    public List<Character> availableCharacters;  // 全キャラクターリスト
-    public List<Image> characterImages;          // 各プレイヤーのキャラクター画像
-    public List<TextMeshProUGUI> characterNames; // 各プレイヤーのキャラクター名 (TextMeshProに変更)
-    public List<Button> nextButtons;             // 「＞」ボタン
-    public List<Button> prevButtons;             // 「＜」ボタン
-    public List<Button> confirmButtons;          // 決定ボタン
-    public List<GameObject> npcStrengthSelectors; // NPC強さ選択用のオブジェクト（プレイヤーがいない場合に表示）
-
-    private int[] currentIndices;                // プレイヤーごとの現在インデックス
+    public List<Character> availableCharacters;    // 全キャラクターリスト
+    public List<Image> characterImages;            // 各プレイヤーのキャラクター画像
+    public List<TextMeshProUGUI> characterNames;   // 各プレイヤーのキャラクター名
+    public List<Button> nextButtons;               // 「＞」ボタン
+    public List<Button> prevButtons;               // 「＜」ボタン
+    public List<Button> confirmButtons;            // 決定ボタン
+    public List<GameObject> npcStrengthSelectors;  // NPCの強さ選択オブジェクト
+    public Button startGameButton;                 // ゲームスタートボタン
+    private int[] currentIndices;                  // 各プレイヤーの現在インデックス
+    private int activePlayerCount;                 // 有効なプレイヤー数
     private int maxPlayers = 4;
-    private int activePlayerCount;
+    private bool allPlayersConfirmed = false;      // プレイヤー全員がキャラを決定したか
+    private bool allNPCStrengthsSet = false;       // 全NPCの強さが決定したか
 
-    //test
-    public Sprite characterImage1;
-    public Sprite characterImage2;
-    public Sprite characterImage3;
-    public Sprite characterImage4;
     private void Start()
     {
-        // GameDataからプレイヤー人数を取得
-        activePlayerCount = GameData.playerCount;
+        activePlayerCount = GameData.playerCount;  // 保存されたプレイヤー人数を取得
+        currentIndices = new int[maxPlayers];     // インデックス配列を初期化
 
-        if (activePlayerCount <= 0 || activePlayerCount > maxPlayers)
+        if (availableCharacters == null || availableCharacters.Count == 0)
         {
-            Debug.LogError("不正なプレイヤー人数です。デフォルト値を使用します。");
-            activePlayerCount = maxPlayers; // デフォルト値にフォールバック
+            Debug.LogError("availableCharacters にキャラクターデータが設定されていません！");
+            return;
         }
-        // プレイヤー数分のインデックスを初期化
-        currentIndices = new int[maxPlayers];
-        // サンプルキャラクターを作成して追加
-        availableCharacters = new List<Character>
-    {
-        new Character { name = "Character1", image = characterImage1 },
-        new Character { name = "Character2", image = characterImage2 },
-        new Character { name = "Character3", image = characterImage3 },
-        new Character { name = "Character4", image = characterImage4 }
-    };
-        // 初期表示を設定
-        for (int i = 0; i < maxPlayers; i++)
-        {
-            if (i < activePlayerCount)
-            {
-                // アクティブなプレイヤーの場合、キャラクターを割り当てる
-                currentIndices[i] = i % availableCharacters.Count;
-                characterImages[i].gameObject.SetActive(true);
-                characterNames[i].gameObject.SetActive(true);
-                nextButtons[i].gameObject.SetActive(true);
-                prevButtons[i].gameObject.SetActive(true);
-                confirmButtons[i].gameObject.SetActive(true);
-                npcStrengthSelectors[i].SetActive(false); // NPC選択UIは非表示
-            }
-            else
-            {
-                // プレイヤーがいない場合、NPC強さ選択を表示
-                characterImages[i].gameObject.SetActive(false);
-                characterNames[i].gameObject.SetActive(false);
-                nextButtons[i].gameObject.SetActive(false);
-                prevButtons[i].gameObject.SetActive(false);
-                confirmButtons[i].gameObject.SetActive(false);
-                npcStrengthSelectors[i].SetActive(true);
-            }
-        }
-        // キャラクター表示を更新
-        UpdateCharacterDisplay();
+
+        // プレイヤーとNPCのUIを設定
+        SetupPlayerUI();
+
+        // NPC用UIとゲームスタートボタンは非表示
+        foreach (var npcSelector in npcStrengthSelectors)
+            npcSelector.SetActive(false);
+
+        startGameButton.gameObject.SetActive(false);
     }
 
-    // 「＞」ボタンが押されたとき
+    private void SetupPlayerUI()
+    {
+        // プレイヤーUIを初期化
+        for (int i = 0; i < activePlayerCount; i++)
+        {
+            currentIndices[i] = i % availableCharacters.Count;
+
+            characterImages[i].gameObject.SetActive(true);
+            characterNames[i].gameObject.SetActive(true);
+            nextButtons[i].gameObject.SetActive(true);
+            prevButtons[i].gameObject.SetActive(true);
+            confirmButtons[i].gameObject.SetActive(true);
+        }
+
+        // プレイヤー以外のUIは非表示
+        for (int i = activePlayerCount; i < maxPlayers; i++)
+        {
+            characterImages[i].gameObject.SetActive(false);
+            characterNames[i].gameObject.SetActive(false);
+            nextButtons[i].gameObject.SetActive(false);
+            prevButtons[i].gameObject.SetActive(false);
+            confirmButtons[i].gameObject.SetActive(false);
+        }
+    }
+
+    public void ConfirmCharacter(int playerIndex)
+    {
+        Character selectedCharacter = availableCharacters[currentIndices[playerIndex]];
+        GameData.selectedCharacters[playerIndex] = selectedCharacter;
+
+        Debug.Log($"Player {playerIndex + 1} selected {selectedCharacter.characterName}");
+
+        // 決定ボタンを無効化
+        confirmButtons[playerIndex].interactable = false;
+
+        // 全プレイヤーがキャラを決定したか確認
+        CheckAllPlayersConfirmed();
+    }
+
+    private void CheckAllPlayersConfirmed()
+    {
+        allPlayersConfirmed = true;
+
+        for (int i = 0; i < activePlayerCount; i++)
+        {
+            if (GameData.selectedCharacters[i] == null)
+            {
+                allPlayersConfirmed = false;
+                break;
+            }
+        }
+
+        if (allPlayersConfirmed)
+        {
+            Debug.Log("All players confirmed their characters.");
+            // プレイヤーが4人ならゲームスタートボタンを表示する
+            if (activePlayerCount == maxPlayers)
+            {
+                startGameButton.gameObject.SetActive(true);
+            }
+            if (activePlayerCount < maxPlayers)
+            {
+                AssignNPCCharacters();
+            }
+        }
+    }
+
+    private void AssignNPCCharacters()
+    {
+        // プレイヤーが選択したキャラクターを除外
+        List<Character> unselectedCharacters = new List<Character>(availableCharacters);
+        foreach (var character in GameData.selectedCharacters)
+        {
+            if (character != null)
+                unselectedCharacters.Remove(character);
+        }
+
+        // NPCキャラクターを割り当て
+        GameData.npcData.Clear();
+        for (int i = 0; i < maxPlayers - activePlayerCount; i++)
+        {
+            NPCData npc = new NPCData
+            {
+                assignedCharacter = unselectedCharacters[i],
+                npcStrength = NPCStrength.Unset
+            };
+            GameData.npcData.Add(npc);
+            npcStrengthSelectors[i].SetActive(true); // NPCの強さ選択UIを表示
+        }
+    }
+
+    // NPCの強さを設定するメソッド
+    public void SetNPCStrength(int npcIndex, NPCStrength strength)
+    {
+        if (npcIndex < GameData.npcData.Count)
+        {
+            GameData.npcData[npcIndex].npcStrength = strength;
+            Debug.Log($"NPC {npcIndex} strength set to {strength}");
+
+            // NPCの強さが全て設定されているか確認
+            CheckAllNPCStrengthsSet();
+        }
+    }
+
+    private void CheckAllNPCStrengthsSet()
+    {
+        allNPCStrengthsSet = true;
+
+        foreach (var npc in GameData.npcData)
+        {
+            if (npc.npcStrength == NPCStrength.Unset)
+            {
+                allNPCStrengthsSet = false;
+                break;
+            }
+        }
+
+        if (allNPCStrengthsSet)
+        {
+            Debug.Log("All NPC strengths set. Game can start.");
+            startGameButton.gameObject.SetActive(true); // ゲームスタートボタンを表示
+        }
+    }
+
+    // NPCの強さ選択ボタン（Weak, Normal, Strong）の処理
+    public void SetWeak(int npcIndex)
+    {
+        SetNPCStrength(npcIndex, NPCStrength.Weak);
+    }
+
+    public void SetNormal(int npcIndex)
+    {
+        SetNPCStrength(npcIndex, NPCStrength.Normal);
+    }
+
+    public void SetStrong(int npcIndex)
+    {
+        SetNPCStrength(npcIndex, NPCStrength.Strong);
+    }
+
     public void ShowNextCharacter(int playerIndex)
     {
         currentIndices[playerIndex] = (currentIndices[playerIndex] + 1) % availableCharacters.Count;
-        UpdateCharacterDisplay();
+        UpdateCharacterDisplay(playerIndex);
     }
 
-    // 「＜」ボタンが押されたとき
     public void ShowPreviousCharacter(int playerIndex)
     {
         currentIndices[playerIndex] = (currentIndices[playerIndex] - 1 + availableCharacters.Count) % availableCharacters.Count;
-        UpdateCharacterDisplay();
+        UpdateCharacterDisplay(playerIndex);
     }
 
-    // キャラクターを確定
-    public void ConfirmCharacter(int playerIndex)
+    private void UpdateCharacterDisplay(int playerIndex)
     {
-        Character selected = availableCharacters[currentIndices[playerIndex]];
-        Debug.Log($"Player {playerIndex + 1} has selected {selected.name}");
-        // 確定キャラクターの設定処理を追加
+        Character currentCharacter = availableCharacters[currentIndices[playerIndex]];
+        characterImages[playerIndex].sprite = currentCharacter.image;
+        characterNames[playerIndex].text = currentCharacter.characterName;
     }
 
-    // NPCの強さを設定
-    public void SetNPCStrength(int npcIndex, NPCStrength strength)
+    public void StartGame()
     {
-        // NPCの強さを設定する処理
-        Debug.Log($"NPC {npcIndex + 1} の強さが {strength} に設定されました");
-    }
-
-    private void UpdateCharacterDisplay()
-    {
-        if (availableCharacters == null || availableCharacters.Count == 0)
-        {
-            Debug.LogError("キャラクターリストが空です。キャラクターを設定してください。");
-            return; // エラー回避
-        }
-
-        for (int i = 0; i < maxPlayers; i++)
-        {
-            // インデックスがリストの範囲内かを確認
-            if (currentIndices[i] >= 0 && currentIndices[i] < availableCharacters.Count)
-            {
-                Character currentCharacter = availableCharacters[currentIndices[i]];
-                characterImages[i].sprite = currentCharacter.image;
-                characterNames[i].text = currentCharacter.name;
-            }
-            else
-            {
-                Debug.LogWarning($"Player {i + 1} のインデックスが範囲外です。");
-            }
-        }
+        SceneManager.LoadScene("GameScene");
     }
 }

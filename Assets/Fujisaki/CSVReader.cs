@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Unity.VisualScripting.FullSerializer;
 
 public class CSVReader : MonoBehaviour
 {
@@ -22,7 +24,12 @@ public class CSVReader : MonoBehaviour
         }
 
         // csvDatas[行][列]を指定して値を自由に取り出せる
-        Debug.Log(csvDatas[3][3]);
+        // Debug.Log(csvDatas[3][3]);
+        for (int i = 0; i < csvDatas.Count; i++) // csvDataリストの条件を満たす値の数（全て）
+        {
+            // データの表示
+            Debug.Log("ID：" + csvDatas[i][0] + ", 名前：" + csvDatas[i][1]  );
+        }
 
     }
 }

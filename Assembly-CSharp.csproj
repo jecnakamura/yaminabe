@@ -94,6 +94,7 @@
     <Compile Include="Assets\Kouda\Script\IngredientLoader.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Kouda\Script\SettingsOpener.cs" />
+    <Compile Include="Assets\Nakamura\Map.cs" />
     <Compile Include="Assets\Kouda\Script\TurnManager.cs" />
     <Compile Include="Assets\Kouda\Script\CharacterSelection.cs" />
     <Compile Include="Assets\Yoshida\Script\Rotation.cs" />

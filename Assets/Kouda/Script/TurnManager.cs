@@ -45,6 +45,8 @@ public class TurnManager : MonoBehaviour
         Debug.Log($"Player {currentPlayerIndex + 1}'s Turn");
 
         // ここでプレイヤーのターンの処理を実行する（ダイスを振る、移動など）
+        int MoveCnt = Random.Range(1, 8);
+
         // 仮実装として一定時間待機
         yield return new WaitForSeconds(2f);  // ターンの仮処理として2秒待機
 

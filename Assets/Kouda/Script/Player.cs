@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
-public class Player
+public class Player : MonoBehaviour
 {
     public int ID;
     public Character chara;

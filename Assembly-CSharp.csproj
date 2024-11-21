@@ -108,7 +108,6 @@
     <Compile Include="Assets\Kouda\Script\GameData.cs" />
     <Compile Include="Assets\Kouda\Script\SettingsManager.cs" />
     <Compile Include="Assets\Yoshida\Script\roulette.cs" />
-    <Compile Include="Assets\Kouda\Script\CharacterPrefab.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Kouda\Script\NPC.cs" />
     <Compile Include="Assets\Kouda\Script\Player.cs" />

@@ -5,12 +5,25 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     // プレイヤーのリスト（NPC含む）
-    public List<GameObject> players;  // 各プレイヤーのオブジェクト（仮データとしてGameObjectリストを想定）
+    public List<Player> players;  // 各プレイヤーのオブジェクト（仮データとしてGameObjectリストを想定）
     private int currentPlayerIndex = 0;  // 現在のプレイヤーのインデックス
     private bool isTurnActive = false;   // ターンが進行中かどうかを管理するフラグ
 
     void Start()
     {
+        for(int i = 0; i < GameData.playerCount; i++)
+        {
+            Player newPlayer = new Player
+            {
+                ID = i,
+                chara = GameData.selectedCharacters[i],
+                ingredients = new List<Ingredient>
+                {
+                    new Ingredient("", "", 0, 0.0f), // Ingredientをリストに追加
+                }
+            };
+            players.Add(newPlayer);
+        }
         StartCoroutine(TurnCycle());  // ターンのループを開始
     }
 
@@ -26,7 +39,7 @@ public class TurnManager : MonoBehaviour
     }
 
     // 各プレイヤーのターン処理
-    private IEnumerator PlayerTurn(GameObject player)
+    private IEnumerator PlayerTurn(Player player)
     {
         isTurnActive = true;
         Debug.Log($"Player {currentPlayerIndex + 1}'s Turn");

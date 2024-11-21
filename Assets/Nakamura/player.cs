@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    [SerializeField] private float _speed = 5.0f;
-    private float distance = 1.0f;
+    [SerializeField] private float _speed = 7.0f;
+    private float distance = 3.0f;
     private Vector2 move;
     private Vector3 targetPos;
     private void Start()

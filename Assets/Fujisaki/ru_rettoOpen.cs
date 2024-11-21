@@ -5,20 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ru_rettoOpen : MonoBehaviour
 {
-    //private static SettingsOpener instance;
-    //private void Awake()
-    //{
-    //    // インスタンスが既に存在する場合は、新しいものを破棄して重複を避ける
-    //    if (instance != null)
-    //    {
-    //        Destroy(gameObject);
-    //        return;
-    //    }
-
-    //    // このインスタンスが唯一であることを設定し、破棄されないようにする
-    //    instance = this;
-    //    DontDestroyOnLoad(gameObject);
-    //}
     public void OnClick()
     {
         OpenSettingsScene();

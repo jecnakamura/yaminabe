@@ -37,7 +37,7 @@ public class Rotation : MonoBehaviour
         switch(state)
         {
             case State.Standby:
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     this.rotSpeed = Random.Range(FirstSpeedMin, FirstSpeedMax);
                     state = State.Rotate;

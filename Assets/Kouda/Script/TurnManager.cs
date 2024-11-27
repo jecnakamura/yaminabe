@@ -1,70 +1,78 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TurnManager : MonoBehaviour
 {
-    // プレイヤーのリスト（NPC含む）
-    public List<Player> players;  // 各プレイヤーのオブジェクト（仮データとしてGameObjectリストを想定）
-    private int currentPlayerIndex = 0;  // 現在のプレイヤーのインデックス
-    private bool isTurnActive = false;   // ターンが進行中かどうかを管理するフラグ
+    public List<Player> players; // プレイヤー（NPC含む）リスト
+    private int currentPlayerIndex = 0;
+    public MapManager mapManager; // マップ管理クラス
+    public GameUIManager uiManager; // UI管理クラス
 
-    [SerializeField] private GameObject Pl;
-    public Vector3 spawnPosition; // 出現させたい位置
+    private bool isGameFinished = false;
+
     void Start()
     {
-        spawnPosition = new Vector3(-23,0,0);
-        for (int i = 0; i < GameData.playerCount; i++)
-        {
-            Instantiate(Pl,spawnPosition,Quaternion.identity);
-            Player newPlayer = new Player
-            {
-                ID = i,
-                chara = GameData.selectedCharacters[i],
-                ingredients = new List<Ingredient>
-                {
-                    new Ingredient("", "", 0, 0.0f), // Ingredientをリストに追加
-                }
-            };
-            players.Add(newPlayer);
-        }
-        StartCoroutine(TurnCycle());  // ターンのループを開始
+        StartCoroutine(TurnCycle());
     }
 
-    // ターンのサイクルを管理するコルーチン
     private IEnumerator TurnCycle()
     {
-        while (true)
+        while (!isGameFinished)
         {
-            yield return StartCoroutine(PlayerTurn(players[currentPlayerIndex])); // 現在のプレイヤーのターンを開始
-            EndTurn(); // ターン終了処理
-            yield return new WaitForSeconds(1f); // ターン間のインターバル
+            Player currentPlayer = players[currentPlayerIndex];
+            yield return StartCoroutine(HandlePlayerTurn(currentPlayer));
+
+            if (CheckAllPlayersFinished())
+            {
+                EndGame();
+                yield break;
+            }
+
+            NextPlayer();
         }
     }
 
-    // 各プレイヤーのターン処理
-    private IEnumerator PlayerTurn(Player player)
+    private IEnumerator HandlePlayerTurn(Player player)
     {
-        isTurnActive = true;
-        Debug.Log($"Player {currentPlayerIndex + 1}'s Turn");
+        // UIでターン情報を表示
+        uiManager.ShowTurnInfo(player);
 
-        // ここでプレイヤーのターンの処理を実行する（ダイスを振る、移動など）
-        int MoveCnt = Random.Range(1, 8);
+        // ルーレットシーンを開き、結果を取得
+        yield return StartCoroutine(OpenRoulette(player));
 
-        // 仮実装として一定時間待機
-        yield return new WaitForSeconds(2f);  // ターンの仮処理として2秒待機
+        // マスの移動処理
+        mapManager.MovePlayer(player);
 
-        isTurnActive = false;
+        // 止まったマスのイベント処理
+        yield return StartCoroutine(mapManager.HandleTileEvent(player, players));
     }
 
-    // ターン終了処理
-    private void EndTurn()
+    private bool CheckAllPlayersFinished()
     {
-        // 現在のプレイヤーのターンが終了したので次のプレイヤーに移動
-        currentPlayerIndex++;
-        if (currentPlayerIndex >= players.Count)
-        {
-            currentPlayerIndex = 0;  // 全プレイヤーがターンを終えたら最初に戻る
-        }
+        return players.TrueForAll(player => player.HasFinished);
+    }
+
+    private void NextPlayer()
+    {
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
+    }
+
+    private void EndGame()
+    {
+        isGameFinished = true;
+        Debug.Log("ゲーム終了！");
+        // 結果発表シーンに移行
+        UnityEngine.SceneManagement.SceneManager.LoadScene("ResultScene");
+    }
+
+    private IEnumerator OpenRoulette(Player player)
+    {
+        // ルーレットシーンを開いて結果を受け取る
+        yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
+        int result = RouletteResultHandler.GetResult(); // 仮の結果取得関数
+        player.MoveSteps = result;
+        yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Ruretto");
     }
 }

@@ -72,5 +72,9 @@ public class SettingsManager : MonoBehaviour
     {
         // ゲームを終了
         Application.Quit();
+        // エディタ内で動作を確認する場合
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }

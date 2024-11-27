@@ -19,17 +19,17 @@ public class TurnManager : MonoBehaviour
         spawnPosition = new Vector3(-23,0,0);
         for (int i = 0; i < GameData.playerCount; i++)
         {
-            Instantiate(Pl, spawnPosition, Quaternion.identity);
             Player newPlayer = new Player
             {
                 ID = i,
                 chara = GameData.selectedCharacters[i],
                 ingredients = new List<Ingredient>
                 {
-                    new Ingredient("", "", 0, 0.0f), 
+                    new Ingredient("", "", 0, 0.0f),
                 }
             };
             players.Add(newPlayer);
+            Instantiate(Pl, spawnPosition, Quaternion.identity);
         }
         StartCoroutine(TurnCycle());
     }

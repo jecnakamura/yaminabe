@@ -5,7 +5,7 @@ using UnityEngine;
 public class player : MonoBehaviour
 {
     [SerializeField] private float _speed = 7.0f;
-    private float distance = 3.0f;
+    [SerializeField] private float distance = 3.5f;
     private Vector2 move;
     private Vector3 targetPos;
     private void Start()

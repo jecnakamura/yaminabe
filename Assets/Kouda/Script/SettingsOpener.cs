@@ -25,6 +25,17 @@ public class SettingsOpener : MonoBehaviour
         {
             OpenSettingsScene();
         }
+        // エスケープキーが押されたとき
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // ゲームを終了
+            Application.Quit();
+
+            // エディタ内で動作を確認する場合
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        }
     }
 
     private void OpenSettingsScene()

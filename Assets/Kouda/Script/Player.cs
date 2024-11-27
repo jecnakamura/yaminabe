@@ -4,26 +4,40 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int ID;
+    public int ID;                              // プレイヤーID
+    public Vector3 CurrentPosition;            // 現在位置
+    public List<Ingredient> Ingredients { get; private set; } // 所持食材
+    public bool HasKey { get; set; }           // 鍵の所持状態
+    public bool HasFinished { get; set; }      // ゴール状態
+    public int MoveSteps { get; set; }         // 移動するマス数
+
     public Character chara;
-    public List<Ingredient> ingredients; // プレイヤーが所持している食材リスト
-    
+    public List<Ingredient> ingredients; 
 
     public Player()
     {
-        ingredients = new List<Ingredient>();
+        Ingredients = new List<Ingredient>();
+        HasKey = false;
+        HasFinished = false;
+        MoveSteps = 0;
     }
 
-    // プレイヤーの総合スコアを計算するメソッド
-    public float CalculateScore()
+    public void AddIngredient(Ingredient ingredient)
     {
-        // 1. すべての食材スコアを合計
-        int totalScore = ingredients.Sum(ingredient => ingredient.Score);
-
-        // 2. 平均相性値を計算（すべての食材の相性値の平均とする）
-        float averageCompatibility = ingredients.Average(ingredient => ingredient.Compatibility);
-
-        // 3. 総スコアを相性値で調整
-        return totalScore * averageCompatibility;
+        Ingredients.Add(ingredient);
     }
+
+    public void RemoveRandomIngredient()
+    {
+        if (Ingredients.Count > 0)
+        {
+            int randomIndex = Random.Range(0, Ingredients.Count);
+            Ingredients.RemoveAt(randomIndex);
+        }
+    }
+    public int CalculateScore()
+    {
+        return Ingredients.Sum(ingredient => ingredient.Score); // すべての食材のスコアを合計
+    }
+
 }

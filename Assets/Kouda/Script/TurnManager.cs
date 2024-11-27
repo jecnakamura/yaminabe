@@ -9,10 +9,14 @@ public class TurnManager : MonoBehaviour
     private int currentPlayerIndex = 0;  // 現在のプレイヤーのインデックス
     private bool isTurnActive = false;   // ターンが進行中かどうかを管理するフラグ
 
+    [SerializeField] private GameObject Pl;
+
     void Start()
     {
+        
         for(int i = 0; i < GameData.playerCount; i++)
         {
+            Instantiate(Pl,);
             Player newPlayer = new Player
             {
                 ID = i,

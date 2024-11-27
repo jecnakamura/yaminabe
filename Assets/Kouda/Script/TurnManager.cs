@@ -10,13 +10,13 @@ public class TurnManager : MonoBehaviour
     private bool isTurnActive = false;   // ターンが進行中かどうかを管理するフラグ
 
     [SerializeField] private GameObject Pl;
-
+    public Vector3 spawnPosition; // 出現させたい位置
     void Start()
     {
-        
-        for(int i = 0; i < GameData.playerCount; i++)
+        spawnPosition = new Vector3(-23,0,0);
+        for (int i = 0; i < GameData.playerCount; i++)
         {
-            Instantiate(Pl,);
+            Instantiate(Pl,spawnPosition,Quaternion.identity);
             Player newPlayer = new Player
             {
                 ID = i,

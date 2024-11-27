@@ -12,8 +12,25 @@ public class TurnManager : MonoBehaviour
 
     private bool isGameFinished = false;
 
+    [SerializeField] GameObject Pl;
+    Vector3 spawnPosition;
     void Start()
     {
+        spawnPosition = new Vector3(-23,0,0);
+        for (int i = 0; i < GameData.playerCount; i++)
+        {
+            Instantiate(Pl, spawnPosition, Quaternion.identity);
+            Player newPlayer = new Player
+            {
+                ID = i,
+                chara = GameData.selectedCharacters[i],
+                ingredients = new List<Ingredient>
+                {
+                    new Ingredient("", "", 0, 0.0f), 
+                }
+            };
+            players.Add(newPlayer);
+        }
         StartCoroutine(TurnCycle());
     }
 

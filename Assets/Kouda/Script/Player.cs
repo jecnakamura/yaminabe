@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     public bool HasFinished { get; set; }      // ƒS[ƒ‹ó‘Ô
     public int MoveSteps { get; set; }         // ˆÚ“®‚·‚éƒ}ƒX”
 
+    public Character chara;
+    public List<Ingredient> ingredients; 
+
     public Player()
     {
         Ingredients = new List<Ingredient>();

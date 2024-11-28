@@ -7,15 +7,15 @@ public class MapManager : MonoBehaviour
     public List<Tile> tiles; // マップ上のすべてのマス
     public Dictionary<Player, int> playerPositions = new Dictionary<Player, int>();
 
-    public void MovePlayer(Player player)
+    public IEnumerator MovePlayer(Player player,int steps)
     {
         int currentPos = playerPositions[player];
-        int targetPos = Mathf.Clamp(currentPos + player.MoveSteps, 0, tiles.Count - 1);
+        int targetPos = Mathf.Clamp(currentPos + steps, 0, tiles.Count - 1);
 
         playerPositions[player] = targetPos;
 
         // アニメーションで移動する場合
-        StartCoroutine(MovePlayerAnimation(player, tiles[targetPos].transform.position));
+        yield return StartCoroutine(MovePlayerAnimation(player, tiles[targetPos].transform.position));
     }
 
     private IEnumerator MovePlayerAnimation(Player player, Vector3 targetPosition)

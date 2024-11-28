@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/TiteScens.unity
+    guid: 9868ca77a88d80c4ca6a9554ee58deff
+  - enabled: 1
     path: Assets/Kouda/Scene/TitleScene.unity
     guid: b3b9e089dc42e5f41b6d0f7b1a019518
   - enabled: 1
@@ -18,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Kouda/Scene/CharacterSelectionScene.unity
     guid: b1dfa39f634652f40958c25f6870cfa8
   - enabled: 1
-    path: Assets/Nakamura/NSscene.unity
+    path: Assets/Kouda/Scene/NSscene.unity
     guid: 6ee3617ad5f438848a524a590aab92d7
   - enabled: 1
     path: Assets/Kouda/Scene/GameScene.unity
@@ -32,7 +35,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Yoshida/Ruretto.unity
     guid: 155e8fa617807e8489c5b5900787fcf7
-  - enabled: 1
-    path: Assets/Scenes/TiteScens.unity
-    guid: 9868ca77a88d80c4ca6a9554ee58deff
   m_configObjects: {}

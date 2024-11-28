@@ -59,18 +59,14 @@ public class Rotation : MonoBehaviour
                     if (hit.collider)
                     {
                         var piece = hit.collider.gameObject.GetComponent<RoulettePiece>();
-                        ReceiveTimes(piece.No);
+                        RouletteResultHandler.SetResult(piece.No);
+                        RouletteResultHandler.SetEnd(true);
                         Debug.Log(piece.No);
                     }
                     state = State.Standby;
                 }
                 break;
         }
-    }
-
-    public int ReceiveTimes(int inp)
-    {
-        return inp;
     }
 
 }

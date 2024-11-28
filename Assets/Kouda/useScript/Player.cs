@@ -4,41 +4,24 @@ using UnityEngine;
 /*
 public class Player : MonoBehaviour
 {
-    public int ID;                              // プレイヤーID
-    public Vector3 CurrentPosition;            // 現在位置
-    public List<Ingredient> Ingredients { get; private set; } // 所持食材
-    public bool HasKey { get; set; }           // 鍵の所持状態
-    public bool HasFinished { get; set; }      // ゴール状態
-    public int MoveSteps { get; set; }         // 移動するマス数
+    public int playerIndex;  // プレイヤー番号
+    public int score;        // スコア
+    public bool hasKey;      // 鍵の所持状態
+    public bool hasFinished; // ゴール到達状態
 
-    public Character chara;
-    public List<Ingredient> ingredients; 
-
-    public Player()
+    // スコアを加算
+    public void AddScore(int points)
     {
-        Ingredients = new List<Ingredient>();
-        HasKey = false;
-        HasFinished = false;
-        MoveSteps = 0;
+        score += points;
+        Debug.Log($"プレイヤー {playerIndex + 1} のスコアが {points} 増加しました (合計: {score})");
     }
 
-    public void AddIngredient(Ingredient ingredient)
+    // スコアを減算
+    public void SubtractScore(int points)
     {
-        Ingredients.Add(ingredient);
+        score -= points;
+        if (score < 0) score = 0;
+        Debug.Log($"プレイヤー {playerIndex + 1} のスコアが {points} 減少しました (合計: {score})");
     }
-
-    public void RemoveRandomIngredient()
-    {
-        if (Ingredients.Count > 0)
-        {
-            int randomIndex = Random.Range(0, Ingredients.Count);
-            Ingredients.RemoveAt(randomIndex);
-        }
-    }
-    public int CalculateScore()
-    {
-        return Ingredients.Sum(ingredient => ingredient.Score); // すべての食材のスコアを合計
-    }
-
 }
 */

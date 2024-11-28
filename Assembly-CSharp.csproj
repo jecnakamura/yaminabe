@@ -61,6 +61,7 @@
     <Compile Include="Assets\Kouda\Script\Mass.cs" />
     <Compile Include="Assets\Kouda\useScript\MapManager.cs" />
     <Compile Include="Assets\Kouda\useScript\EventManager.cs" />
+    <Compile Include="Assets\Kouda\useScript\IngredientManager.cs" />
     <Compile Include="Assets\Kouda\useScript\Character.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Kouda\useScript\RouteManager.cs" />
@@ -118,7 +119,6 @@
     <Compile Include="Assets\Kouda\useScript\FoodRoulette.cs" />
     <Compile Include="Assets\Fujisaki\CSVReader.cs" />
     <Compile Include="Assets\Yoshida\Script\RoulettePiece.cs" />
-    <Compile Include="Assets\Kouda\Script\IngredientLoader.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Kouda\Script\SettingsOpener.cs" />
     <Compile Include="Assets\Kouda\Script\TurnManager.cs" />

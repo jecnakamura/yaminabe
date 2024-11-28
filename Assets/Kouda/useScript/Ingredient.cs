@@ -1,17 +1,17 @@
 /*
 public class Ingredient
 {
+    public int ID { get; private set; }
     public string Name { get; private set; }
-    public string Type { get; private set; }
+    public string Genre { get; private set; }
     public int Score { get; private set; }
-    public float Compatibility { get; private set; }
 
-    public Ingredient(string name, string type, int score, float compatibility)
+    public Ingredient(int id, string name, string genre, int score)
     {
+        ID = id;
         Name = name;
-        Type = type;
+        Genre = genre;
         Score = score;
-        Compatibility = compatibility;
     }
 }
 */

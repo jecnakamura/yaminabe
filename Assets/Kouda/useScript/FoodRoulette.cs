@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FoodRoulette : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private System.Action<int> onRouletteFinished;
+
+    // ルーレットを開始する
+    public void StartRoulette(System.Action<int> callback)
     {
-        
+        onRouletteFinished = callback;
+        Debug.Log("ルーレットを回します");
+
+        // 実際のルーレット処理をここに実装
+        int result = Random.Range(1, 7); // 仮の結果: 1〜6マス進む
+        FinishRoulette(result);
     }
 
-    // Update is called once per frame
-    void Update()
+    // ルーレット終了時の処理
+    private void FinishRoulette(int result)
     {
-        
+        Debug.Log($"ルーレットの結果: {result}");
+        onRouletteFinished?.Invoke(result);
     }
 }

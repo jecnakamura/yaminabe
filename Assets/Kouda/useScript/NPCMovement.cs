@@ -1,18 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int currentTileIndex = 0; // 現在のマス位置
+    public int npcIndex;            // NPCの番号
+
+    public void Move(int steps)
     {
-        
+        Debug.Log($"NPC {npcIndex + 1} が {steps} ステップ進みます");
+
+        for (int i = 0; i < steps; i++)
+        {
+            currentTileIndex++;
+            Debug.Log($"NPC {npcIndex + 1} はマス {currentTileIndex} に到達");
+            // マスのイベントを処理
+            HandleTileEvent(currentTileIndex);
+
+            // ゴール判定（例: マス数が規定値を超えた場合）
+            if (IsGoalReached(currentTileIndex))
+            {
+                Debug.Log($"NPC {npcIndex + 1} がゴールに到達しました");
+                break;
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void HandleTileEvent(int tileIndex)
     {
-        
+        Debug.Log($"マス {tileIndex} のイベントを処理中");
+        // EventManager でイベントをトリガー
+        FindObjectOfType<EventManager>().TriggerEvent(tileIndex, npcIndex);
+    }
+
+    private bool IsGoalReached(int tileIndex)
+    {
+        // ゴール条件を判定（仮に100マスでゴールとする）
+        return tileIndex >= 100;
     }
 }

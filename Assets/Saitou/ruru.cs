@@ -7,6 +7,6 @@ public class ruru : MonoBehaviour
 {
     public void OnClick()
     {
-        SceneManager.LoadScene("NSscene");
+        SceneManager.LoadScene("RuleScene");
     }
 }

@@ -9,6 +9,6 @@ public class Title : MonoBehaviour
    
     public void OnClick()
     {
-        SceneManager.LoadScene("NSscene");
+        SceneManager.LoadScene("NSscene");//‰¼‚ÅNSƒV[ƒ“‚É”ò‚Ô‚É‚å
     }
 }

@@ -9,6 +9,6 @@ public class Title : MonoBehaviour
    
     public void OnClick()
     {
-        SceneManager.LoadScene("NSscene");//仮でNSシーンに飛ぶにょ
+        SceneManager.LoadScene("TitleScene");//仮でNSシーンに飛ぶにょ
     }
 }

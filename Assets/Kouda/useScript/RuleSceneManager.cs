@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class ruru : MonoBehaviour
+/*
+public class RuleSceneManager : MonoBehaviour
 {
-    public void OnClick()
+    public void GoToTitle()
     {
-        SceneManager.LoadScene("RuleScene");
+        SceneManager.LoadScene("TitleScene");
     }
+
 }
+*/

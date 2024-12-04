@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ResultManager : MonoBehaviour
 {
-    public Text rankingText; // ランキングを表示するUIテキスト
+    public TextMeshProUGUI rankingText; // ランキングを表示するUIテキスト
     public Button restartButton; // もう一度遊ぶボタン
     public Button quitButton;    // 終了ボタン
     /*
@@ -40,7 +42,7 @@ private List<PlayerData> players;
     void RestartGame()
     {
         // スタートシーンに戻る
-        UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene("TitleScene");
     }
 
     void QuitGame()

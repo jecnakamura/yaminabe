@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,6 +54,8 @@ public class CharacterSelection : MonoBehaviour
             nextButtons[i].gameObject.SetActive(true);
             prevButtons[i].gameObject.SetActive(true);
             confirmButtons[i].gameObject.SetActive(true);
+            currentIndices[i] = currentIndices[i] % availableCharacters.Count;
+            UpdateCharacterDisplay(i);
         }
 
         // プレイヤー以外のUIは非表示
@@ -64,20 +67,6 @@ public class CharacterSelection : MonoBehaviour
             prevButtons[i].gameObject.SetActive(false);
             confirmButtons[i].gameObject.SetActive(false);
         }
-    }
-
-    public void ConfirmCharacter(int playerIndex)
-    {
-        Character selectedCharacter = availableCharacters[currentIndices[playerIndex]];
-        GameData.selectedCharacters[playerIndex] = selectedCharacter;
-
-        Debug.Log($"Player {playerIndex + 1} selected {selectedCharacter.characterName}");
-
-        // 決定ボタンを無効化
-        confirmButtons[playerIndex].interactable = false;
-
-        // 全プレイヤーがキャラを決定したか確認
-        CheckAllPlayersConfirmed();
     }
 
     private void CheckAllPlayersConfirmed()
@@ -181,16 +170,64 @@ public class CharacterSelection : MonoBehaviour
         SetNPCStrength(npcIndex, NPCStrength.Strong);
     }
 
-    public void ShowNextCharacter(int playerIndex)
+    private void ShowNextCharacter(int playerIndex)
     {
-        currentIndices[playerIndex] = (currentIndices[playerIndex] + 1) % availableCharacters.Count;
+        int initialIndex = currentIndices[playerIndex];
+        do
+        {
+            currentIndices[playerIndex] = (currentIndices[playerIndex] + 1) % availableCharacters.Count;
+        }
+        while (IsCharacterAlreadySelected(playerIndex) && currentIndices[playerIndex] != initialIndex);
+
         UpdateCharacterDisplay(playerIndex);
     }
 
-    public void ShowPreviousCharacter(int playerIndex)
+    private void ShowPreviousCharacter(int playerIndex)
     {
-        currentIndices[playerIndex] = (currentIndices[playerIndex] - 1 + availableCharacters.Count) % availableCharacters.Count;
+        int initialIndex = currentIndices[playerIndex];
+        do
+        {
+            currentIndices[playerIndex] = (currentIndices[playerIndex] - 1 + availableCharacters.Count) % availableCharacters.Count;
+        }
+        while (IsCharacterAlreadySelected(playerIndex) && currentIndices[playerIndex] != initialIndex);
+
         UpdateCharacterDisplay(playerIndex);
+    }
+
+    // 他のプレイヤーが選択したキャラクターかどうかを確認
+    private bool IsCharacterAlreadySelected(int currentPlayerIndex)
+    {
+        Character currentCharacter = availableCharacters[currentIndices[currentPlayerIndex]];
+        for (int i = 0; i < activePlayerCount; i++)
+        {
+            if (i != currentPlayerIndex && GameData.selectedCharacters[i] == currentCharacter)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // ConfirmCharacter メソッドの修正
+    public void ConfirmCharacter(int playerIndex)
+    {
+        Character selectedCharacter = availableCharacters[currentIndices[playerIndex]];
+
+        // 他プレイヤーが選択しているキャラクターを再確認
+        if (GameData.selectedCharacters.Contains(selectedCharacter))
+        {
+            Debug.Log("他のプレイヤーがすでに選択しているキャラクターです！");
+            return;
+        }
+
+        GameData.selectedCharacters[playerIndex] = selectedCharacter;
+        Debug.Log($"Player {playerIndex + 1} selected {selectedCharacter.characterName}");
+
+        // 決定ボタンを無効化
+        confirmButtons[playerIndex].interactable = false;
+
+        // 全プレイヤーがキャラを決定したか確認
+        CheckAllPlayersConfirmed();
     }
 
     private void UpdateCharacterDisplay(int playerIndex)

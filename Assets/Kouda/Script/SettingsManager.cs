@@ -20,7 +20,7 @@ public class SettingsManager : MonoBehaviour
 
         // 画面サイズ選択の初期化
         InitializeResolutionOptions();
-        resolutionDropdown.onValueChanged.AddListener(SetResolution);
+        //resolutionDropdown.onValueChanged.AddListener(SetResolution);
 
         // ボタンの機能設定
         closeButton.onClick.AddListener(CloseSettings);

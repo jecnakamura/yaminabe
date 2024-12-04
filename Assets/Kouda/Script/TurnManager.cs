@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -40,12 +42,14 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
+        Vector3 scale = new Vector3(0.25f, 0.25f, 1.0f);
         testMoveText.SetActive(false);
         spawnPosition = new Vector3(-23, 3, 0);
         for (int i = 0; i < GameData.playerCount; i++)
         {
             var obj = Instantiate(Pl, spawnPosition, Quaternion.identity);
             var player = obj.GetComponent<Player>();
+            obj.transform.localScale = scale;
 
             player.ID = i;
             player.chara = GameData.selectedCharacters[i];
@@ -149,6 +153,10 @@ public class TurnManager : MonoBehaviour
         player.MoveSteps = result;
         yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Ruretto");
         Debug.Log("ルーレットクローズ" + result);
+        for(int i=0;i< result;i++)
+        {
+            //Movement(player.transform.position);
+        }
 
         NextState(TurnState.PlayerMove);
     }
@@ -197,5 +205,17 @@ public class TurnManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("ResultScene");
     }
 
-    
+    public void Movement(Transform now)
+    {
+        //Vector3 targetPos = (Vector3)now;
+        //targetPos.x += 3.5f;
+        //float AnimeTime = 0.5f;
+        //float elapsedTime = 0f;
+
+        //while (elapsedTime < AnimeTime)
+        //{
+        //    now = Vector3.Lerp(now, targetPos, (elapsedTime / AnimeTime));
+        //    elapsedTime += Time.deltaTime;
+        //}
+    }
 }

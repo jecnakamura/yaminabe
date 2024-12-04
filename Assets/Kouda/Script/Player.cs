@@ -53,4 +53,6 @@ public class Player : MonoBehaviour
     {
         display.sprite = chara.image;
     }
+
+   
 }

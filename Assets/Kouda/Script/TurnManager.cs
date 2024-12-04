@@ -140,7 +140,7 @@ public class TurnManager : MonoBehaviour
         RouletteResultHandler.SetEnd(false);
 
         // ルーレットシーンを開いて結果を受け取る
-        yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
+        yield return SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
         Debug.Log("ルーレットオープン");
 
         // 終了待ち
@@ -151,7 +151,7 @@ public class TurnManager : MonoBehaviour
 
         int result = RouletteResultHandler.GetResult(); // 仮の結果取得関数
         player.MoveSteps = result;
-        yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Ruretto");
+        yield return SceneManager.UnloadSceneAsync("Ruretto");
         Debug.Log("ルーレットクローズ" + result);
         for(int i=0;i< result;i++)
         {
@@ -202,7 +202,7 @@ public class TurnManager : MonoBehaviour
         isGameFinished = true;
         Debug.Log("ゲーム終了！");
         // 結果発表シーンに移行
-        UnityEngine.SceneManagement.SceneManager.LoadScene("ResultScene");
+        SceneManager.LoadScene("ResultScene");
     }
 
     public void Movement(Transform now)

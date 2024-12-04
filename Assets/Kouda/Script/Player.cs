@@ -12,7 +12,9 @@ public class Player : MonoBehaviour
     public int MoveSteps { get; set; }         // 移動するマス数
 
     public Character chara;
-    public List<Ingredient> ingredients; 
+    public List<Ingredient> ingredients;
+
+    public SpriteRenderer display;
 
     public Player()
     {
@@ -40,4 +42,15 @@ public class Player : MonoBehaviour
         return Ingredients.Sum(ingredient => ingredient.Score); // すべての食材のスコアを合計
     }
 
+
+    void Awake()
+    {
+        // このオブジェクトの SpriteRenderer を取得
+        display = GetComponent<SpriteRenderer>();
+    }
+
+    public void SetCharaImage()
+    {
+        display.sprite = chara.image;
+    }
 }

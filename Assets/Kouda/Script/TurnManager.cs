@@ -37,23 +37,13 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject Pl;
     Vector3 spawnPosition;
 
+
     void Start()
     {
         testMoveText.SetActive(false);
-        spawnPosition = new Vector3(-23, 0, 0);
+        spawnPosition = new Vector3(-23, 3, 0);
         for (int i = 0; i < GameData.playerCount; i++)
         {
-            //Player newPlayer = new Player
-            //{
-            //    ID = i,
-            //    chara = GameData.selectedCharacters[i],
-            //    ingredients = new List<Ingredient>
-            //    {
-            //        new Ingredient("", "", 0, 0.0f),
-            //    }
-            //};
-            //players.Add(newPlayer);
-
             var obj = Instantiate(Pl, spawnPosition, Quaternion.identity);
             var player = obj.GetComponent<Player>();
 
@@ -62,7 +52,10 @@ public class TurnManager : MonoBehaviour
             player.ingredients = new List<Ingredient>();
 
             players.Add(player);
+
+            player.SetCharaImage();
         }
+
         StartCoroutine(TurnCycle());
     }
 

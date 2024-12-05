@@ -197,9 +197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b02f02d1081184d879384a0a0159ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   players: []
   mapManager: {fileID: 0}
-  uiManager: {fileID: 0}
+  commandButtons: []
+  testMoveText: {fileID: 0}
   Pl: {fileID: 7141200225084256373, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}
 --- !u!4 &1069210733
 Transform:
@@ -274,6 +276,7 @@ GameObject:
   - component: {fileID: 1544228181}
   - component: {fileID: 1544228180}
   - component: {fileID: 1544228179}
+  - component: {fileID: 1544228182}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -356,6 +359,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1544228182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544228178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfa52aa5210219740b8dc82b53dacb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1323536517}
+  followSpeed: 5
+  zoomSpeed: 2
 --- !u!1 &1975461603
 GameObject:
   m_ObjectHideFlags: 0

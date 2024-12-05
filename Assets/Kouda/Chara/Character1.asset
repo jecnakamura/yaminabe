@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Character1
   m_EditorClassIdentifier: 
   characterName: kari1
-  image: {fileID: 21300000, guid: de70f1a531eab5a4e96be40f8a306c72, type: 3}
+  image: {fileID: 21300000, guid: c117fb8603dac9b41b134c57d439f81e, type: 3}

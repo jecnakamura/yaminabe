@@ -122,7 +122,10 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator HandleCommandSelect(Player player)
     {
-        foreach(var btn in commandButtons)
+        // UIでターン情報を表示
+        uiManager.ShowTurnInfo(player);
+
+        foreach (var btn in commandButtons)
         {
             btn.SetActive(true);
         }
@@ -168,8 +171,6 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator HandlePlayerTurn(Player player)
     {
-        // UIでターン情報を表示
-        uiManager.ShowTurnInfo(player);
 
         // マスの移動処理
         for (int i = 0; i < player.MoveSteps; i++)

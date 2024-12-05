@@ -579,6 +579,7 @@ GameObject:
   - component: {fileID: 695476520}
   - component: {fileID: 695476519}
   - component: {fileID: 695476518}
+  - component: {fileID: 695476521}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -660,6 +661,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &695476521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695476517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfa52aa5210219740b8dc82b53dacb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 8807144552467374042, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}
+  followSpeed: 5
+  zoomSpeed: 2
 --- !u!1 &754518715
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,7 +777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &897491422
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2436,7 +2452,6 @@ GameObject:
   - component: {fileID: 1571146101}
   - component: {fileID: 1571146100}
   - component: {fileID: 1571146099}
-  - component: {fileID: 1571146103}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2529,19 +2544,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1571146103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1571146098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb3bb87d49b98c5479a6ca711d7f0415, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnInfoText: {fileID: 1630749959}
 --- !u!1 &1630749958
 GameObject:
   m_ObjectHideFlags: 0
@@ -2721,6 +2723,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1897042881}
   - component: {fileID: 1897042880}
+  - component: {fileID: 1897042882}
+  - component: {fileID: 1897042883}
   m_Layer: 0
   m_Name: TurtnManager
   m_TagString: Untagged
@@ -2742,10 +2746,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   players: []
-  mapManager: {fileID: 0}
+  mapManager: {fileID: 1897042882}
+  uiManager: {fileID: 1897042883}
   commandButtons:
   - {fileID: 989684747}
-  testMoveText: {fileID: 897491421}
   Pl: {fileID: 7141200225084256373, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}
 --- !u!4 &1897042881
 Transform:
@@ -2762,3 +2766,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1897042882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897042879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55aa24a006d37c341ab672761e52cae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiles: []
+  MoveDuration: 0.4
+--- !u!114 &1897042883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897042879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3bb87d49b98c5479a6ca711d7f0415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnInfoText: {fileID: 1630749959}

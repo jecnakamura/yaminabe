@@ -26,7 +26,7 @@ public class TurnManager : MonoBehaviour
     public List<Player> players; // プレイヤー（NPC含む）リスト
     private int currentPlayerIndex = 0;
     public MapManager mapManager; // マップ管理クラス
-    //public GameUIManager uiManager; // UI管理クラス
+    public UIManager uiManager; // UI管理クラス
 
     public List<GameObject> commandButtons;
 
@@ -168,7 +168,7 @@ public class TurnManager : MonoBehaviour
     private IEnumerator HandlePlayerTurn(Player player)
     {
         // UIでターン情報を表示
-        //uiManager.ShowTurnInfo(player);
+        uiManager.ShowTurnInfo(player);
 
         // マスの移動処理
         for (int i = 0; i < player.MoveSteps; i++)

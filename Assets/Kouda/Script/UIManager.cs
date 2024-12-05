@@ -1,14 +1,15 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Text turnInfoText;
+    public TextMeshProUGUI turnInfoText;
 
     // ターン情報を表示
     public void ShowTurnInfo(Player player)
     {
-        //turnInfoText.text = $"{player.playerName} のターンです！";
+        turnInfoText.text = $"{player.ID} のターンです！";
     }
 
     // ゲーム終了後のUI更新

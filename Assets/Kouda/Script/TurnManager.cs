@@ -73,7 +73,7 @@ public class TurnManager : MonoBehaviour
         {
             case TurnState.CommandSelect:
                 {
-                    //cameraController.FollowPlayer(currentPlayer);
+                    cameraController.FollowPlayer(currentPlayer);
                     yield return StartCoroutine(HandleCommandSelect(currentPlayer));
                 }
                 break;

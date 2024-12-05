@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class MapManager : MonoBehaviour
 {
     public List<Tile> tiles; // マップ上のすべてのマス
     public Dictionary<Player, int> playerPositions = new Dictionary<Player, int>();
+    public float MoveDuration = 0.4f;
+
 
     public IEnumerator MovePlayer(Player player,int steps)
     {
@@ -15,24 +18,14 @@ public class MapManager : MonoBehaviour
         playerPositions[player] = targetPos;
 
         // アニメーションで移動する場合
-        yield return StartCoroutine(MovePlayerAnimation(player, tiles[targetPos].transform.position));
+        //yield return StartCoroutine(MovePlayerAnimation(player, tiles[targetPos].transform.position));
+        yield return null;
     }
 
-    private IEnumerator MovePlayerAnimation(Player player, Vector3 targetPosition)
+    public  IEnumerator MovePlayerAnimation(Player player, Vector3 targetPosition)
     {
-        float duration = 1.0f;
-        float elapsedTime = 0;
-
-        Vector3 startPosition = player.transform.position;
-
-        while (elapsedTime < duration)
-        {
-            player.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        player.transform.position = targetPosition;
+        player.transform.DOMove(targetPosition, MoveDuration).SetEase(Ease.OutQuad);
+        yield return new WaitForSeconds(MoveDuration);
     }
 
     public IEnumerator HandleTileEvent(Player player, List<Player> allPlayers)

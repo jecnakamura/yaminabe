@@ -30,7 +30,6 @@ public class TurnManager : MonoBehaviour
 
     public List<GameObject> commandButtons;
 
-    public GameObject testMoveText;
 
     private bool isGameFinished = false;
 
@@ -43,7 +42,7 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         Vector3 scale = new Vector3(0.25f, 0.25f, 1.0f);
-        testMoveText.SetActive(false);
+        //testMoveText.SetActive(false);
         spawnPosition = new Vector3(-23, 3, 0);
         for (int i = 0; i < GameData.playerCount; i++)
         {
@@ -151,12 +150,10 @@ public class TurnManager : MonoBehaviour
 
         int result = RouletteResultHandler.GetResult(); // 仮の結果取得関数
         player.MoveSteps = result;
+        yield return new WaitForSeconds(1);
         yield return SceneManager.UnloadSceneAsync("Ruretto");
         Debug.Log("ルーレットクローズ" + result);
-        for(int i=0;i< result;i++)
-        {
-            //Movement(player.transform.position);
-        }
+        
 
         NextState(TurnState.PlayerMove);
     }
@@ -174,15 +171,17 @@ public class TurnManager : MonoBehaviour
         //uiManager.ShowTurnInfo(player);
 
         // マスの移動処理
-        //yield return mapManager.MovePlayer(player,player.MoveSteps);
+        for (int i = 0; i < player.MoveSteps; i++)
+        {
+            Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
+            yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+        }
 
         // 止まったマスのイベント処理
         //yield return StartCoroutine(mapManager.HandleTileEvent(player, players));
 
-        testMoveText.SetActive(true);
-        yield return new WaitForSeconds(2);
-        testMoveText.SetActive(false);
-
+        
+        yield return null;
         NextState(TurnState.Event);
     }
 
@@ -205,17 +204,5 @@ public class TurnManager : MonoBehaviour
         SceneManager.LoadScene("ResultScene");
     }
 
-    public void Movement(Transform now)
-    {
-        //Vector3 targetPos = (Vector3)now;
-        //targetPos.x += 3.5f;
-        //float AnimeTime = 0.5f;
-        //float elapsedTime = 0f;
 
-        //while (elapsedTime < AnimeTime)
-        //{
-        //    now = Vector3.Lerp(now, targetPos, (elapsedTime / AnimeTime));
-        //    elapsedTime += Time.deltaTime;
-        //}
-    }
 }

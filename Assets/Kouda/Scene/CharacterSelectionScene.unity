@@ -6551,7 +6551,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2e0068f5c28ca6e488112fc575d3bc62, type: 2}
   - {fileID: 11400000, guid: d426f628a2494a145a7bf4b1bf82b707, type: 2}
   - {fileID: 11400000, guid: 5096810307142de4b9066c0c319d8dab, type: 2}
-  - {fileID: 11400000, guid: 1741a15f69c68f44eabd9d0c3696d4f5, type: 2}
   characterImages:
   - {fileID: 1422898724}
   - {fileID: 100001830}

@@ -17,26 +17,21 @@ public class CameraController : MonoBehaviour
         {
             HandleMapView(); // マップ全体表示モード
         }
-        else
-        {
-            FollowTarget(); // プレイヤー追従モード
-        }
+        
     }
 
     public void FollowPlayer(Player player)
     {
         target = player.transform;
         isMapView = false;
-    }
-
-    private void FollowTarget()
-    {
         if (target == null) return;
 
         Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10f);
         transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
         Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, defaultZoom, zoomSpeed * Time.deltaTime);
     }
+
+   
 
     public void ToggleMapView(Vector3 mapCenter)
     {

@@ -26,7 +26,8 @@ public class TurnManager : MonoBehaviour
     public List<Player> players; // プレイヤー（NPC含む）リスト
     private int currentPlayerIndex = 0;
     public MapManager mapManager; // マップ管理クラス
-    public UIManager uiManager; // UI管理クラス
+    public CameraController cameraController;   //カメラ管理クラス
+    //public GameUIManager uiManager; // UI管理クラス
 
     public List<GameObject> commandButtons;
 
@@ -41,8 +42,8 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
+        cameraController = GetComponent<CameraController>();
         Vector3 scale = new Vector3(0.25f, 0.25f, 1.0f);
-        //testMoveText.SetActive(false);
         spawnPosition = new Vector3(-23, 3, 0);
         for (int i = 0; i < GameData.playerCount; i++)
         {
@@ -63,6 +64,8 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(TurnCycle());
     }
 
+   
+
     private IEnumerator TurnCycle()
     {
         Player currentPlayer = players[currentPlayerIndex];
@@ -70,6 +73,7 @@ public class TurnManager : MonoBehaviour
         {
             case TurnState.CommandSelect:
                 {
+                    cameraController.FollowPlayer(currentPlayer);
                     yield return StartCoroutine(HandleCommandSelect(currentPlayer));
                 }
                 break;
@@ -103,6 +107,7 @@ public class TurnManager : MonoBehaviour
                         state = TurnState.End;
                         StartCoroutine(TurnCycle());
                     }
+                    
                     NextPlayer();
                 }
                 break;
@@ -122,10 +127,7 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator HandleCommandSelect(Player player)
     {
-        // UIでターン情報を表示
-        uiManager.ShowTurnInfo(player);
-
-        foreach (var btn in commandButtons)
+        foreach(var btn in commandButtons)
         {
             btn.SetActive(true);
         }
@@ -171,6 +173,8 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator HandlePlayerTurn(Player player)
     {
+        // UIでターン情報を表示
+        //uiManager.ShowTurnInfo(player);
 
         // マスの移動処理
         for (int i = 0; i < player.MoveSteps; i++)
@@ -206,5 +210,9 @@ public class TurnManager : MonoBehaviour
         SceneManager.LoadScene("ResultScene");
     }
 
-
+    //private void Update()
+    //{
+    //    Player currentPlayer = players[currentPlayerIndex];
+    //    cameraController.FollowPlayer(currentPlayer);
+    //}
 }

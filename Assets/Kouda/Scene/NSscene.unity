@@ -1281,7 +1281,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 5
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2747,7 +2747,7 @@ MonoBehaviour:
   state: 0
   players: []
   mapManager: {fileID: 1897042882}
-  uiManager: {fileID: 1897042883}
+  cameraController: {fileID: 0}
   commandButtons:
   - {fileID: 989684747}
   Pl: {fileID: 7141200225084256373, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}

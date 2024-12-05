@@ -3,24 +3,24 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ResultManager : MonoBehaviour
 {
     public TextMeshProUGUI rankingText; // ランキングを表示するUIテキスト
     public Button restartButton; // もう一度遊ぶボタン
     public Button quitButton;    // 終了ボタン
-    /*
-private List<PlayerData> players;
+    private List<Player> players;
 
 
     void Start()
     {
         // GameManager からプレイヤーデータを取得
-        rankedPlayers = GameManager.Instance.GetPlayerData();
+        //rankedPlayers = GameManager.Instance.GetPlayerData();
 
         // ランキングを表示
-        DisplayRanking(rankedPlayers);
-
+        DisplayRanking(players);
+        //TestDisplayRanking();
         // ボタンのイベントを設定
         restartButton.onClick.AddListener(RestartGame);
         quitButton.onClick.AddListener(QuitGame);
@@ -38,7 +38,20 @@ private List<PlayerData> players;
         }
 
         rankingText.text = result;
-    }*/
+    }
+    void TestDisplayRanking()
+    {
+        string result = "結果発表！\n";
+        int[] test = { };
+        for (int i = 0; i < 4; i++)
+        {
+            result += $"{i + 1}位: プレイヤー{i+1} - スコア: {i*10}\n";
+            result += $"食材: {i}個\n";
+        }
+
+        rankingText.text = result;
+    }
+
     void RestartGame()
     {
         // スタートシーンに戻る

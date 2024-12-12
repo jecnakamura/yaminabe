@@ -15,11 +15,12 @@ public enum TileType
 public class TilemapManager : MonoBehaviour
 {
     public Tilemap tilemap;
-    public TileBase replaceTile;
-    public Sprite sprite;
     public List<Player> players; // プレイヤーリスト
     private Dictionary<Vector3Int, TileType> tileEvents; // タイルイベント辞書
     private Dictionary<Player, Vector3Int> playerPositions; // 各プレイヤーの現在位置
+    public Sprite sprite, startTile, goleTile, nikuTile, sakanaTile, yasaiTile, hazureTile, bunnkiTile;
+
+
 
     void Start()
     {
@@ -223,8 +224,8 @@ public class TilemapManager : MonoBehaviour
         // 仮の食材生成
         return new Ingredient("ランダム食材", "種類", Random.Range(1, 10), Random.Range(0.5f, 1.5f));
     }
-    //使えるかもしれない処理の例
-    public void replaceTilemap()
+
+    public void TileEvent(Player player)
     {
         foreach (var pos in tilemap.cellBounds.allPositionsWithin)
         {
@@ -234,13 +235,52 @@ public class TilemapManager : MonoBehaviour
             // tilemap.HasTile -> タイルが設定(描画)されている座標であるか判定
             if (tilemap.HasTile(cellPosition))
             {
-                // スプライトが一致しているか判定
-                if (tilemap.GetSprite(cellPosition) == sprite)
+                if (cellPosition == player.CurrentPosition)
                 {
-                    // 特定のスプライトと一致している場合は別のタイルを設定する
-                    tilemap.SetTile(cellPosition, replaceTile);
+                    if (tilemap.GetSprite(cellPosition) == startTile)
+                    {
+                        Debug.Log("スタートマス");
+
+                        return;
+                    }
+                    if (tilemap.GetSprite(cellPosition) == goleTile)
+                    {
+                        Debug.Log("ゴールマス");
+
+                    }
+                    if (tilemap.GetSprite(cellPosition) == sprite)
+                    {
+                        Debug.Log("設定忘れ");
+                    }
+                    if (tilemap.GetSprite(cellPosition) == nikuTile)
+                    {
+                        Debug.Log("肉食材");
+
+                    }
+                    if (tilemap.GetSprite(cellPosition) == sakanaTile)
+                    {
+                        Debug.Log("魚食材");
+
+                    }
+                    if (tilemap.GetSprite(cellPosition) == yasaiTile)
+                    {
+                        Debug.Log("野菜食材");
+
+                    }
+                    if (tilemap.GetSprite(cellPosition) == hazureTile)
+                    {
+                        Debug.Log("ハズレ食材");
+
+                    }
+                    if (tilemap.GetSprite(cellPosition) == bunnkiTile)
+                    {
+                        Debug.Log("分岐");
+
+                    }
+
                 }
             }
         }
+
     }
 }

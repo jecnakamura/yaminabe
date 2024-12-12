@@ -29,6 +29,7 @@ public class TurnManager : MonoBehaviour
     public MapManager mapManager; // マップ管理クラス
     public CameraController cameraController;   //カメラ管理クラス
     public UIManager uiManager; // UI管理クラス
+    public TilemapManager tilemapManager;
 
     public List<GameObject> commandButtons;
 
@@ -190,9 +191,9 @@ public class TurnManager : MonoBehaviour
         }
 
         // 止まったマスのイベント処理
-        //yield return StartCoroutine(mapManager.HandleTileEvent(player, players));
+        tilemapManager.TileEvent(player);
 
-        
+
         yield return null;
         player.MoveSteps = 0;
         NextState(TurnState.Event);

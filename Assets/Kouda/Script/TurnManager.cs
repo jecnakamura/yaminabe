@@ -70,6 +70,8 @@ public class TurnManager : MonoBehaviour
     private IEnumerator TurnCycle()
     {
         Player currentPlayer = players[currentPlayerIndex];
+        // UIでターン情報を表示
+        uiManager.ShowTurnInfo(currentPlayer);
         switch (state)
         {
             case TurnState.CommandSelect:
@@ -179,8 +181,6 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator HandlePlayerTurn(Player player)
     {
-        // UIでターン情報を表示
-        uiManager.ShowTurnInfo(player);
 
         // マスの移動処理
         for (int i = 0; i < player.MoveSteps; i++)

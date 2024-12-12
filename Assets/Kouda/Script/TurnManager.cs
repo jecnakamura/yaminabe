@@ -1,7 +1,14 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using TMPro;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
@@ -21,7 +28,8 @@ public class TurnManager : MonoBehaviour
     private int currentPlayerIndex = 0;
     public MapManager mapManager; // マップ管理クラス
     public CameraController cameraController;   //カメラ管理クラス
-    //public GameUIManager uiManager; // UI管理クラス
+    public UIManager uiManager; // UI管理クラス
+    public TilemapManager tilemapManager;
 
     public List<GameObject> commandButtons;
 
@@ -33,11 +41,9 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject Pl;
     Vector3 spawnPosition;
 
-    public TileManeger tileManeger;
 
     void Start()
     {
-        tileManeger = GetComponent<TileManeger>();
         cameraController = GetComponent<CameraController>();
         Vector3 scale = new Vector3(0.25f, 0.25f, 1.0f);
         spawnPosition = new Vector3(-23, 3, 0);
@@ -65,16 +71,13 @@ public class TurnManager : MonoBehaviour
     private IEnumerator TurnCycle()
     {
         Player currentPlayer = players[currentPlayerIndex];
-        for(int i=0; i < GameData.playerCount; i++)
-        {
-            players[i].camera.gameObject.SetActive(false);
-        }
-        currentPlayer.camera.gameObject.SetActive(true);
-        //currentPlayer.MoveSteps = 0;
+        // UIでターン情報を表示
+        uiManager.ShowTurnInfo(currentPlayer);
         switch (state)
         {
             case TurnState.CommandSelect:
                 {
+                    //cameraController.FollowPlayer(currentPlayer);
                     yield return StartCoroutine(HandleCommandSelect(currentPlayer));
                 }
                 break;
@@ -103,12 +106,12 @@ public class TurnManager : MonoBehaviour
 
             case TurnState.Event:
                 {
-                    //tileManeger.GetTile(currentPlayer);
                     if (CheckAllPlayersFinished())
                     {
                         state = TurnState.End;
                         StartCoroutine(TurnCycle());
                     }
+                    
                     NextPlayer();
                 }
                 break;
@@ -147,7 +150,6 @@ public class TurnManager : MonoBehaviour
 
         // ルーレットシーンを開いて結果を受け取る
         yield return SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
-        player.camera.gameObject.SetActive(false);
         Debug.Log("ルーレットオープン");
 
         // 終了待ち
@@ -161,7 +163,6 @@ public class TurnManager : MonoBehaviour
         
         yield return new WaitForSeconds(1);
         yield return SceneManager.UnloadSceneAsync("Ruretto");
-        player.camera.gameObject.SetActive(true);
         Debug.Log("ルーレットクローズ" + result);
         if (player.MoveSteps == 0)//ルーレットを回さずに閉じた場合
         {
@@ -181,8 +182,6 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator HandlePlayerTurn(Player player)
     {
-        // UIでターン情報を表示
-        //uiManager.ShowTurnInfo(player);
 
         // マスの移動処理
         for (int i = 0; i < player.MoveSteps; i++)
@@ -192,9 +191,9 @@ public class TurnManager : MonoBehaviour
         }
 
         // 止まったマスのイベント処理
-        //yield return StartCoroutine(mapManager.HandleTileEvent(player, players));
+        yield return StartCoroutine(tilemapManager.TileEvent(player));
 
-        
+
         yield return null;
         player.MoveSteps = 0;
         NextState(TurnState.Event);

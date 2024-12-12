@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int ID;                              // プレイヤーID
-    public Vector3 CurrentPosition;            // 現在位置
+    public Vector3Int CurrentPosition;            // 現在位置
     public List<Ingredient> Ingredients { get; private set; } // 所持食材
     public bool HasKey { get; set; }           // 鍵の所持状態
     public bool HasFinished { get; set; }      // ゴール状態

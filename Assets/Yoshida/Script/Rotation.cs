@@ -20,7 +20,6 @@ public class Rotation : MonoBehaviour
     {
         Standby,
         Rotate,
-        Cancel,
     }
     State state = State.Standby;
 
@@ -67,11 +66,7 @@ public class Rotation : MonoBehaviour
                     state = State.Standby;
                 }
                 break;
-            case State.Cancel:
-                if() {
-                    
-                    break; }
-                break;
+            
 
         }
     }

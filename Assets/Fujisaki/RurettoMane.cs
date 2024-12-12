@@ -33,6 +33,7 @@ public class RurettoMane : MonoBehaviour
     }
     public void OnClick()
     {
-       SceneManager.UnloadSceneAsync("Ruretto");
+        RouletteResultHandler.SetResult(0);
+        RouletteResultHandler.SetEnd(true);
     }
 }

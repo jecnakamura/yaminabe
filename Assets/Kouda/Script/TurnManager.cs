@@ -164,7 +164,7 @@ public class TurnManager : MonoBehaviour
         if (player.MoveSteps == 0)//ƒ‹[ƒŒƒbƒg‚ğ‰ñ‚³‚¸‚É•Â‚¶‚½ê‡
         {
             NextState(TurnState.CommandSelect);
-            StartCoroutine(HandleCommandSelect(player));
+            yield break;
         }
 
         NextState(TurnState.PlayerMove);

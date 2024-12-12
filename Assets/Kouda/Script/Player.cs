@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public bool HasFinished { get; set; }      // ゴール状態
     public int MoveSteps { get; set; }         // 移動するマス数
 
+    public Camera camera;                       //プレイヤーターン時に個々を写すカメラ
+
     public Character chara;
     public List<Ingredient> ingredients;
 

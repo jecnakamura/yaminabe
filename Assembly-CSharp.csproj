@@ -87,6 +87,7 @@
     <Compile Include="Assets\Fujisaki\ru_rettoOpen.cs" />
     <Compile Include="Assets\Saitou\tenmetu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\Kouda\Script\TileManeger.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Kouda\Script\UIManager.cs" />

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -156,10 +157,15 @@ public class TurnManager : MonoBehaviour
 
         int result = RouletteResultHandler.GetResult(); // 仮の結果取得関数
         player.MoveSteps = result;
+        
         yield return new WaitForSeconds(1);
         yield return SceneManager.UnloadSceneAsync("Ruretto");
         Debug.Log("ルーレットクローズ" + result);
-        
+        if (player.MoveSteps == 0)//ルーレットを回さずに閉じた場合
+        {
+            NextState(TurnState.CommandSelect);
+            StartCoroutine(HandleCommandSelect(player));
+        }
 
         NextState(TurnState.PlayerMove);
     }
@@ -188,6 +194,7 @@ public class TurnManager : MonoBehaviour
 
         
         yield return null;
+        player.MoveSteps = 0;
         NextState(TurnState.Event);
     }
 
@@ -210,9 +217,5 @@ public class TurnManager : MonoBehaviour
         SceneManager.LoadScene("ResultScene");
     }
 
-    //private void Update()
-    //{
-    //    Player currentPlayer = players[currentPlayerIndex];
-    //    cameraController.FollowPlayer(currentPlayer);
-    //}
+    
 }

@@ -8,6 +8,7 @@ public class RurettoMane : MonoBehaviour
     [SerializeField]
     private float seconds;
     private bool kari;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -15,6 +15,8 @@ public enum TileType
 public class TilemapManager : MonoBehaviour
 {
     public Tilemap tilemap;
+    public TileBase replaceTile;
+    public Sprite sprite;
     public List<Player> players; // プレイヤーリスト
     private Dictionary<Vector3Int, TileType> tileEvents; // タイルイベント辞書
     private Dictionary<Player, Vector3Int> playerPositions; // 各プレイヤーの現在位置
@@ -220,5 +222,25 @@ public class TilemapManager : MonoBehaviour
     {
         // 仮の食材生成
         return new Ingredient("ランダム食材", "種類", Random.Range(1, 10), Random.Range(0.5f, 1.5f));
+    }
+    //使えるかもしれない処理の例
+    public void replaceTilemap()
+    {
+        foreach (var pos in tilemap.cellBounds.allPositionsWithin)
+        {
+            // 取り出した位置情報からタイルマップ用の位置情報(セル座標)を取得
+            Vector3Int cellPosition = new Vector3Int(pos.x, pos.y, pos.z);
+
+            // tilemap.HasTile -> タイルが設定(描画)されている座標であるか判定
+            if (tilemap.HasTile(cellPosition))
+            {
+                // スプライトが一致しているか判定
+                if (tilemap.GetSprite(cellPosition) == sprite)
+                {
+                    // 特定のスプライトと一致している場合は別のタイルを設定する
+                    tilemap.SetTile(cellPosition, replaceTile);
+                }
+            }
+        }
     }
 }

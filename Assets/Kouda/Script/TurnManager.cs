@@ -191,7 +191,7 @@ public class TurnManager : MonoBehaviour
         }
 
         // 止まったマスのイベント処理
-        tilemapManager.TileEvent(player);
+        yield return StartCoroutine(tilemapManager.TileEvent(player));
 
 
         yield return null;

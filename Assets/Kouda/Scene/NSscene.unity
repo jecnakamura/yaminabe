@@ -1219,6 +1219,7 @@ GameObject:
   - component: {fileID: 1218912554}
   - component: {fileID: 1218912556}
   - component: {fileID: 1218912555}
+  - component: {fileID: 1218912557}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -2356,6 +2357,28 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1218912557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218912553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8494bcc7aceb546b20414be6e35aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 1218912556}
+  players: []
+  sprite: {fileID: 21300000, guid: 67d7e65513f63724890c0aff9f06b5b7, type: 3}
+  startTile: {fileID: 21300000, guid: cc8e518da36c2be47881ed6d0d005d6a, type: 3}
+  goleTile: {fileID: 21300000, guid: ad4d8c53854735f40868675cf42aed6c, type: 3}
+  nikuTile: {fileID: 21300000, guid: e8258dd027886b14f992bc4eeeefa4fc, type: 3}
+  sakanaTile: {fileID: 21300000, guid: e53e00f09d9969b4ca1f01bb949c93f6, type: 3}
+  yasaiTile: {fileID: 21300000, guid: 6d4adaf693dab7940b0f6029d22073c0, type: 3}
+  hazureTile: {fileID: 21300000, guid: 1cc03c157605561439e155d402457a2f, type: 3}
+  bunnkiTile: {fileID: 21300000, guid: db80fd4602fa9c5439c3306c80587fdf, type: 3}
 --- !u!1 &1506304877
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,8 +2614,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4285756275
+  m_fontColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2725,6 +2748,7 @@ GameObject:
   - component: {fileID: 1897042880}
   - component: {fileID: 1897042882}
   - component: {fileID: 1897042883}
+  - component: {fileID: 1897042884}
   m_Layer: 0
   m_Name: TurtnManager
   m_TagString: Untagged
@@ -2748,6 +2772,8 @@ MonoBehaviour:
   players: []
   mapManager: {fileID: 1897042882}
   cameraController: {fileID: 0}
+  uiManager: {fileID: 1897042884}
+  tilemapManager: {fileID: 1218912557}
   commandButtons:
   - {fileID: 989684747}
   Pl: {fileID: 7141200225084256373, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}
@@ -2781,6 +2807,19 @@ MonoBehaviour:
   tiles: []
   MoveDuration: 0.4
 --- !u!114 &1897042883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897042879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3bb87d49b98c5479a6ca711d7f0415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnInfoText: {fileID: 1630749959}
+--- !u!114 &1897042884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

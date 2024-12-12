@@ -66,6 +66,8 @@ public class Rotation : MonoBehaviour
                     state = State.Standby;
                 }
                 break;
+            
+
         }
     }
 

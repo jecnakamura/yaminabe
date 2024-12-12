@@ -4,18 +4,10 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 
-public enum TileType
-{
-    Start,  // スタートマス
-    Normal, // 通常マス
-    Event,  // イベントマス
-    Goal    // ゴールマス
-}
-
 public class TilemapManager : MonoBehaviour
 {
     public Tilemap tilemap;
-    public Sprite sprite, startTile, goleTile, nikuTile, sakanaTile, yasaiTile, hazureTile, bunnkiTile;
+    public Sprite sprite, startTile, goleTile, nikuTile, sakanaTile, yasaiTile, hazureTile, bunnkiTile, eventTile;
 
 
 
@@ -34,59 +26,79 @@ public class TilemapManager : MonoBehaviour
             // tilemap.HasTile -> タイルが設定(描画)されている座標であるか判定
             if (tilemap.HasTile(cellPosition))
             {
-                if (cellPosition == player.CurrentPosition)
+                // プレイヤーの位置をVector3Intに変換して比較
+                Vector3Int playerPosition = new Vector3Int(Mathf.FloorToInt(player.transform.position.x), Mathf.FloorToInt(player.transform.position.y), Mathf.FloorToInt(player.transform.position.z));
+
+                if (cellPosition == playerPosition)
                 {
                     if (tilemap.GetSprite(cellPosition) == startTile)
                     {
                         Debug.Log("スタートマス");
-
                         yield return null;
+                        break;
                     }
-                    if (tilemap.GetSprite(cellPosition) == goleTile)
+                    else if (tilemap.GetSprite(cellPosition) == goleTile)
                     {
                         Debug.Log("ゴールマス");
                         yield return null;
+                        break;
                     }
-                    if (tilemap.GetSprite(cellPosition) == sprite)
+                    else if (tilemap.GetSprite(cellPosition) == sprite)
                     {
                         Debug.Log("設定忘れ");
                         yield return null;
+                        break;
                     }
-                    if (tilemap.GetSprite(cellPosition) == nikuTile)
+                    else if (tilemap.GetSprite(cellPosition) == nikuTile)
                     {
-                        Debug.Log("肉食材");
+                        Debug.Log("肉食材マス");
                         yield return null;
+                        break;
                     }
-                    if (tilemap.GetSprite(cellPosition) == sakanaTile)
+                    else if (tilemap.GetSprite(cellPosition) == sakanaTile)
                     {
-                        Debug.Log("魚食材");
+                        Debug.Log("魚食材マス");
                         yield return null;
+                        break;
                     }
-                    if (tilemap.GetSprite(cellPosition) == yasaiTile)
+                    else if (tilemap.GetSprite(cellPosition) == yasaiTile)
                     {
-                        Debug.Log("野菜食材");
+                        Debug.Log("野菜食材マス");
                         yield return null;
-
+                        break;
                     }
-                    if (tilemap.GetSprite(cellPosition) == hazureTile)
+                    else if (tilemap.GetSprite(cellPosition) == hazureTile)
                     {
-                        Debug.Log("ハズレ食材");
+                        Debug.Log("ハズレ食材マス");
                         yield return null;
+                        break;
                     }
-                    if (tilemap.GetSprite(cellPosition) == bunnkiTile)
+                    else if (tilemap.GetSprite(cellPosition) == bunnkiTile)
                     {
-                        Debug.Log("分岐");
+                        Debug.Log("分岐マス");
                         yield return null;
+                        break;
                     }
-
+                    else if (tilemap.GetSprite(cellPosition) == eventTile)
+                    {
+                        Debug.Log("イベントマス");
+                        yield return null;
+                        break;
+                    }
+                    else
+                    {
+                        Debug.Log("どれ？");
+                        yield return null;
+                        break;
+                    }
                 }
                 else
                 {
-                    Debug.Log("どこ～？");
+                    Debug.Log("どこ～？\nマス" + cellPosition + "\nプレイヤー" + playerPosition);
+
                     yield return null;
                 }
             }
         }
-
     }
 }

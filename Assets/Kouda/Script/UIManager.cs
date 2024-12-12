@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     // ターン情報を表示
     public void ShowTurnInfo(Player player)
     {
-        turnInfoText.text = $"{player.ID + 1} のターンです！";
+        turnInfoText.text = $"プレイヤー{player.ID + 1} のターンです！";
     }
 
     // ゲーム終了後のUI更新

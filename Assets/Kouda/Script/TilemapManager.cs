@@ -80,6 +80,11 @@ public class TilemapManager : MonoBehaviour
                     }
 
                 }
+                else
+                {
+                    Debug.Log("Ç«Ç±Å`ÅH");
+                    yield return null;
+                }
             }
         }
 

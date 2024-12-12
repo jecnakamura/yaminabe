@@ -71,6 +71,11 @@ public class TurnManager : MonoBehaviour
     private IEnumerator TurnCycle()
     {
         Player currentPlayer = players[currentPlayerIndex];
+        for(int i = 0;i < GameData.playerCount; i++)
+        {
+            players[i].camera.gameObject.SetActive(false);
+        }
+        currentPlayer.camera.gameObject.SetActive(true);
         // UIでターン情報を表示
         uiManager.ShowTurnInfo(currentPlayer);
         switch (state)
@@ -150,6 +155,7 @@ public class TurnManager : MonoBehaviour
 
         // ルーレットシーンを開いて結果を受け取る
         yield return SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
+        player.camera.gameObject.SetActive(false);
         Debug.Log("ルーレットオープン");
 
         // 終了待ち
@@ -169,7 +175,7 @@ public class TurnManager : MonoBehaviour
             NextState(TurnState.CommandSelect);
             yield break;
         }
-
+        player.camera.gameObject.SetActive(true);  
         NextState(TurnState.PlayerMove);
     }
 

@@ -2725,6 +2725,7 @@ GameObject:
   - component: {fileID: 1897042880}
   - component: {fileID: 1897042882}
   - component: {fileID: 1897042883}
+  - component: {fileID: 1897042884}
   m_Layer: 0
   m_Name: TurtnManager
   m_TagString: Untagged
@@ -2748,6 +2749,7 @@ MonoBehaviour:
   players: []
   mapManager: {fileID: 1897042882}
   cameraController: {fileID: 0}
+  uiManager: {fileID: 1897042884}
   commandButtons:
   - {fileID: 989684747}
   Pl: {fileID: 7141200225084256373, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}
@@ -2781,6 +2783,19 @@ MonoBehaviour:
   tiles: []
   MoveDuration: 0.4
 --- !u!114 &1897042883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897042879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3bb87d49b98c5479a6ca711d7f0415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnInfoText: {fileID: 1630749959}
+--- !u!114 &1897042884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

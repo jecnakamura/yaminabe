@@ -58,7 +58,6 @@
     <Analyzer Include="C:\Program Files\Unity 2022.2.9f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Kouda\Script\Mass.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Fujisaki\script\CSVReader.cs" />
@@ -74,6 +73,7 @@
     <Compile Include="Assets\Kouda\Script\GameUIManager.cs" />
     <Compile Include="Assets\Nakamura\player.cs" />
     <Compile Include="Assets\Kouda\Script\ResultManager.cs" />
+    <Compile Include="Assets\Kouda\Script\MasuDB.cs" />
     <Compile Include="Assets\Kouda\Script\MapManager.cs" />
     <Compile Include="Assets\Fujisaki\script\ru_rettoOpen.cs" />
     <Compile Include="Assets\Kouda\Script\CameraController.cs" />
@@ -81,6 +81,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Fujisaki\script\RouletteMaker.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\Kouda\Script\PlayerControllerAssignment.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Assets\Kouda\Script\TurnManager.cs" />
     <Compile Include="Assets\Kouda\Script\CharacterSelection.cs" />
     <Compile Include="Assets\Yoshida\Script\Rotation.cs" />
+    <Compile Include="Assets\Fujisaki\script\RouletteController.cs" />
     <Compile Include="Assets\Kouda\Script\ScoringSystem.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
@@ -117,7 +119,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Kouda\Script\PlayerMovement.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
-    <Compile Include="Assets\Kouda\Script\MassManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Kouda\Script\GameData.cs" />

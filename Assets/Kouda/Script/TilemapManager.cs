@@ -16,8 +16,7 @@ public class TilemapManager : MonoBehaviour
 
     }
 
-    public IEnumerator TileEvent(Player player)
-    {
+    public IEnumerator TileEvent(Player player){
         foreach (var pos in tilemap.cellBounds.allPositionsWithin)
         {
             // 取り出した位置情報からタイルマップ用の位置情報(セル座標)を取得

@@ -61,10 +61,10 @@
     <Compile Include="Assets\Kouda\Script\Mass.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\Fujisaki\script\CSVReader.cs" />
     <Compile Include="Assets\Kouda\Script\Ingredient.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
-    <Compile Include="Assets\Fujisaki\RurettoMane.cs" />
     <Compile Include="Assets\Kouda\Script\RouletteResultHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
@@ -75,6 +75,7 @@
     <Compile Include="Assets\Nakamura\player.cs" />
     <Compile Include="Assets\Kouda\Script\ResultManager.cs" />
     <Compile Include="Assets\Kouda\Script\MapManager.cs" />
+    <Compile Include="Assets\Fujisaki\script\ru_rettoOpen.cs" />
     <Compile Include="Assets\Kouda\Script\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
@@ -84,10 +85,10 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\Kouda\Script\PlayerControllerAssignment.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
-    <Compile Include="Assets\Fujisaki\ru_rettoOpen.cs" />
     <Compile Include="Assets\Saitou\tenmetu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Kouda\Script\TileManeger.cs" />
+    <Compile Include="Assets\Fujisaki\script\RurettoMane.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Kouda\Script\UIManager.cs" />
@@ -103,7 +104,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Kouda\Script\Tile.cs" />
     <Compile Include="Assets\Nakamura\fureru.cs" />
-    <Compile Include="Assets\Fujisaki\CSVReader.cs" />
     <Compile Include="Assets\Yoshida\Script\RoulettePiece.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Kouda\Script\SettingsOpener.cs" />
@@ -113,6 +113,7 @@
     <Compile Include="Assets\Kouda\Script\ScoringSystem.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\Fujisaki\script\RotateText.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Kouda\Script\PlayerMovement.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />

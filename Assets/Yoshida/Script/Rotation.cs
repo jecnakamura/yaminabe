@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Rotation : MonoBehaviour
 {
@@ -66,6 +62,8 @@ public class Rotation : MonoBehaviour
                     state = State.Standby;
                 }
                 break;
+            
+
         }
     }
 

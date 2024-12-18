@@ -5,11 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int ID;                              // プレイヤーID
-    public Vector3 CurrentPosition;            // 現在位置
+    public Vector3Int CurrentPosition;            // 現在位置
     public List<Ingredient> Ingredients { get; private set; } // 所持食材
     public bool HasKey { get; set; }           // 鍵の所持状態
     public bool HasFinished { get; set; }      // ゴール状態
     public int MoveSteps { get; set; }         // 移動するマス数
+
+    public Camera camera;                       //プレイヤーターン時に個々を写すカメラ
 
     public Character chara;
     public List<Ingredient> ingredients;

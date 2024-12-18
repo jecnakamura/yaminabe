@@ -341,7 +341,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247407705}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 78.8, y: -2.6381176, z: 0.39413384}
+  m_LocalPosition: {x: 78.558, y: -2.64, z: 0.39413384}
   m_LocalScale: {x: 5.2814193, y: 5.2849298, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -425,7 +425,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 346572898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 24.6, y: -2.6381176, z: 0.39413384}
+  m_LocalPosition: {x: 24.478, y: -2.639, z: 0.39413384}
   m_LocalScale: {x: 5.2814193, y: 5.2849298, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1219,6 +1219,8 @@ GameObject:
   - component: {fileID: 1218912554}
   - component: {fileID: 1218912556}
   - component: {fileID: 1218912555}
+  - component: {fileID: 1218912557}
+  - component: {fileID: 1218912558}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -2356,6 +2358,64 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1218912557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218912553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8494bcc7aceb546b20414be6e35aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 1218912556}
+  sprite: {fileID: 21300000, guid: 67d7e65513f63724890c0aff9f06b5b7, type: 3}
+  startTile: {fileID: 21300000, guid: cc8e518da36c2be47881ed6d0d005d6a, type: 3}
+  goleTile: {fileID: 21300000, guid: ad4d8c53854735f40868675cf42aed6c, type: 3}
+  nikuTile: {fileID: 21300000, guid: e8258dd027886b14f992bc4eeeefa4fc, type: 3}
+  sakanaTile: {fileID: 21300000, guid: e53e00f09d9969b4ca1f01bb949c93f6, type: 3}
+  yasaiTile: {fileID: 21300000, guid: 6d4adaf693dab7940b0f6029d22073c0, type: 3}
+  hazureTile: {fileID: 21300000, guid: 1cc03c157605561439e155d402457a2f, type: 3}
+  bunnkiTile: {fileID: 21300000, guid: db80fd4602fa9c5439c3306c80587fdf, type: 3}
+  eventTile: {fileID: 21300000, guid: 67d7e65513f63724890c0aff9f06b5b7, type: 3}
+--- !u!19719996 &1218912558
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218912553}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &1506304877
 GameObject:
   m_ObjectHideFlags: 0
@@ -2582,7 +2642,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Turn
+  m_text: "\u30D7\u30EC\u30A4\u30E4\u30FC\uFF10\u306E\u30BF\u30FC\u30F3"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b88c46a43818058428de3c7dd29d555a, type: 2}
   m_sharedMaterial: {fileID: -6122576120369571189, guid: b88c46a43818058428de3c7dd29d555a, type: 2}
@@ -2591,8 +2651,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4285756275
+  m_fontColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2609,10 +2669,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 69.05
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -2676,8 +2736,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -100}
-  m_SizeDelta: {x: 400, y: 100}
+  m_AnchoredPosition: {x: 300, y: -100}
+  m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1695522836
 GameObject:
@@ -2725,6 +2785,7 @@ GameObject:
   - component: {fileID: 1897042880}
   - component: {fileID: 1897042882}
   - component: {fileID: 1897042883}
+  - component: {fileID: 1897042884}
   m_Layer: 0
   m_Name: TurtnManager
   m_TagString: Untagged
@@ -2748,6 +2809,8 @@ MonoBehaviour:
   players: []
   mapManager: {fileID: 1897042882}
   cameraController: {fileID: 0}
+  uiManager: {fileID: 1897042884}
+  tilemapManager: {fileID: 1218912557}
   commandButtons:
   - {fileID: 989684747}
   Pl: {fileID: 7141200225084256373, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}
@@ -2781,6 +2844,19 @@ MonoBehaviour:
   tiles: []
   MoveDuration: 0.4
 --- !u!114 &1897042883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897042879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3bb87d49b98c5479a6ca711d7f0415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnInfoText: {fileID: 1630749959}
+--- !u!114 &1897042884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

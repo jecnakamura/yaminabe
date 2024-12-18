@@ -286,8 +286,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136969058}
   m_LocalRotation: {x: -0, y: -0, z: 0.9953927, w: 0.09588209}
-  m_LocalPosition: {x: 0.063, y: 0.319, z: 0}
-  m_LocalScale: {x: 0.18735193, y: 0.55832267, z: 1.0678}
+  m_LocalPosition: {x: 0.06055, y: 0.31839, z: 0}
+  m_LocalScale: {x: 0.1919347, y: 0.55682707, z: 1.0678}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1602980498}
@@ -339,7 +339,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.517645, y: -0.2863967}
   m_UseDelaunayMesh: 0
 --- !u!212 &136969061
 SpriteRenderer:
@@ -764,9 +764,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.5773587}
+    - - {x: 0.52243674, y: -0.273769}
+      - {x: 0.5204083, y: -0.27046427}
+      - {x: 0.49645075, y: -0.2314339}
+      - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.53110087, y: -0.28788412}
   m_UseDelaunayMesh: 0
 --- !u!212 &456127105
 SpriteRenderer:
@@ -1027,7 +1030,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.5219897, y: -0.28810447}
   m_UseDelaunayMesh: 0
 --- !u!212 &498839062
 SpriteRenderer:
@@ -1210,7 +1213,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.5190058, y: -0.2894777}
   m_UseDelaunayMesh: 0
 --- !u!212 &504649397
 SpriteRenderer:
@@ -1909,7 +1912,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.5402975, y: -0.28689528}
   m_UseDelaunayMesh: 0
 --- !u!212 &737461733
 SpriteRenderer:
@@ -2168,7 +2171,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.51857126, y: -0.2813136}
   m_UseDelaunayMesh: 0
 --- !u!212 &884094949
 SpriteRenderer:
@@ -2290,8 +2293,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884251264}
   m_LocalRotation: {x: 0.99464285, y: 0.103225075, z: 0.0005666236, w: -0.0054597985}
-  m_LocalPosition: {x: -0.065, y: 0.319, z: 0.035}
-  m_LocalScale: {x: 0.18735193, y: 0.55832267, z: 1.0678}
+  m_LocalPosition: {x: -0.06646, y: 0.31829, z: 0.035}
+  m_LocalScale: {x: 0.19049758, y: 0.55776995, z: 1.0678}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1602980498}
@@ -2342,7 +2345,7 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0, y: 0.5773587}
-      - {x: -0.5, y: -0.28866667}
+      - {x: -0.50802827, y: -0.2859758}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
 --- !u!212 &884251267
@@ -2754,7 +2757,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.5335691, y: -0.29017347}
   m_UseDelaunayMesh: 0
 --- !u!212 &1049086945
 SpriteRenderer:
@@ -2929,7 +2932,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.52250683, y: -0.28267026}
   m_UseDelaunayMesh: 0
 --- !u!212 &1105553548
 SpriteRenderer:
@@ -3104,7 +3107,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.5217487, y: -0.28493816}
   m_UseDelaunayMesh: 0
 --- !u!212 &1111514532
 SpriteRenderer:
@@ -3615,7 +3618,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.5154462, y: -0.28865913}
   m_UseDelaunayMesh: 0
 --- !u!212 &1326865015
 SpriteRenderer:
@@ -4208,7 +4211,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.5255114, y: -0.28720206}
   m_UseDelaunayMesh: 0
 --- !u!212 &1663853916
 SpriteRenderer:
@@ -4551,7 +4554,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.55638826, y: -0.29125825}
   m_UseDelaunayMesh: 0
 --- !u!212 &1774015342
 SpriteRenderer:
@@ -5092,7 +5095,7 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0, y: 0.5773587}
-      - {x: -0.5, y: -0.28866667}
+      - {x: -0.5267822, y: -0.2903779}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
 --- !u!212 &2098986501
@@ -5268,7 +5271,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+      - {x: 0.5165827, y: -0.2907082}
   m_UseDelaunayMesh: 0
 --- !u!212 &2128186580
 SpriteRenderer:

@@ -116,7 +116,7 @@ public class TurnManager : MonoBehaviour
                         state = TurnState.End;
                         StartCoroutine(TurnCycle());
                     }
-                    
+                    tilemapManager.TileEvent(currentPlayer);
                     NextPlayer();
                 }
                 break;

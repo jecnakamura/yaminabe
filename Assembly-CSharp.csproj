@@ -111,6 +111,7 @@
     <Compile Include="Assets\Kouda\Script\TurnManager.cs" />
     <Compile Include="Assets\Kouda\Script\CharacterSelection.cs" />
     <Compile Include="Assets\Yoshida\Script\Rotation.cs" />
+    <Compile Include="Assets\Fujisaki\script\RouletteController.cs" />
     <Compile Include="Assets\Kouda\Script\ScoringSystem.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />

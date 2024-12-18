@@ -106,7 +106,7 @@ public class TilemapManager : MonoBehaviour
                 }
                 else
                 {
-                    //Debug.Log("どこ～？\nマス" + cellPosition + "\nプレイヤー" + playerPosition);
+                    Debug.Log("どこ～？\nマス" + cellPosition + "\nプレイヤー" + playerPosition);
 
                     yield return null;
                 }

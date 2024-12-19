@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
-
 [Serializable]
 class MasuData
 {
@@ -61,7 +60,7 @@ class MasuDB
         return result;
     }
 
-    // インデックスからマス情報を取得
+    // 指定したインデックスのマス情報を取得
     public MasuData GetMasuData(int index)
     {
         if (index < 0 || index >= data.Count)
@@ -71,4 +70,18 @@ class MasuDB
         }
         return data[index];
     }
+}
+
+public enum EventType
+{
+    None,            // イベントなし
+    Meat,            // 肉イベント
+    Vegetable,       // 野菜イベント
+    Fish,            // 魚イベント
+    Other,           // その他のイベント
+    Lose,            // ハズレイベント
+    RandomExchange,  // ランダムイベント（食材や位置の交換）
+    Branch,          // 分岐イベント
+    Start,           // スタートマス
+    Goal,            // ゴールマス
 }

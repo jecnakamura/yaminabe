@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
+    //ƒvƒŒƒCƒ„[‚ÌˆÚ“®
     [SerializeField] private float _speed = 7.0f;
     [SerializeField] private float distance = 3.5f;
     private Vector2 move;

@@ -19,7 +19,7 @@ public class RouletteController : MonoBehaviour
     [SerializeField] private Text resultText;
     [SerializeField] private Button startButton;
     [SerializeField] private Button stopButton;
-    [SerializeField] private Button retryButton;
+   // [SerializeField] private Button retryButton;
 
     public void SetRoulette()
     {
@@ -27,10 +27,10 @@ public class RouletteController : MonoBehaviour
         isStop = false;
         startButton.gameObject.SetActive(true);
         stopButton.gameObject.SetActive(false);
-        retryButton.gameObject.SetActive(false);
+       // retryButton.gameObject.SetActive(false);
         startButton.onClick.AddListener(StartOnClick);
         stopButton.onClick.AddListener(StopOnClick);
-        retryButton.onClick.AddListener(RetryOnClick);
+       // retryButton.onClick.AddListener(RetryOnClick);
     }
 
     private void Update()
@@ -66,10 +66,10 @@ public class RouletteController : MonoBehaviour
         stopButton.gameObject.SetActive(false);
     }
 
-    private void RetryOnClick()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    //private void RetryOnClick()
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //}
 
     private void ShowStopButton()
     {
@@ -87,6 +87,6 @@ public class RouletteController : MonoBehaviour
             }
         }
         resultText.text = result + "\nÇ™ìñÇΩÇ¡ÇΩÇÊÅI";
-        retryButton.gameObject.SetActive(true);
+      //  retryButton.gameObject.SetActive(true);
     }
 }

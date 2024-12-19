@@ -19,7 +19,7 @@ public class RuleSceneManager : MonoBehaviour
     // ƒ‹[ƒ‹à–¾‰æ–Ê‚Ö‘JˆÚ
     public void GoToTitle()
     {
-        SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene("TiteScens");
     }
 
 }

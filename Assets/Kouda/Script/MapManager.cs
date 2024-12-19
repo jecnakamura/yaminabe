@@ -9,7 +9,6 @@ public class MapManager : MonoBehaviour
     public Dictionary<Player, int> playerPositions = new Dictionary<Player, int>();
     public float MoveDuration = 0.4f;
 
-
     public IEnumerator MovePlayer(Player player,int steps)
     {
         int currentPos = playerPositions[player];

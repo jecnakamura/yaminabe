@@ -446,6 +446,57 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &975107210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 975107212}
+  - component: {fileID: 975107211}
+  m_Layer: 0
+  m_Name: RouletteController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &975107211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975107210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1d363b0b83b664d9cbaa49db294509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roulette: {fileID: 0}
+  rotatePerRoulette: 0
+  rMaker: {fileID: 0}
+  resultText: {fileID: 0}
+  startButton: {fileID: 0}
+  stopButton: {fileID: 0}
+  retryButton: {fileID: 0}
+--- !u!4 &975107212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975107210}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 649.07697, y: 306.0571, z: -7.2815504}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &981325158
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,6 +506,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 981325159}
+  - component: {fileID: 981325160}
   m_Layer: 5
   m_Name: Roulette
   m_TagString: Untagged
@@ -482,6 +534,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &981325160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981325158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b0beee0a25d6f4b9137fce4d9aeebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageParentTransform: {fileID: 981325159}
+  choices:
+  - "\u3042\u3042\u3042"
+  - "\u3044\u3044\u3044"
+  - "\u3046\u3046\u3046"
+  - "\u3048\u3048\u3048"
+  - "\u304A\u304A\u304A"
+  - "\u304B\u304B\u304B"
+  rouletteColors:
+  - {r: 0, g: 0.5384617, b: 1, a: 1}
+  - {r: 0.60403156, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0.6214404, a: 1}
+  - {r: 1, g: 0, b: 0.018271446, a: 1}
+  - {r: 1, g: 0.74686915, b: 0, a: 1}
+  - {r: 0.52363205, g: 1, b: 0, a: 1}
+  rouletteImage: {fileID: 2894994637383431529, guid: f49af2feb33127249982379f748f6eb8, type: 3}
 --- !u!1 &1191903881
 GameObject:
   m_ObjectHideFlags: 0

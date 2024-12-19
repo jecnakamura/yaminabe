@@ -44,6 +44,6 @@ public class TitleSceneManager : MonoBehaviour
     // ルール説明画面へ遷移
     public void GoToRules()
     {
-        SceneManager.LoadScene("RuleScene");  // ルール説明シーンへ遷移
+        SceneManager.UnloadSceneAsync("TitleScene");  // ルール説明シーンへ遷移
     }
 }

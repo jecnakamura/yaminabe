@@ -106,7 +106,6 @@
     <Compile Include="Assets\Kouda\Script\TilemapManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
-    <Compile Include="Assets\Kouda\Script\Tile.cs" />
     <Compile Include="Assets\Nakamura\fureru.cs" />
     <Compile Include="Assets\Yoshida\Script\RoulettePiece.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />

@@ -30,7 +30,8 @@ public class Player : MonoBehaviour
 
     public void AddIngredient(Ingredient ingredient)
     {
-        Ingredients.Add(ingredient);
+
+        //Ingredients.Add();
     }
 
     public void RemoveRandomIngredient()

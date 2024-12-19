@@ -116,6 +116,6 @@ public class RouletteController : MonoBehaviour
     }
     public void PlayerResult(Player player)
     {
-        player.ingredients.Add()
+        player.AddIngredient(new Ingredient(id, csvDatas[id + 1][1], csvDatas[id + 1][2], int.Parse(csvDatas[id + 1][3])));
     }
 }

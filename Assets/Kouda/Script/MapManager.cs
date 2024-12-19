@@ -33,5 +33,6 @@ public class MapManager : MonoBehaviour
         Tile currentTile = tiles[currentPos];
         currentTile.ExecuteEvent(player, allPlayers);
         yield return null;
+        //
     }
 }

@@ -17,7 +17,10 @@ public class CameraController : MonoBehaviour
         {
             HandleMapView(); // マップ全体表示モード
         }
-
+        //else
+        //{
+        //    FollowPlayer();//プレイヤー追従モード
+        //}
     }
 
     public void FollowPlayer(Player player)

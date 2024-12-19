@@ -9,6 +9,14 @@ public class Title : MonoBehaviour
    
     public void OnClick()
     {
-        SceneManager.LoadScene("TitleScene");//仮でNSシーンに飛ぶにょ
+        // TitleSceneが既にロードされているかを確認
+        Scene titleScene = SceneManager.GetSceneByName("TitleScene");
+        if (titleScene.isLoaded)
+        {
+            // 既にTitleSceneがロードされている場合、何もしない
+            return;
+        }
+
+        SceneManager.LoadScene("TitleScene", LoadSceneMode.Additive);
     }
 }

@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
 
     public SpriteRenderer display;
 
+    public int nowIndex;
+
     public Player()
     {
         Ingredients = new List<Ingredient>();

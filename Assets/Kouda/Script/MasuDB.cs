@@ -1,63 +1,89 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
+
 [Serializable]
-class MasuData
+public class MasuData
 {
     public int index;            // マスのインデックス
     public EventType ev;         // マスに関連するイベントの種類
-    public List<int> bunki;      // 分岐先インデックスのリスト
+    public List<int> next;      // 分岐先インデックスのリスト
 
     public MasuData(int index, EventType ev, List<int> bunki = null)
     {
         this.index = index;
         this.ev = ev;
-        this.bunki = bunki ?? new List<int>();
+        this.next = bunki ?? new List<int>();
     }
 }
 
-class MasuDB
+[Serializable]
+public class MasuDB
 {
     public List<MasuData> data;  // 全てのマスのデータ
-    public int nowIndex;         // 現在の位置
+    //public int nowIndex;         // 現在の位置
+
+    class Root
+    {
+        int index;          // マスインデックス
+        int moveRemain;     // 残りの移動する回数
+
+        public Root(int i, int m) { index = i; moveRemain = m; }
+
+        // 再帰処理を使って終着点のリストを作る
+        public List<int> GetDestinationIndexList(MasuDB db)
+        {
+            List<int> ret = new List<int>();
+
+            // これ以上移動できない
+            if (moveRemain <= 0) return ret;
+
+            // 現在のマス情報
+            var masu = db.data
+                .Where(it => it.index == index)
+                .FirstOrDefault();
+            if (masu == null) return ret;
+
+            // 1マス進める
+            foreach(var root in masu.next)
+            {
+                Root newRoot = new Root(root, moveRemain - 1);
+                var list = newRoot.GetDestinationIndexList(db);
+                if(moveRemain <= 0)
+                {
+                    ret.AddRange(list);
+                }
+            }
+
+            return ret;
+        }
+    }
 
     public MasuDB()
     {
         data = new List<MasuData>();
-        nowIndex = 0;
+        //nowIndex = 0;
     }
 
     // 指定したオフセットからマス情報を取得
-    public List<MasuData> GetOffsetMasuData(int offset)
+    public List<MasuData> GetOffsetMasuData(int offset, int nowIndex)
     {
         List<MasuData> result = new List<MasuData>();
-        int targetIndex = nowIndex + offset;
 
-        // 範囲外の場合
-        if (targetIndex < 0 || targetIndex >= data.Count)
+        // 行先リスト作成
+        var root = new Root(nowIndex, offset);
+        var indexList = root.GetDestinationIndexList(this);
+
+        // 行先リストからMasuDataのリストを生成
+        List<MasuData> ret = new List<MasuData>();
+        foreach(var i in indexList)
         {
-            Debug.LogWarning("マスの範囲を超えました。");
-            return result;
+            MasuData masu = GetMasuData(i);
+            ret.Add(masu);
         }
-
-        // 指定インデックスのマスデータを取得
-        MasuData masu = GetMasuData(targetIndex);
-        result.Add(masu);
-
-        // 分岐がある場合、分岐先のマスデータを追加
-        if (masu.bunki != null && masu.bunki.Count > 0)
-        {
-            foreach (int bunkiIndex in masu.bunki)
-            {
-                MasuData bunkiMasu = GetMasuData(bunkiIndex);
-                if (bunkiMasu != null)
-                {
-                    result.Add(bunkiMasu);
-                }
-            }
-        }
-
-        return result;
+        return ret;
     }
 
     // 指定したインデックスのマス情報を取得

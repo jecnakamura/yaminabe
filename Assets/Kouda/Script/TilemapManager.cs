@@ -9,7 +9,7 @@ public class TilemapManager : MonoBehaviour
 {
     public Tilemap tilemap;
     public Sprite sprite, startTile, goalTile, nikuTile, sakanaTile, yasaiTile, hazureTile, bunnkiTile, eventTile;
-    private MasuDB masuDB; // MasuDBのインスタンスを追加
+    public MasuDB masuDB = new MasuDB(); // MasuDBのインスタンスを追加
 
     void Start()
     {

@@ -161,6 +161,7 @@ public class TurnManager : MonoBehaviour
         // 終了待ち
         while (!RouletteResultHandler.IsEnd())
         {
+            //player.camera.gameObject.SetActive(true);
             yield return null;
         }
 
@@ -172,6 +173,7 @@ public class TurnManager : MonoBehaviour
         Debug.Log("ルーレットクローズ" + result);
         if (player.MoveSteps == 0)//ルーレットを回さずに閉じた場合
         {
+            //player.camera.gameObject.SetActive(true);
             NextState(TurnState.CommandSelect);
             yield break;
         }

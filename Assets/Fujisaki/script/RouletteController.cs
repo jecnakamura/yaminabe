@@ -70,6 +70,7 @@ public class RouletteController : MonoBehaviour
         {
             isPlaying = false;
             ShowResult(roulette.transform.eulerAngles.z);
+
         }
     }
 

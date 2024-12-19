@@ -18,8 +18,8 @@ public class Tile : MonoBehaviour
         // プレイヤーの状態や他のプレイヤーとのイベントを処理
         if (tileType == TileType.Normal)
         {
-            Ingredient newIngredient = GenerateIngredient();
-            player.AddIngredient(newIngredient);
+           // Ingredient newIngredient = GenerateIngredient();
+            //player.AddIngredient(newIngredient);
         }
         else if (tileType == TileType.Event)
         {
@@ -32,16 +32,16 @@ public class Tile : MonoBehaviour
         }
     }
 
-    private Ingredient GenerateIngredient()
-    {
-        // ランダムな食材を生成
-        string[] names = { "白菜", "ネギ", "豆腐" };
-        string[] types = { "野菜", "肉", "魚介" };
-        string name = names[Random.Range(0, names.Length)];
-        string type = types[Random.Range(0, types.Length)];
-        int score = Random.Range(10, 100);
-        float compatibility = Random.Range(0.5f, 1.5f);
+    //private Ingredient GenerateIngredient()
+    //{
+    //    //// ランダムな食材を生成
+    //    //string[] names = { "白菜", "ネギ", "豆腐" };
+    //    //string[] types = { "野菜", "肉", "魚介" };
+    //    //string name = names[Random.Range(0, names.Length)];
+    //    //string type = types[Random.Range(0, types.Length)];
+    //    //int score = Random.Range(10, 100);
+    //    //float compatibility = Random.Range(0.5f, 1.5f);
 
-        return new Ingredient(name, type, score, compatibility);
-    }
+    //    //return new Ingredient(name, type, score, compatibility);
+    //}
 }

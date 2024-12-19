@@ -111,11 +111,12 @@ public class RouletteController : MonoBehaviour
             }
         }
         resultText.text = result + "\nが当たったよ！";
-        Debug.Log("ID：" + csvDatas[id + 1][0] + ", 名前：" + csvDatas[id + 1][1] + ", ジャンル：" + csvDatas[id + 1][2] + ", スコア：" + csvDatas[id + 1][3]);
+       // Debug.Log("ID：" + csvDatas[id + 1][0] + ", 名前：" + csvDatas[id + 1][1] + ", ジャンル：" + csvDatas[id + 1][2] + ", スコア：" + csvDatas[id + 1][3]);
         //  retryButton.gameObject.SetActive(true);
     }
     public void PlayerResult(Player player)
     {
         player.AddIngredient(new Ingredient(id, csvDatas[id + 1][1], csvDatas[id + 1][2], int.Parse(csvDatas[id + 1][3])));
+        Debug.Log(player.Ingredients[0]);
     }
 }

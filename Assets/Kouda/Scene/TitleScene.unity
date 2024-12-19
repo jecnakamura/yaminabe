@@ -792,6 +792,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bee9bbb0a429434ca9d3d8d3aa6de90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCountButtons:
+  - {fileID: 1787055010}
+  - {fileID: 2053508457}
+  - {fileID: 1858816285}
+  - {fileID: 1130326418}
+  backButton: {fileID: 1417522736}
 --- !u!4 &1201554976
 Transform:
   m_ObjectHideFlags: 0

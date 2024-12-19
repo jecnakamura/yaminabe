@@ -89,6 +89,7 @@ public class TurnManager : MonoBehaviour
 
             case TurnState.ViewMap:
                 {
+                    //StartCoroutine(HandleViewMap(currentPlayer));
                 }
                 break;
 
@@ -206,6 +207,17 @@ public class TurnManager : MonoBehaviour
         player.MoveSteps = 0;
         NextState(TurnState.Event);
     }
+
+    //private IEnumerator HandleViewMap(Player player)
+    //{
+
+        
+    //    yield return StartCoroutine(TurnCycle());
+
+    //    yield return null;
+    //}
+
+
 
     private bool CheckAllPlayersFinished()
     {

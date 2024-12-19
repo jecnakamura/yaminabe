@@ -28,7 +28,7 @@ public class RouletteController : MonoBehaviour
     List<string[]> csvDatas = new List<string[]>(); // CSVの中身を入れるリスト;
 
     //別コードから渡されるプレイヤー情報
-    Player player;
+    Player player=new Player();
 
     void Start()
     {
@@ -70,7 +70,7 @@ public class RouletteController : MonoBehaviour
         {
             isPlaying = false;
             ShowResult(roulette.transform.eulerAngles.z);
-
+            PlayerResult(player);
         }
     }
 

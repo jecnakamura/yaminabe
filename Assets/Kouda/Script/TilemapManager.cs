@@ -27,6 +27,10 @@ public class TilemapManager : MonoBehaviour
             {
                 // スプライトを取得
                 Sprite currentSprite = tilemap.GetSprite(cellPosition);
+                if (currentSprite == null) {
+                    Debug.LogError($"スプライトが取得できません: セル座標 {cellPosition}");
+                    continue;
+                }
 
                 // スプライトが存在するか確認
                 if (currentSprite != null)
@@ -38,7 +42,12 @@ public class TilemapManager : MonoBehaviour
                     Debug.Log("スプライトが設定されていないタイル");
                 }
                 // プレイヤーの位置をVector3Intに変換して比較
-                Vector3Int playerPosition = new Vector3Int(Mathf.FloorToInt(player.transform.position.x), Mathf.FloorToInt(player.transform.position.y), Mathf.FloorToInt(player.transform.position.z));
+                //Vector3Int playerPosition = new Vector3Int(
+                //    Mathf.FloorToInt(player.transform.position.x), 
+                //    Mathf.FloorToInt(player.transform.position.y), 
+                //    Mathf.FloorToInt(player.transform.position.z));
+
+                Vector3Int playerPosition = tilemap.WorldToCell(player.transform.position);
 
                 if (cellPosition == playerPosition)
                 {
@@ -105,7 +114,7 @@ public class TilemapManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("どこ～？\nマス" + cellPosition + "\nプレイヤー" + playerPosition);
+                    //Debug.Log("どこ～？\nマス" + cellPosition + "\nプレイヤー" + playerPosition);
 
                     yield return null;
                 }

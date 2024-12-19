@@ -179,7 +179,6 @@ GameObject:
   - component: {fileID: 88866664}
   - component: {fileID: 88866663}
   - component: {fileID: 88866662}
-  - component: {fileID: 88866665}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -237,28 +236,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &88866665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88866661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab8494bcc7aceb546b20414be6e35aa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
-  sprite: {fileID: 0}
-  startTile: {fileID: 0}
-  goleTile: {fileID: 0}
-  nikuTile: {fileID: 0}
-  sakanaTile: {fileID: 0}
-  yasaiTile: {fileID: 0}
-  hazureTile: {fileID: 0}
-  bunnkiTile: {fileID: 0}
-  eventTile: {fileID: 0}
 --- !u!1 &137428493
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,7 +2485,7 @@ MonoBehaviour:
   tilemap: {fileID: 1218912556}
   sprite: {fileID: 21300000, guid: 67d7e65513f63724890c0aff9f06b5b7, type: 3}
   startTile: {fileID: 21300000, guid: cc8e518da36c2be47881ed6d0d005d6a, type: 3}
-  goleTile: {fileID: 21300000, guid: ad4d8c53854735f40868675cf42aed6c, type: 3}
+  goalTile: {fileID: 0}
   nikuTile: {fileID: 21300000, guid: e8258dd027886b14f992bc4eeeefa4fc, type: 3}
   sakanaTile: {fileID: 21300000, guid: e53e00f09d9969b4ca1f01bb949c93f6, type: 3}
   yasaiTile: {fileID: 21300000, guid: 6d4adaf693dab7940b0f6029d22073c0, type: 3}

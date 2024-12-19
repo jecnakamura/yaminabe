@@ -1,15 +1,17 @@
 public class Ingredient
 {
-    public string Name { get; private set; }
-    public string Type { get; private set; }
-    public int Score { get; private set; }
-    public float Compatibility { get; private set; }
+    public int Id { get; set; }//ID
+    public string Name { get; set; }//名前
+    public string Type { get;  set; }//ジャンル
+    public int Score { get; set; }//そのもののスコア
+    //public float Compatibility { get; set; } //相性値
 
-    public Ingredient(string name, string type, int score, float compatibility)
+    public Ingredient(int id,string name, string type, int score)
     {
+        Id = id;
         Name = name;
         Type = type;
         Score = score;
-        Compatibility = compatibility;
+        //Compatibility = compatibility;
     }
 }

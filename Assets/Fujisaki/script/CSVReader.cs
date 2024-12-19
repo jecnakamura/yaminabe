@@ -6,7 +6,10 @@ using Unity.VisualScripting.FullSerializer;
 
 public class CSVReader : MonoBehaviour
 {
-
+    [HideInInspector] public GameObject roulette;
+    [HideInInspector] public float rotatePerRoulette;
+    [HideInInspector] public RouletteMaker rMaker;
+    private int id;
     TextAsset csvFile; // CSVファイル
     List<string[]> csvDatas = new List<string[]>(); // CSVの中身を入れるリスト;
 
@@ -25,11 +28,26 @@ public class CSVReader : MonoBehaviour
 
         // csvDatas[行][列]を指定して値を自由に取り出せる
         // Debug.Log(csvDatas[3][3]);
-        for (int i = 0; i < csvDatas.Count; i++) // csvDataリストの条件を満たす値の数（全て）
+
+       
+    }
+    private void ShowResult(float x)
+    {
+        for (int i = 1; i <= rMaker.choices.Count; i++)
         {
-            // データの表示
-            Debug.Log("ID：" + csvDatas[i][0] + ", 名前：" + csvDatas[i][1] + ", ジャンル：" + csvDatas[i][2] + ", 相性値：" + csvDatas[i][3] );
+            if (((rotatePerRoulette * (i - 1) <= x) && x <= (rotatePerRoulette * i)) ||
+                (-(360 - ((i - 1) * rotatePerRoulette)) >= x && x >= -(360 - (i * rotatePerRoulette))))
+            {
+                id = rMaker.ID[i - 1];
+            }
         }
+        // データの表示
+        Debug.Log("ID：" + csvDatas[id][0] + ", 名前：" + csvDatas[id][1] + ", ジャンル：" + csvDatas[id][2] + ", 相性値：" + csvDatas[id][3]);
 
     }
+
+    //private void Update()
+    //{
+    //    ShowResult();
+    //}
 }

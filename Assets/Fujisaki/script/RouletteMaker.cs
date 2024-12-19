@@ -7,6 +7,7 @@ public class RouletteMaker : MonoBehaviour
 {
     [SerializeField] private Transform imageParentTransform;
     public List<string> choices;
+    public List<int> ID;
     [SerializeField] private List<Color> rouletteColors;
     [SerializeField] private Image rouletteImage;
     [SerializeField] private RouletteController rController;

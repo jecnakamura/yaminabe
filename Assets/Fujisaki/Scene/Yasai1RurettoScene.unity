@@ -457,7 +457,6 @@ GameObject:
   m_Component:
   - component: {fileID: 975107212}
   - component: {fileID: 975107211}
-  - component: {fileID: 975107213}
   m_Layer: 0
   m_Name: RouletteController
   m_TagString: Untagged
@@ -498,21 +497,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &975107213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975107210}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37c4a7534458c8740bb51f9901ec6aae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roulette: {fileID: 0}
-  rotatePerRoulette: 0
-  rMaker: {fileID: 0}
 --- !u!1 &981325158
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,14 +975,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageParentTransform: {fileID: 981325159}
   choices:
-  - "\u8C5A\u8089"
-  - "\u9D8F\u8089"
-  - "\u725B\u8089"
-  - "\u30DB\u30EB\u30E2\u30F3"
-  - "\u30B9\u30DA\u30A2\u30EA\u30D6"
-  - "\u30BD\u30FC\u30BB\u30FC\u30B8"
-  - "\u3064\u304F\u306D"
-  ID: 10000000110000001200000013000000140000001500000016000000
+  - "\u30AD\u30E3\u30D9\u30C4"
+  - "\u6625\u83CA"
+  - "\u4EBA\u53C2"
+  - "\u3054\u307C\u3046"
+  - "\u306B\u3089"
+  - "\u3068\u307E\u3068"
+  - "\u30CD\u30AE"
+  ID: 02000000040000000600000007000000090000000f00000001000000
   rouletteColors:
   - {r: 0, g: 0.5384617, b: 1, a: 1}
   - {r: 0.60403156, g: 0, b: 1, a: 1}

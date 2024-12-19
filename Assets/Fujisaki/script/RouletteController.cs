@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Security.Cryptography;
 
 public class RouletteController : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class RouletteController : MonoBehaviour
     [HideInInspector] public float rotatePerRoulette;
     [HideInInspector] public RouletteMaker rMaker;
     private string result;
+    private int id;
     private float rouletteSpeed;
     private float slowDownSpeed;
     private int frameCount;
@@ -19,9 +22,26 @@ public class RouletteController : MonoBehaviour
     [SerializeField] private Text resultText;
     [SerializeField] private Button startButton;
     [SerializeField] private Button stopButton;
-   // [SerializeField] private Button retryButton;
+    // [SerializeField] private Button retryButton;
 
-    public void SetRoulette()
+    TextAsset csvFile; // CSVファイル
+    List<string[]> csvDatas = new List<string[]>(); // CSVの中身を入れるリスト;
+
+
+    void Start()
+    {
+        csvFile = Resources.Load("syokuzai") as TextAsset; // Resouces下のCSV読み込み
+        StringReader reader = new StringReader(csvFile.text);
+
+        // , で分割しつつ一行ずつ読み込み
+        // リストに追加していく
+        while (reader.Peek() != -1) // reader.Peaekが-1になるまで
+        {
+            string line = reader.ReadLine(); // 一行ずつ読み込み
+            csvDatas.Add(line.Split(',')); // , 区切りでリストに追加
+        }
+    }
+        public void SetRoulette()
     {
         isPlaying = false;
         isStop = false;
@@ -84,9 +104,11 @@ public class RouletteController : MonoBehaviour
                 (-(360 - ((i - 1) * rotatePerRoulette)) >= x && x >= -(360 - (i * rotatePerRoulette))))
             {
                 result = rMaker.choices[i - 1];
+                id = rMaker.ID[i - 1];
             }
         }
         resultText.text = result + "\nが当たったよ！";
-      //  retryButton.gameObject.SetActive(true);
+        Debug.Log("ID：" + csvDatas[id + 1][0] + ", 名前：" + csvDatas[id + 1][1] + ", ジャンル：" + csvDatas[id + 1][2] + ", 相性値：" + csvDatas[id + 1][3]);
+        //  retryButton.gameObject.SetActive(true);
     }
 }

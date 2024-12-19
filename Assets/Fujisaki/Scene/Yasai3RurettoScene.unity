@@ -991,14 +991,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageParentTransform: {fileID: 981325159}
   choices:
-  - "\u8C5A\u8089"
-  - "\u9D8F\u8089"
-  - "\u725B\u8089"
-  - "\u30DB\u30EB\u30E2\u30F3"
-  - "\u30B9\u30DA\u30A2\u30EA\u30D6"
-  - "\u30BD\u30FC\u30BB\u30FC\u30B8"
-  - "\u3064\u304F\u306D"
-  ID: 10000000110000001200000013000000140000001500000016000000
+  - "\u5C0F\u677E\u83DC"
+  - "\u30D1\u30AF\u30C1\u30FC"
+  - "\u6C34\u83DC"
+  - "\u3082\u3084\u3057"
+  - "\u30D6\u30ED\u30C3\u30B3\u30EA\u30FC"
+  - "\u306B\u3089"
+  - "\u4EBA\u53C2"
+  ID: 0a0000000c00000005000000080000000b0000000900000006000000
   rouletteColors:
   - {r: 0, g: 0.5384617, b: 1, a: 1}
   - {r: 0.60403156, g: 0, b: 1, a: 1}

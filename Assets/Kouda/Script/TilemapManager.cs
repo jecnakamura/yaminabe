@@ -3,113 +3,175 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class TilemapManager : MonoBehaviour
 {
     public Tilemap tilemap;
-    public Sprite sprite, startTile, goleTile, nikuTile, sakanaTile, yasaiTile, hazureTile, bunnkiTile, eventTile;
-
-
+    public Sprite sprite, startTile, goalTile, nikuTile, sakanaTile, yasaiTile, hazureTile, bunnkiTile, eventTile;
+    private MasuDB masuDB; // MasuDBのインスタンスを追加
 
     void Start()
     {
-
+        // 必要な初期化処理をここに追加
     }
 
-    public IEnumerator TileEvent(Player player){
-        foreach (var pos in tilemap.cellBounds.allPositionsWithin)
+    public IEnumerator TileEvent(Player player)
+    {
+        // プレイヤーの位置をセル座標に変換
+        Vector3Int playerCell = tilemap.WorldToCell(player.transform.position);
+        TileBase currentTile = tilemap.GetTile(playerCell);
+
+        if (currentTile != null)
         {
-            // 取り出した位置情報からタイルマップ用の位置情報(セル座標)を取得
-            Vector3Int cellPosition = new Vector3Int(pos.x, pos.y, pos.z);
+            Debug.Log("現在のタイル: " + currentTile.name);
 
-            // tilemap.HasTile -> タイルが設定(描画)されている座標であるか判定
-            if (tilemap.HasTile(cellPosition))
+            // タイルに応じた処理
+            if (currentTile == startTile)
             {
-                // スプライトを取得
-                Sprite currentSprite = tilemap.GetSprite(cellPosition);
-
-                // スプライトが存在するか確認
-                if (currentSprite != null)
-                {
-                    Debug.Log("現在のスプライト: " + currentSprite.name);
-                }
-                else
-                {
-                    Debug.Log("スプライトが設定されていないタイル");
-                }
-                // プレイヤーの位置をVector3Intに変換して比較
-                Vector3Int playerPosition = new Vector3Int(Mathf.FloorToInt(player.transform.position.x), Mathf.FloorToInt(player.transform.position.y), Mathf.FloorToInt(player.transform.position.z));
-
-                if (cellPosition == playerPosition)
-                {
-                    if (currentSprite == startTile)
-                    {
-                        Debug.Log("スタートマス");
-                        yield return null;
-                        break;
-                    }
-                    else if (currentSprite == goleTile)
-                    {
-                        Debug.Log("ゴールマス");
-                        yield return null;
-                        break;
-                    }
-                    else if (currentSprite == sprite)
-                    {
-                        Debug.Log("設定忘れ");
-                        yield return null;
-                        break;
-                    }
-                    else if (currentSprite == nikuTile)
-                    {
-                        Debug.Log("肉食材マス");
-                        yield return null;
-                        break;
-                    }
-                    else if (currentSprite == sakanaTile)
-                    {
-                        Debug.Log("魚食材マス");
-                        yield return null;
-                        break;
-                    }
-                    else if (currentSprite == yasaiTile)
-                    {
-                        Debug.Log("野菜食材マス");
-                        yield return null;
-                        break;
-                    }
-                    else if (currentSprite == hazureTile)
-                    {
-                        Debug.Log("ハズレ食材マス");
-                        yield return null;
-                        break;
-                    }
-                    else if (currentSprite == bunnkiTile)
-                    {
-                        Debug.Log("分岐マス");
-                        yield return null;
-                        break;
-                    }
-                    else if (currentSprite == eventTile)
-                    {
-                        Debug.Log("イベントマス");
-                        yield return null;
-                        break;
-                    }
-                    else
-                    {
-                        Debug.Log("どれ？");
-                        yield return null;
-                        break;
-                    }
-                }
-                else
-                {
-                    Debug.Log("どこ～？\nマス" + cellPosition + "\nプレイヤー" + playerPosition);
-
-                    yield return null;
-                }
+                Debug.Log("スタートマス");
+            }
+            else if (currentTile == goalTile)
+            {
+                Debug.Log("ゴールマス");
+            }
+            else if (currentTile == nikuTile)
+            {
+                Debug.Log("肉食材マス");
+                yield return StartCoroutine(HandleMeatEvent(player));
+            }
+            else if (currentTile == sakanaTile)
+            {
+                Debug.Log("魚食材マス");
+                yield return StartCoroutine(HandleFishEvent(player));
+            }
+            else if (currentTile == yasaiTile)
+            {
+                Debug.Log("野菜食材マス");
+                yield return StartCoroutine(HandleVegetableEvent(player));
+            }
+            else if (currentTile == hazureTile)
+            {
+                Debug.Log("ハズレ食材マス");
+                yield return StartCoroutine(HandleLoseEvent(player));
+            }
+            else if (currentTile == bunnkiTile)
+            {
+                Debug.Log("分岐マス");
+                yield return StartCoroutine(HandleBranchEvent(player));
+            }
+            else if (currentTile == eventTile)
+            {
+                Debug.Log("イベントマス");
+                yield return StartCoroutine(HandleOtherEvent(player));
+            }
+            else
+            {
+                Debug.Log("不明なタイル");
             }
         }
+        else
+        {
+            Debug.Log("タイルが見つかりませんでした。");
+        }
+
+        // プレイヤーの現在位置に対応するマス情報を取得
+        MasuData masu = masuDB.GetMasuData((int)player.transform.position.x); // プレイヤーの位置に対応するMasuDataを取得
+        if (masu != null)
+        {
+            Debug.Log($"マス {masu.index} のイベントが発動");
+
+            // マスに関連するイベントタイプを確認
+            switch (masu.ev)
+            {
+                case EventType.Meat:
+                    yield return StartCoroutine(HandleMeatEvent(player));
+                    break;
+
+                case EventType.Vegetable:
+                    yield return StartCoroutine(HandleVegetableEvent(player));
+                    break;
+
+                case EventType.Fish:
+                    yield return StartCoroutine(HandleFishEvent(player));
+                    break;
+
+                case EventType.Other:
+                    yield return StartCoroutine(HandleOtherEvent(player));
+                    break;
+
+                case EventType.Lose:
+                    yield return StartCoroutine(HandleLoseEvent(player));
+                    break;
+
+                case EventType.RandomExchange:
+                    yield return StartCoroutine(HandleRandomEvent(player));
+                    break;
+
+                case EventType.Branch:
+                    yield return StartCoroutine(HandleBranchEvent(player));
+                    break;
+
+                case EventType.Start:
+                    Debug.Log("スタートマス");
+                    break;
+
+                case EventType.Goal:
+                    Debug.Log("ゴールマス");
+                    break;
+
+                default:
+                    Debug.LogWarning($"未定義のイベントタイプ {masu.ev} が発生しました");
+                    break;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("プレイヤーの位置に対応するマスデータが見つかりませんでした");
+        }
+    }
+
+    // 各イベントの処理
+    private IEnumerator HandleMeatEvent(Player player)
+    {
+        Debug.Log("肉イベントが発生！");
+        // 肉に関連する処理をここに記述
+        yield return new WaitForSeconds(1);
+    }
+
+    private IEnumerator HandleVegetableEvent(Player player)
+    {
+        Debug.Log("野菜イベントが発生！");
+        yield return new WaitForSeconds(1);
+    }
+
+    private IEnumerator HandleFishEvent(Player player)
+    {
+        Debug.Log("魚イベントが発生！");
+        yield return new WaitForSeconds(1);
+    }
+
+    private IEnumerator HandleOtherEvent(Player player)
+    {
+        Debug.Log("その他イベントが発生！");
+        yield return new WaitForSeconds(1);
+    }
+
+    private IEnumerator HandleLoseEvent(Player player)
+    {
+        Debug.Log("ハズレイベントが発生！");
+        yield return new WaitForSeconds(1);
+    }
+
+    private IEnumerator HandleRandomEvent(Player player)
+    {
+        Debug.Log("ランダムイベントが発生！");
+        yield return new WaitForSeconds(1);
+    }
+
+    private IEnumerator HandleBranchEvent(Player player)
+    {
+        Debug.Log("分岐イベントが発生！");
+        yield return new WaitForSeconds(1);
     }
 }

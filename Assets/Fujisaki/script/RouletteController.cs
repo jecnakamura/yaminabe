@@ -27,6 +27,8 @@ public class RouletteController : MonoBehaviour
     TextAsset csvFile; // CSVファイル
     List<string[]> csvDatas = new List<string[]>(); // CSVの中身を入れるリスト;
 
+    //別コードから渡されるプレイヤー情報
+    Player player;
 
     void Start()
     {
@@ -98,6 +100,7 @@ public class RouletteController : MonoBehaviour
 
     private void ShowResult(float x)
     {
+
         for (int i = 1; i <= rMaker.choices.Count; i++)
         {
             if (((rotatePerRoulette * (i - 1) <= x) && x <= (rotatePerRoulette * i)) ||
@@ -108,7 +111,11 @@ public class RouletteController : MonoBehaviour
             }
         }
         resultText.text = result + "\nが当たったよ！";
-        Debug.Log("ID：" + csvDatas[id + 1][0] + ", 名前：" + csvDatas[id + 1][1] + ", ジャンル：" + csvDatas[id + 1][2] + ", 相性値：" + csvDatas[id + 1][3]);
+        Debug.Log("ID：" + csvDatas[id + 1][0] + ", 名前：" + csvDatas[id + 1][1] + ", ジャンル：" + csvDatas[id + 1][2] + ", スコア：" + csvDatas[id + 1][3]);
         //  retryButton.gameObject.SetActive(true);
+    }
+    public void PlayerResult(Player player)
+    {
+        player.AddIngredient(new Ingredient(id, csvDatas[id + 1][1], csvDatas[id + 1][2], int.Parse(csvDatas[id + 1][3])));
     }
 }

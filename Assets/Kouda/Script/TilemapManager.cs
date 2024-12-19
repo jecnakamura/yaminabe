@@ -38,6 +38,7 @@ public class TilemapManager : MonoBehaviour
             else if (currentTile == nikuTile)
             {
                 Debug.Log("“÷HŞƒ}ƒX");
+                //NIKU.GetNIKU(player.Ingredient);
                 yield return StartCoroutine(HandleMeatEvent(player));
             }
             else if (currentTile == sakanaTile)

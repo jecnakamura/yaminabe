@@ -1,14 +1,7 @@
-using JetBrains.Annotations;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using TMPro;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
@@ -22,34 +15,36 @@ public class TurnManager : MonoBehaviour
         Event,
         End,
     }
+
     public TurnState state = TurnState.CommandSelect;
 
     public List<Player> players; // プレイヤー（NPC含む）リスト
     private int currentPlayerIndex = 0;
     public MapManager mapManager; // マップ管理クラス
-    public CameraController cameraController;   //カメラ管理クラス
+    public CameraController cameraController; // カメラ管理クラス
     public UIManager uiManager; // UI管理クラス
     public TilemapManager tilemapManager;
-
     public List<GameObject> commandButtons;
 
-
     private bool isGameFinished = false;
-
-    bool isStateEnd = false;
+    private bool isStateEnd = false;
 
     [SerializeField] GameObject Pl;
     Vector3 spawnPosition;
 
-
     void Start()
     {
-        cameraController = GetComponent<CameraController>();
+        InitializePlayers();
+        StartCoroutine(TurnCycle());
+    }
+
+    private void InitializePlayers()
+    {
         Vector3 scale = new Vector3(0.25f, 0.25f, 1.0f);
         spawnPosition = new Vector3(-23, 3, 0);
+
         for (int i = 0; i < GameData.playerCount; i++)
         {
-            
             var obj = Instantiate(Pl, spawnPosition, Quaternion.identity);
             var player = obj.GetComponent<Player>();
             obj.transform.localScale = scale;
@@ -59,169 +54,198 @@ public class TurnManager : MonoBehaviour
             player.ingredients = new List<Ingredient>();
 
             players.Add(player);
-
             player.SetCharaImage();
         }
-
-        StartCoroutine(TurnCycle());
     }
-
-   
 
     private IEnumerator TurnCycle()
     {
         Player currentPlayer = players[currentPlayerIndex];
-        for(int i = 0;i < GameData.playerCount; i++)
-        {
-            players[i].camera.gameObject.SetActive(false);
-        }
-        currentPlayer.camera.gameObject.SetActive(true);
-        // UIでターン情報を表示
+        ActivateCamera(currentPlayer);
         uiManager.ShowTurnInfo(currentPlayer);
+
+        while (!isGameFinished)
+        {
+            yield return StartCoroutine(HandleState(currentPlayer));
+        }
+
+        EndGame();
+    }
+
+    private void ActivateCamera(Player player)
+    {
+        foreach (var p in players)
+        {
+            p.camera.gameObject.SetActive(false);
+        }
+        player.camera.gameObject.SetActive(true);
+    }
+
+    private IEnumerator HandleState(Player currentPlayer)
+    {
         switch (state)
         {
             case TurnState.CommandSelect:
-                {
-                    //cameraController.FollowPlayer(currentPlayer);
-                    yield return StartCoroutine(HandleCommandSelect(currentPlayer));
-                }
+                yield return StartCoroutine(HandleCommandSelect(currentPlayer));
                 break;
 
             case TurnState.ViewMap:
-                {
-                    //StartCoroutine(HandleViewMap(currentPlayer));
-                }
+                yield return StartCoroutine(HandleViewMap());
                 break;
 
             case TurnState.LookList:
-                {
-                }
+                yield return StartCoroutine(HandleLookList());
                 break;
 
             case TurnState.Roulette:
-                {
-                    StartCoroutine(HandleRoulette(currentPlayer));
-                }
+                yield return StartCoroutine(HandleRoulette(currentPlayer));
                 break;
 
             case TurnState.PlayerMove:
-                {
-                    yield return StartCoroutine(HandlePlayerTurn(currentPlayer));
-                }
+                yield return StartCoroutine(HandlePlayerMove(currentPlayer));
                 break;
 
             case TurnState.Event:
-                {
-                    if (CheckAllPlayersFinished())
-                    {
-                        state = TurnState.End;
-                        StartCoroutine(TurnCycle());
-                    }
-                    tilemapManager.TileEvent(currentPlayer);
-                    NextPlayer();
-                }
+                yield return StartCoroutine(HandleEvent(currentPlayer));
                 break;
 
             case TurnState.End:
-                EndGame();
-                yield break;
+                isGameFinished = true;
+                break;
         }
     }
 
-
-    public void OnCommandButton(int type)
+    private IEnumerator HandleCommandSelect(Player player)
     {
-        isStateEnd = true;
-        state = (TurnState)type;
-    }
+        ToggleCommandButtons(true);
 
-    IEnumerator HandleCommandSelect(Player player)
-    {
-        foreach(var btn in commandButtons)
+        while (!isStateEnd)
         {
-            btn.SetActive(true);
+            HandleControllerInputForCommand();
+            yield return null;
         }
-        while (!isStateEnd) yield return null;
 
-        foreach (var btn in commandButtons)
-        {
-            btn.SetActive(false);
-        }
+        ToggleCommandButtons(false);
         NextState(state);
+    }
+
+    private void HandleControllerInputForCommand()
+    {
+        if (Input.GetButtonDown("Submit"))
+        {
+            // 決定ボタンが押された場合の処理
+            isStateEnd = true;
+        }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            // キャンセルボタンで状態を戻す
+            state = TurnState.CommandSelect;
+            isStateEnd = true;
+        }
+    }
+
+    private IEnumerator HandleViewMap()
+    {
+        while (!isStateEnd)
+        {
+            HandleControllerInputForViewMap();
+            yield return null;
+        }
+
+        NextState(TurnState.CommandSelect);
+    }
+
+    private void HandleControllerInputForViewMap()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            isStateEnd = true;
+        }
+    }
+
+    private IEnumerator HandleLookList()
+    {
+        while (!isStateEnd)
+        {
+            HandleControllerInputForLookList();
+            yield return null;
+        }
+
+        NextState(TurnState.CommandSelect);
+    }
+
+    private void HandleControllerInputForLookList()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            isStateEnd = true;
+        }
     }
 
     private IEnumerator HandleRoulette(Player player)
     {
         RouletteResultHandler.SetEnd(false);
 
-        // ルーレットシーンを開いて結果を受け取る
         yield return SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
         player.camera.gameObject.SetActive(false);
-        Debug.Log("ルーレットオープン");
 
-        // 終了待ち
         while (!RouletteResultHandler.IsEnd())
         {
-            //player.camera.gameObject.SetActive(true);
+            HandleControllerInputForRoulette();
             yield return null;
         }
 
-        int result = RouletteResultHandler.GetResult(); // 仮の結果取得関数
+        int result = RouletteResultHandler.GetResult();
         player.MoveSteps = result;
-        
-        yield return new WaitForSeconds(1);
+
         yield return SceneManager.UnloadSceneAsync("Ruretto");
-        Debug.Log("ルーレットクローズ" + result);
-        if (player.MoveSteps == 0)//ルーレットを回さずに閉じた場合
+        player.camera.gameObject.SetActive(true);
+
+        NextState(player.MoveSteps == 0 ? TurnState.CommandSelect : TurnState.PlayerMove);
+    }
+
+    private void HandleControllerInputForRoulette()
+    {
+        if (Input.GetButtonDown("Cancel"))
         {
-            //player.camera.gameObject.SetActive(true);
-            NextState(TurnState.CommandSelect);
-            yield break;
+            RouletteResultHandler.SetEnd(true);
         }
-        player.camera.gameObject.SetActive(true);  
-        NextState(TurnState.PlayerMove);
     }
 
-    void NextState(TurnState st)
+    private IEnumerator HandlePlayerMove(Player player)
     {
-        state = st;
-        isStateEnd = false;
-        StartCoroutine(TurnCycle());
-    }
-
-    private IEnumerator HandlePlayerTurn(Player player)
-    {
-
-        // マスの移動処理
         for (int i = 0; i < player.MoveSteps; i++)
         {
             Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
             yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
         }
 
-        // 止まったマスのイベント処理
         yield return StartCoroutine(tilemapManager.TileEvent(player));
-
-
-        yield return null;
         player.MoveSteps = 0;
+
         NextState(TurnState.Event);
     }
 
-    //private IEnumerator HandleViewMap(Player player)
-    //{
-
-        
-    //    yield return StartCoroutine(TurnCycle());
-
-    //    yield return null;
-    //}
-
-
-
-    private bool CheckAllPlayersFinished()
+    private IEnumerator HandleEvent(Player player)
     {
-        return players.TrueForAll(player => player.HasFinished);
+        tilemapManager.TileEvent(player);
+        NextPlayer();
+        yield return null;
+    }
+
+    private void ToggleCommandButtons(bool isActive)
+    {
+        foreach (var btn in commandButtons)
+        {
+            btn.SetActive(isActive);
+        }
+    }
+
+    private void NextState(TurnState newState)
+    {
+        state = newState;
+        isStateEnd = false;
     }
 
     private void NextPlayer()
@@ -232,11 +256,7 @@ public class TurnManager : MonoBehaviour
 
     private void EndGame()
     {
-        isGameFinished = true;
         Debug.Log("ゲーム終了！");
-        // 結果発表シーンに移行
         SceneManager.LoadScene("ResultScene");
     }
-
-    
 }

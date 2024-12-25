@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
-using Unity.VisualScripting.FullSerializer;
+using UnityEngine;
 
 public class CSVReader : MonoBehaviour
 {
@@ -29,7 +27,7 @@ public class CSVReader : MonoBehaviour
         // csvDatas[行][列]を指定して値を自由に取り出せる
         // Debug.Log(csvDatas[3][3]);
 
-       
+
     }
     private void ShowResult(float x)
     {

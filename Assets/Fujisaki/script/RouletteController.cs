@@ -1,11 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.IO;
-using System.Security.Cryptography;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class RouletteController : MonoBehaviour
 {
@@ -28,7 +24,7 @@ public class RouletteController : MonoBehaviour
     List<string[]> csvDatas = new List<string[]>(); // CSVの中身を入れるリスト;
 
     //別コードから渡されるプレイヤー情報
-    Player player=new Player();
+    Player player = new Player();
 
     void Start()
     {
@@ -46,16 +42,16 @@ public class RouletteController : MonoBehaviour
             }
         }
     }
-        public void SetRoulette()
+    public void SetRoulette()
     {
         isPlaying = false;
         isStop = false;
         startButton.gameObject.SetActive(true);
         stopButton.gameObject.SetActive(false);
-       // retryButton.gameObject.SetActive(false);
+        // retryButton.gameObject.SetActive(false);
         startButton.onClick.AddListener(StartOnClick);
         stopButton.onClick.AddListener(StopOnClick);
-       // retryButton.onClick.AddListener(RetryOnClick);
+        // retryButton.onClick.AddListener(RetryOnClick);
     }
 
     private void Update()
@@ -73,7 +69,7 @@ public class RouletteController : MonoBehaviour
         {
             isPlaying = false;
             ShowResult(roulette.transform.eulerAngles.z);
-          //  PlayerResult(player);
+            //  PlayerResult(player);
         }
     }
 
@@ -129,7 +125,7 @@ public class RouletteController : MonoBehaviour
         //Debug.Log("ID：" + csvDatas[id][0] + ", 名前：" + csvDatas[id][1] + ", ジャンル：" + csvDatas[id][2] + ", スコア：" + csvDatas[id][3]);
         //  retryButton.gameObject.SetActive(true);
 
-       
+
         if (id >= 0 && id < csvDatas.Count && csvDatas[id].Length >= 4)
         {
             Ingredient newIngredient = new Ingredient(
@@ -146,7 +142,7 @@ public class RouletteController : MonoBehaviour
             Debug.LogError($"データが不足しています。ID: {id}, CSVデータ数: {csvDatas.Count}");
         }
 
-     
+
     }
     //public void PlayerResult(Player player)
     //{

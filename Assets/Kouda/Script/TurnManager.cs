@@ -220,7 +220,7 @@ public class TurnManager : MonoBehaviour
         {
             Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
             MasuData branch = masuDB.GetMasuData(player.nowIndex);
-            if(branch.ev == EventType.Branch)
+            if (branch.ev == EventType.Branch)
             {
                 StartCoroutine(BranchEvent(player));
             }
@@ -269,6 +269,6 @@ public class TurnManager : MonoBehaviour
     private IEnumerator BranchEvent(Player player)
     {
 
-        yield return StartCoroutine(HandlePlayerMove(player));  
-    }   
+        yield return StartCoroutine(HandlePlayerMove(player));
+    }
 }

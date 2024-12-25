@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class tenmetu : MonoBehaviour
 {
-    
+
     // “_–Å‚³‚¹‚é‘ÎÛ
     [SerializeField] private Renderer _target;
     // “_–ÅüŠú[s]

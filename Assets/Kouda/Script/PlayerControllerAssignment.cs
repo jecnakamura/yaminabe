@@ -2,54 +2,39 @@ using UnityEngine;
 
 public class PlayerControllerAssignment : MonoBehaviour
 {
-    // プレイヤー数の最大値
-    private int maxPlayers = 4;
-
-    // コントローラーの接続状況を保持するリスト
+    private int maxPlayers = 4; // 最大プレイヤー数
     private bool[] controllersConnected;
+    public int[] assignedControllers; // プレイヤーごとに割り当てられたコントローラー番号
 
     void Start()
     {
-        // コントローラーの接続状況を管理する配列を初期化
         controllersConnected = new bool[maxPlayers];
+        assignedControllers = new int[maxPlayers];
 
-        // 接続されているコントローラーの数を取得
-        CheckControllers();
-    }
-
-    void Update()
-    {
-        // コントローラーが接続された場合、接続の変更を検知
-        CheckControllers();
-    }
-
-    void CheckControllers()
-    {
-        // 接続されているコントローラーの数を検出
-        string[] joystickNames = Input.GetJoystickNames();
-
-        // すべてのコントローラーを確認
         for (int i = 0; i < maxPlayers; i++)
         {
-            // コントローラーが接続されている場合
-            if (i < joystickNames.Length && !string.IsNullOrEmpty(joystickNames[i]))
+            assignedControllers[i] = -1; // 未割り当てを示す
+        }
+
+        AssignControllersToPlayers();
+    }
+
+    void AssignControllersToPlayers()
+    {
+        string[] joystickNames = Input.GetJoystickNames();
+        int playerIndex = 0;
+
+        for (int i = 0; i < joystickNames.Length; i++)
+        {
+            if (!string.IsNullOrEmpty(joystickNames[i]) && playerIndex < maxPlayers)
             {
-                if (!controllersConnected[i])
-                {
-                    // 新たにコントローラーが接続された場合、プレイヤー番号を割り当て
-                    controllersConnected[i] = true;
-                    Debug.Log($"コントローラー{i + 1}が接続されました。プレイヤー{i + 1}に割り当てました。");
-                }
-            }
-            else
-            {
-                // コントローラーが切断された場合、接続状態をリセット
-                if (controllersConnected[i])
-                {
-                    controllersConnected[i] = false;
-                    Debug.Log($"コントローラー{i + 1}が切断されました。");
-                }
+                assignedControllers[playerIndex] = i; // プレイヤーにコントローラーを割り当て
+                Debug.Log($"Player {playerIndex + 1} に Controller {i + 1} を割り当てました。");
+                playerIndex++;
             }
         }
+
+        // 割り当てをGameDataに保存
+        GameData.controllerAssignments = assignedControllers;
     }
 }

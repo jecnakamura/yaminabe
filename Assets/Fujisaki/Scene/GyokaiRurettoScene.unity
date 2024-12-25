@@ -410,7 +410,6 @@ GameObject:
   m_Component:
   - component: {fileID: 975107212}
   - component: {fileID: 975107211}
-  - component: {fileID: 975107213}
   m_Layer: 0
   m_Name: RouletteController
   m_TagString: Untagged
@@ -433,6 +432,7 @@ MonoBehaviour:
   roulette: {fileID: 0}
   rotatePerRoulette: 0
   rMaker: {fileID: 0}
+  id: 0
   resultText: {fileID: 1607426213}
   startButton: {fileID: 1405490467}
   stopButton: {fileID: 1395773083}
@@ -451,21 +451,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &975107213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975107210}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37c4a7534458c8740bb51f9901ec6aae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roulette: {fileID: 0}
-  rotatePerRoulette: 0
-  rMaker: {fileID: 0}
 --- !u!1 &981325158
 GameObject:
   m_ObjectHideFlags: 0

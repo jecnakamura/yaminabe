@@ -32,9 +32,12 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject Pl;
     Vector3 spawnPosition;
 
+    private Dictionary<int, int> controllerAssignments; // コントローラー番号 -> プレイヤー番号
+
     void Start()
     {
         InitializePlayers();
+        AssignControllersToPlayers();
         StartCoroutine(TurnCycle());
     }
 
@@ -55,6 +58,21 @@ public class TurnManager : MonoBehaviour
 
             players.Add(player);
             player.SetCharaImage();
+        }
+    }
+
+    private void AssignControllersToPlayers()
+    {
+        string[] joystickNames = Input.GetJoystickNames();
+        controllerAssignments = new Dictionary<int, int>();
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (i < joystickNames.Length && !string.IsNullOrEmpty(joystickNames[i]))
+            {
+                controllerAssignments[i] = i;
+                Debug.Log($"Controller {i + 1} assigned to Player {i + 1}");
+            }
         }
     }
 
@@ -121,7 +139,7 @@ public class TurnManager : MonoBehaviour
 
         while (!isStateEnd)
         {
-            HandleControllerInputForCommand();
+            HandleControllerInputForCommand(player.ID);
             yield return null;
         }
 
@@ -129,17 +147,22 @@ public class TurnManager : MonoBehaviour
         NextState(state);
     }
 
-    private void HandleControllerInputForCommand()
+    private void HandleControllerInputForCommand(int playerID)
     {
-        if (Input.GetButtonDown("Submit"))
+        if (!controllerAssignments.ContainsKey(playerID)) return;
+
+        int controllerIndex = controllerAssignments[playerID];
+
+        string submitButton = $"Joystick{controllerIndex + 1}_Submit";
+        string cancelButton = $"Joystick{controllerIndex + 1}_Cancel";
+
+        if (Input.GetButtonDown(submitButton))
         {
-            // 決定ボタンが押された場合の処理
             isStateEnd = true;
         }
 
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown(cancelButton))
         {
-            // キャンセルボタンで状態を戻す
             state = TurnState.CommandSelect;
             isStateEnd = true;
         }

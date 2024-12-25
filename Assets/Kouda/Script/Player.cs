@@ -11,14 +11,14 @@ public class Player : MonoBehaviour
     public bool HasFinished { get; set; }      // ゴール状態
     public int MoveSteps { get; set; }         // 移動するマス数
 
-    public Camera camera;                       //プレイヤーターン時に個々を写すカメラ
-
+    public Camera camera;                       // プレイヤーターン時に個々を写すカメラ
     public Character chara;
     public List<Ingredient> ingredients;
 
     public SpriteRenderer display;
-
     public int nowIndex;
+
+    private int controllerIndex; // 割り当てられたコントローラー番号
 
     public Player()
     {
@@ -28,9 +28,44 @@ public class Player : MonoBehaviour
         MoveSteps = 0;
     }
 
+    void Awake()
+    {
+        // このオブジェクトの SpriteRenderer を取得
+        display = GetComponent<SpriteRenderer>();
+
+        // GameData からコントローラー番号を取得
+        controllerIndex = GameData.controllerAssignments[ID];
+    }
+
+    void Update()
+    {
+        // 割り当てられたコントローラーのみ入力を受け付ける
+        if (controllerIndex != -1)
+        {
+            HandleInput();
+        }
+    }
+
+    void HandleInput()
+    {
+        float horizontal = Input.GetAxis($"Joystick{controllerIndex + 1}AxisX");
+        float vertical = Input.GetAxis($"Joystick{controllerIndex + 1}AxisY");
+
+        if (Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f)
+        {
+            Debug.Log($"Player {ID} is moving: ({horizontal}, {vertical})");
+            // プレイヤーの移動ロジックを追加
+        }
+
+        if (Input.GetButtonDown($"Joystick{controllerIndex + 1}ButtonA"))
+        {
+            Debug.Log($"Player {ID} pressed A button");
+            // 他のアクションを追加
+        }
+    }
+
     public void AddIngredient(Ingredient ingredient)
     {
-
         //Ingredients.Add();
     }
 
@@ -42,22 +77,14 @@ public class Player : MonoBehaviour
             Ingredients.RemoveAt(randomIndex);
         }
     }
+
     public int CalculateScore()
     {
         return Ingredients.Sum(ingredient => ingredient.Score); // すべての食材のスコアを合計
-    }
-
-
-    void Awake()
-    {
-        // このオブジェクトの SpriteRenderer を取得
-        display = GetComponent<SpriteRenderer>();
     }
 
     public void SetCharaImage()
     {
         display.sprite = chara.image;
     }
-
-   
 }

@@ -10,21 +10,21 @@ public class CharacterSelection : MonoBehaviour
     public List<Character> availableCharacters;    // 全キャラクターリスト
     public List<Image> characterImages;            // 各プレイヤーのキャラクター画像
     public List<TextMeshProUGUI> characterNames;   // 各プレイヤーのキャラクター名
-    public List<Button> nextButtons;               // 「＞」ボタン
-    public List<Button> prevButtons;               // 「＜」ボタン
-    public List<Button> confirmButtons;            // 決定ボタン
     public List<GameObject> npcStrengthSelectors;  // NPCの強さ選択オブジェクト
     public Button startGameButton;                 // ゲームスタートボタン
     private int[] currentIndices;                  // 各プレイヤーの現在インデックス
     private int activePlayerCount;                 // 有効なプレイヤー数
     private int maxPlayers = 4;
-    private bool allPlayersConfirmed = false;      // プレイヤー全員がキャラを決定したか
+    private bool[] playerConfirmed;                // プレイヤーのキャラ決定状態
+    private Dictionary<int, int> controllerAssignments; // コントローラー番号 -> プレイヤー番号
     private bool allNPCStrengthsSet = false;       // 全NPCの強さが決定したか
 
     private void Start()
     {
         activePlayerCount = GameData.playerCount;  // 保存されたプレイヤー人数を取得
         currentIndices = new int[maxPlayers];     // インデックス配列を初期化
+        playerConfirmed = new bool[maxPlayers];   // 決定状態配列を初期化
+        controllerAssignments = new Dictionary<int, int>(); // コントローラー割り当て
 
         if (availableCharacters == null || availableCharacters.Count == 0)
         {
@@ -32,7 +32,6 @@ public class CharacterSelection : MonoBehaviour
             return;
         }
 
-        // プレイヤーとNPCのUIを設定
         SetupPlayerUI();
 
         // NPC用UIとゲームスタートボタンは非表示
@@ -48,13 +47,6 @@ public class CharacterSelection : MonoBehaviour
         for (int i = 0; i < activePlayerCount; i++)
         {
             currentIndices[i] = i % availableCharacters.Count;
-
-            characterImages[i].gameObject.SetActive(true);
-            characterNames[i].gameObject.SetActive(true);
-            nextButtons[i].gameObject.SetActive(true);
-            prevButtons[i].gameObject.SetActive(true);
-            confirmButtons[i].gameObject.SetActive(true);
-            currentIndices[i] = currentIndices[i] % availableCharacters.Count;
             UpdateCharacterDisplay(i);
         }
 
@@ -63,111 +55,55 @@ public class CharacterSelection : MonoBehaviour
         {
             characterImages[i].gameObject.SetActive(false);
             characterNames[i].gameObject.SetActive(false);
-            nextButtons[i].gameObject.SetActive(false);
-            prevButtons[i].gameObject.SetActive(false);
-            confirmButtons[i].gameObject.SetActive(false);
         }
+
+        // コントローラー割り当て
+        AssignControllersToPlayers();
     }
 
-    private void CheckAllPlayersConfirmed()
+    private void AssignControllersToPlayers()
     {
-        allPlayersConfirmed = true;
+        string[] joystickNames = Input.GetJoystickNames();
 
         for (int i = 0; i < activePlayerCount; i++)
         {
-            if (GameData.selectedCharacters[i] == null)
+            if (i < joystickNames.Length && !string.IsNullOrEmpty(joystickNames[i]))
             {
-                allPlayersConfirmed = false;
-                break;
-            }
-        }
-
-        if (allPlayersConfirmed)
-        {
-            Debug.Log("All players confirmed their characters.");
-            // プレイヤーが4人ならゲームスタートボタンを表示する
-            if (activePlayerCount == maxPlayers)
-            {
-                startGameButton.gameObject.SetActive(true);
-            }
-            if (activePlayerCount < maxPlayers)
-            {
-                AssignNPCCharacters();
+                controllerAssignments[i] = i; // コントローラーをプレイヤーに割り当て
+                Debug.Log($"Controller {i + 1} assigned to Player {i + 1}");
             }
         }
     }
 
-    private void AssignNPCCharacters()
+    private void Update()
     {
-        // プレイヤーが選択したキャラクターを除外
-        List<Character> unselectedCharacters = new List<Character>(availableCharacters);
-        foreach (var character in GameData.selectedCharacters)
+        for (int i = 0; i < activePlayerCount; i++)
         {
-            if (character != null)
-                unselectedCharacters.Remove(character);
-        }
-
-        // NPCキャラクターを割り当て
-        GameData.npcData.Clear();
-        for (int i = 0; i < maxPlayers - activePlayerCount; i++)
-        {
-            NPCData npc = new NPCData
+            if (controllerAssignments.ContainsKey(i))
             {
-                assignedCharacter = unselectedCharacters[i],
-                npcStrength = NPCStrength.Unset
-            };
-            GameData.npcData.Add(npc);
-            npcStrengthSelectors[i].SetActive(true); // NPCの強さ選択UIを表示
-        }
-    }
+                int controllerIndex = controllerAssignments[i];
 
-    // NPCの強さを設定するメソッド
-    public void SetNPCStrength(int npcIndex, NPCStrength strength)
-    {
-        if (npcIndex < GameData.npcData.Count)
-        {
-            GameData.npcData[npcIndex].npcStrength = strength;
-            Debug.Log($"NPC {npcIndex} strength set to {strength}");
+                // コントローラー入力の取得
+                string horizontalAxis = $"Joystick{controllerIndex + 1}_Horizontal";
+                string confirmButton = $"Joystick{controllerIndex + 1}_Confirm";
 
-            // NPCの強さが全て設定されているか確認
-            CheckAllNPCStrengthsSet();
-        }
-    }
+                // 左右移動でキャラクター変更
+                if (Input.GetAxis(horizontalAxis) > 0.5f)
+                {
+                    ShowNextCharacter(i);
+                }
+                else if (Input.GetAxis(horizontalAxis) < -0.5f)
+                {
+                    ShowPreviousCharacter(i);
+                }
 
-    private void CheckAllNPCStrengthsSet()
-    {
-        allNPCStrengthsSet = true;
-
-        foreach (var npc in GameData.npcData)
-        {
-            if (npc.npcStrength == NPCStrength.Unset)
-            {
-                allNPCStrengthsSet = false;
-                break;
+                // 決定ボタンでキャラ確定
+                if (Input.GetButtonDown(confirmButton))
+                {
+                    ConfirmCharacter(i);
+                }
             }
         }
-
-        if (allNPCStrengthsSet)
-        {
-            Debug.Log("All NPC strengths set. Game can start.");
-            startGameButton.gameObject.SetActive(true); // ゲームスタートボタンを表示
-        }
-    }
-
-    // NPCの強さ選択ボタン（Weak, Normal, Strong）の処理
-    public void SetWeak(int npcIndex)
-    {
-        SetNPCStrength(npcIndex, NPCStrength.Weak);
-    }
-
-    public void SetNormal(int npcIndex)
-    {
-        SetNPCStrength(npcIndex, NPCStrength.Normal);
-    }
-
-    public void SetStrong(int npcIndex)
-    {
-        SetNPCStrength(npcIndex, NPCStrength.Strong);
     }
 
     private void ShowNextCharacter(int playerIndex)
@@ -194,7 +130,24 @@ public class CharacterSelection : MonoBehaviour
         UpdateCharacterDisplay(playerIndex);
     }
 
-    // 他のプレイヤーが選択したキャラクターかどうかを確認
+    private void ConfirmCharacter(int playerIndex)
+    {
+        Character selectedCharacter = availableCharacters[currentIndices[playerIndex]];
+
+        if (GameData.selectedCharacters.Contains(selectedCharacter))
+        {
+            Debug.Log("他のプレイヤーがすでに選択しているキャラクターです！");
+            return;
+        }
+
+        GameData.selectedCharacters[playerIndex] = selectedCharacter;
+        Debug.Log($"Player {playerIndex + 1} selected {selectedCharacter.characterName}");
+
+        playerConfirmed[playerIndex] = true;
+
+        CheckAllPlayersConfirmed();
+    }
+
     private bool IsCharacterAlreadySelected(int currentPlayerIndex)
     {
         Character currentCharacter = availableCharacters[currentIndices[currentPlayerIndex]];
@@ -208,33 +161,20 @@ public class CharacterSelection : MonoBehaviour
         return false;
     }
 
-    // ConfirmCharacter メソッドの修正
-    public void ConfirmCharacter(int playerIndex)
-    {
-        Character selectedCharacter = availableCharacters[currentIndices[playerIndex]];
-
-        // 他プレイヤーが選択しているキャラクターを再確認
-        if (GameData.selectedCharacters.Contains(selectedCharacter))
-        {
-            Debug.Log("他のプレイヤーがすでに選択しているキャラクターです！");
-            return;
-        }
-
-        GameData.selectedCharacters[playerIndex] = selectedCharacter;
-        Debug.Log($"Player {playerIndex + 1} selected {selectedCharacter.characterName}");
-
-        // 決定ボタンを無効化
-        confirmButtons[playerIndex].interactable = false;
-
-        // 全プレイヤーがキャラを決定したか確認
-        CheckAllPlayersConfirmed();
-    }
-
     private void UpdateCharacterDisplay(int playerIndex)
     {
         Character currentCharacter = availableCharacters[currentIndices[playerIndex]];
         characterImages[playerIndex].sprite = currentCharacter.image;
         characterNames[playerIndex].text = currentCharacter.characterName;
+    }
+
+    private void CheckAllPlayersConfirmed()
+    {
+        if (playerConfirmed.All(confirmed => confirmed))
+        {
+            Debug.Log("All players confirmed. Game can start.");
+            startGameButton.gameObject.SetActive(true);
+        }
     }
 
     public void StartGame()

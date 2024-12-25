@@ -25,6 +25,7 @@ public class TurnManager : MonoBehaviour
     public UIManager uiManager; // UI管理クラス
     public TilemapManager tilemapManager;
     public List<GameObject> commandButtons;
+    public MasuDB masuDB;
 
     private bool isGameFinished = false;
     private bool isStateEnd = false;
@@ -32,12 +33,9 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject Pl;
     Vector3 spawnPosition;
 
-    private Dictionary<int, int> controllerAssignments; // コントローラー番号 -> プレイヤー番号
-
     void Start()
     {
         InitializePlayers();
-        AssignControllersToPlayers();
         StartCoroutine(TurnCycle());
     }
 
@@ -58,21 +56,6 @@ public class TurnManager : MonoBehaviour
 
             players.Add(player);
             player.SetCharaImage();
-        }
-    }
-
-    private void AssignControllersToPlayers()
-    {
-        string[] joystickNames = Input.GetJoystickNames();
-        controllerAssignments = new Dictionary<int, int>();
-
-        for (int i = 0; i < players.Count; i++)
-        {
-            if (i < joystickNames.Length && !string.IsNullOrEmpty(joystickNames[i]))
-            {
-                controllerAssignments[i] = i;
-                Debug.Log($"Controller {i + 1} assigned to Player {i + 1}");
-            }
         }
     }
 
@@ -139,7 +122,7 @@ public class TurnManager : MonoBehaviour
 
         while (!isStateEnd)
         {
-            HandleControllerInputForCommand(player.ID);
+            HandleControllerInputForCommand();
             yield return null;
         }
 
@@ -147,22 +130,17 @@ public class TurnManager : MonoBehaviour
         NextState(state);
     }
 
-    private void HandleControllerInputForCommand(int playerID)
+    private void HandleControllerInputForCommand()
     {
-        if (!controllerAssignments.ContainsKey(playerID)) return;
-
-        int controllerIndex = controllerAssignments[playerID];
-
-        string submitButton = $"Joystick{controllerIndex + 1}_Submit";
-        string cancelButton = $"Joystick{controllerIndex + 1}_Cancel";
-
-        if (Input.GetButtonDown(submitButton))
+        if (Input.GetButtonDown("Submit"))
         {
+            // 決定ボタンが押された場合の処理
             isStateEnd = true;
         }
 
-        if (Input.GetButtonDown(cancelButton))
+        if (Input.GetButtonDown("Cancel"))
         {
+            // キャンセルボタンで状態を戻す
             state = TurnState.CommandSelect;
             isStateEnd = true;
         }
@@ -241,6 +219,11 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < player.MoveSteps; i++)
         {
             Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
+            MasuData branch = masuDB.GetMasuData(player.nowIndex);
+            if(branch.ev == EventType.Branch)
+            {
+
+            }
             yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
         }
 
@@ -282,4 +265,10 @@ public class TurnManager : MonoBehaviour
         Debug.Log("ゲーム終了！");
         SceneManager.LoadScene("ResultScene");
     }
+
+    private IEnumerator BranchEvent(Player player)
+    {
+
+        yield return StartCoroutine(HandlePlayerMove(player));  
+    }   
 }

@@ -34,34 +34,34 @@ public class Player : MonoBehaviour
         display = GetComponent<SpriteRenderer>();
 
         // GameData からコントローラー番号を取得
-        controllerIndex = GameData.controllerAssignments[ID];
+        //controllerIndex = GameData.controllerAssignments[ID];
     }
 
     void Update()
     {
         // 割り当てられたコントローラーのみ入力を受け付ける
-        if (controllerIndex != -1)
-        {
-            HandleInput();
-        }
+        //if (controllerIndex != -1)
+        //{
+        //    HandleInput();
+        //}
     }
 
     void HandleInput()
     {
-        float horizontal = Input.GetAxis($"Joystick{controllerIndex + 1}AxisX");
-        float vertical = Input.GetAxis($"Joystick{controllerIndex + 1}AxisY");
+        //float horizontal = Input.GetAxis($"Joystick{controllerIndex + 1}AxisX");
+        //float vertical = Input.GetAxis($"Joystick{controllerIndex + 1}AxisY");
 
-        if (Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f)
-        {
-            Debug.Log($"Player {ID} is moving: ({horizontal}, {vertical})");
-            // プレイヤーの移動ロジックを追加
-        }
+        //if (Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f)
+        //{
+        //    Debug.Log($"Player {ID} is moving: ({horizontal}, {vertical})");
+        //    // プレイヤーの移動ロジックを追加
+        //}
 
-        if (Input.GetButtonDown($"Joystick{controllerIndex + 1}ButtonA"))
-        {
-            Debug.Log($"Player {ID} pressed A button");
-            // 他のアクションを追加
-        }
+        //if (Input.GetButtonDown($"Joystick{controllerIndex + 1}ButtonA"))
+        //{
+        //    Debug.Log($"Player {ID} pressed A button");
+        //    // 他のアクションを追加
+        //}
     }
 
     public void AddIngredient(Ingredient ingredient)

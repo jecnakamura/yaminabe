@@ -222,7 +222,7 @@ public class TurnManager : MonoBehaviour
             MasuData branch = masuDB.GetMasuData(player.nowIndex);
             if(branch.ev == EventType.Branch)
             {
-
+                StartCoroutine(BranchEvent(player));
             }
             yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
         }

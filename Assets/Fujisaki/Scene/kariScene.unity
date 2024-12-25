@@ -603,8 +603,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1460884279}
-        m_TargetAssemblyTypeName: kari, Assembly-CSharp
+      - m_Target: {fileID: 1460884278}
+        m_TargetAssemblyTypeName: ru_rettoOpen, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:

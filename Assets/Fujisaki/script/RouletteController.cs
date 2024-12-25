@@ -108,16 +108,21 @@ public class RouletteController : MonoBehaviour
                 (-(360 - ((i - 1) * rotatePerRoulette)) >= x && x >= -(360 - (i * rotatePerRoulette))))
             {
                 result = rMaker.choices[i - 1];
-                id = rMaker.ID[i - 1];
+                id = rMaker.ID[i];
             }
         }
         resultText.text = result + "\nが当たったよ！";
-       // Debug.Log("ID：" + csvDatas[id + 1][0] + ", 名前：" + csvDatas[id + 1][1] + ", ジャンル：" + csvDatas[id + 1][2] + ", スコア：" + csvDatas[id + 1][3]);
+        // Debug.Log("ID：" + csvDatas[id + 1][0] + ", 名前：" + csvDatas[id + 1][1] + ", ジャンル：" + csvDatas[id + 1][2] + ", スコア：" + csvDatas[id + 1][3]);
         //  retryButton.gameObject.SetActive(true);
+
+        for (int i = 0; i < csvDatas.Count; i++)
+        {
+            Debug.Log($"Row {i}: {string.Join(", ", csvDatas[i])}");
+        }
     }
     public void PlayerResult(Player player)
     {
-        player.AddIngredient(new Ingredient(id, csvDatas[id + 1][1], csvDatas[id + 1][2], int.Parse(csvDatas[id + 1][3])));
+        player.AddIngredient(new Ingredient(id, csvDatas[id] [1], csvDatas[id ][2], int.Parse(csvDatas[id ][3])));
         Debug.Log(player.Ingredients[0]);
     }
 }

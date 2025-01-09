@@ -48,11 +48,15 @@ public class MasuDB
             // 1É}ÉXêiÇﬂÇÈ
             foreach (var root in masu.next)
             {
-                Root newRoot = new Root(root, moveRemain - 1);
-                var list = newRoot.GetDestinationIndexList(db);
-                if (moveRemain <= 0)
+                // 1à»â∫ÇÃèÍçáÇÕnextÇï‘Ç∑
+                if (moveRemain <= 1)
                 {
-                    ret.AddRange(list);
+                    ret.AddRange(masu.next);
+                }
+                else
+                {
+                    Root newRoot = new Root(root, moveRemain - 1);
+                    return newRoot.GetDestinationIndexList(db);
                 }
             }
 

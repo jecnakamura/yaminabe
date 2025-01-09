@@ -138,14 +138,14 @@ public class TurnManager : MonoBehaviour
         NextState(state);
     }
 
-    public void OnCommandButton()
+    public void OnButtonClick(int type)
     {
         Player currentPlayer = players[currentPlayerIndex];
 
 
-        NextState(TurnState.Roulette);
+        NextState((TurnState)type);
 
-        StartCoroutine(HandleCommandSelect(currentPlayer));
+        StartCoroutine(HandleState(currentPlayer));
     }
 
     private void HandleControllerInputForCommand()
@@ -223,6 +223,8 @@ public class TurnManager : MonoBehaviour
         player.camera.gameObject.SetActive(true);
 
         NextState(player.MoveSteps == 0 ? TurnState.CommandSelect : TurnState.PlayerMove);
+
+        StartCoroutine(HandleState(player));
     }
 
     private void HandleControllerInputForRoulette()
@@ -238,11 +240,6 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < player.MoveSteps; i++)
         {
             Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
-            MasuData branch = masuDB.GetMasuData(player.nowIndex);
-            if (branch.ev == EventType.Branch)
-            {
-                StartCoroutine(BranchEvent(player));
-            }
             yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
         }
 
@@ -250,6 +247,7 @@ public class TurnManager : MonoBehaviour
         player.MoveSteps = 0;
 
         NextState(TurnState.Event);
+        StartCoroutine(TurnCycle());
     }
 
     private IEnumerator HandleEvent(Player player)
@@ -326,5 +324,4 @@ public class TurnManager : MonoBehaviour
         // 選択されたマスに移動を続行
         yield return null;
     }
-
 }

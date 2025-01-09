@@ -8,13 +8,18 @@ public class TilemapManager : MonoBehaviour
     public Sprite sprite, startTile, goalTile, nikuTile, sakanaTile, yasaiTile, hazureTile, bunnkiTile, eventTile;
     public MasuDB masuDB = new MasuDB(); // MasuDBのインスタンスを追加
 
+    static TilemapManager instance = null;
+    public static TilemapManager Instance { get { return instance; } }
+
     void Start()
     {
         // 必要な初期化処理をここに追加
+        instance = this;
     }
 
     public IEnumerator TileEvent(Player player)
     {
+        /*
         // プレイヤーの位置をセル座標に変換
         Vector3Int playerCell = tilemap.WorldToCell(player.transform.position);
         TileBase currentTile = tilemap.GetTile(playerCell);
@@ -72,9 +77,9 @@ public class TilemapManager : MonoBehaviour
         {
             Debug.Log("タイルが見つかりませんでした。");
         }
-
+        */
         // プレイヤーの現在位置に対応するマス情報を取得
-        MasuData masu = masuDB.GetMasuData((int)player.transform.position.x); // プレイヤーの位置に対応するMasuDataを取得
+        MasuData masu = masuDB.GetMasuData(player.nowIndex); // プレイヤーの位置に対応するMasuDataを取得
         if (masu != null)
         {
             Debug.Log($"マス {masu.index} のイベントが発動");
@@ -86,7 +91,7 @@ public class TilemapManager : MonoBehaviour
                     yield return StartCoroutine(HandleMeatEvent(player));
                     break;
 
-                case EventType.Vegetable:
+                case EventType.Vegetable: 
                     yield return StartCoroutine(HandleVegetableEvent(player));
                     break;
 

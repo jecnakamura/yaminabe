@@ -130,7 +130,6 @@
     <Compile Include="Assets\Yoshida\Script\roulette.cs" />
     <Compile Include="Assets\Kouda\Script\RuleSceneManager.cs" />
     <Compile Include="Assets\Saitou\Title.cs" />
-    <Compile Include="Assets\Saitou\ruru.cs" />
     <Compile Include="Assets\Kouda\Script\MapViewer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Kouda\Script\NPC.cs" />

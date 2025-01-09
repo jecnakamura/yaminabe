@@ -1177,11 +1177,11 @@ MonoBehaviour:
       - m_Target: {fileID: 1897042880}
         m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
         m_MethodName: OnCommandButton
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 7
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

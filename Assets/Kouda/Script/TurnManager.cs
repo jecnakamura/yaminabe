@@ -39,6 +39,11 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(TurnCycle());
     }
 
+    private void Update()
+    {
+        Debug.Log(state.ToString());
+    }
+
     private void InitializePlayers()
     {
         Vector3 scale = new Vector3(0.25f, 0.25f, 1.0f);
@@ -120,6 +125,8 @@ public class TurnManager : MonoBehaviour
     {
         ToggleCommandButtons(true);
 
+        
+        
         while (!isStateEnd)
         {
             HandleControllerInputForCommand();
@@ -128,6 +135,11 @@ public class TurnManager : MonoBehaviour
 
         ToggleCommandButtons(false);
         NextState(state);
+    }
+
+    public void OnCommandButton()
+    {
+        state = TurnState.Roulette;
     }
 
     private void HandleControllerInputForCommand()

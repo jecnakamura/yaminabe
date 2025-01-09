@@ -39,6 +39,11 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(TurnCycle());
     }
 
+    private void Update()
+    {
+        Debug.Log(state.ToString());
+    }
+
     private void InitializePlayers()
     {
         Vector3 scale = new Vector3(0.25f, 0.25f, 1.0f);
@@ -99,6 +104,7 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case TurnState.Roulette:
+                Debug.Log("RurettoÉVÅ[ÉìÇ™ì«Ç›çûÇ‹ÇÍÇ‹ÇµÇΩ");
                 yield return StartCoroutine(HandleRoulette(currentPlayer));
                 break;
 
@@ -120,6 +126,8 @@ public class TurnManager : MonoBehaviour
     {
         ToggleCommandButtons(true);
 
+        
+        
         while (!isStateEnd)
         {
             HandleControllerInputForCommand();
@@ -128,6 +136,16 @@ public class TurnManager : MonoBehaviour
 
         ToggleCommandButtons(false);
         NextState(state);
+    }
+
+    public void OnCommandButton()
+    {
+        Player currentPlayer = players[currentPlayerIndex];
+
+
+        NextState(TurnState.Roulette);
+
+        StartCoroutine(HandleCommandSelect(currentPlayer));
     }
 
     private void HandleControllerInputForCommand()
@@ -189,6 +207,7 @@ public class TurnManager : MonoBehaviour
         RouletteResultHandler.SetEnd(false);
 
         yield return SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
+        
         player.camera.gameObject.SetActive(false);
 
         while (!RouletteResultHandler.IsEnd())

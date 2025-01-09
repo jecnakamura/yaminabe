@@ -60,8 +60,8 @@ public class Title : MonoBehaviour
 
         SceneManager.LoadScene("TitleScene", LoadSceneMode.Additive);
     }
-    public void OnClickRules()
-    {
-        SceneManager.LoadScene("RuleScene");
-    }
+    //public void OnClickRules()
+    //{
+    //    SceneManager.LoadScene("RuleScene");
+    //}
 }

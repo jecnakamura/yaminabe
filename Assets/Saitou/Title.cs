@@ -7,6 +7,7 @@ public class Title : MonoBehaviour
     public GameObject[] menuButtons; // ボタンオブジェクトをインスペクターで設定
     private int currentIndex = 0;
 
+
     private void Start()
     {
         // 初期状態で最初のボタンを選択

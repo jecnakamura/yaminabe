@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 943033173}
   - component: {fileID: 943033172}
   - component: {fileID: 943033171}
-  - component: {fileID: 943033174}
+  - component: {fileID: 943033175}
   m_Layer: 5
   m_Name: ru-ruB
   m_TagString: Untagged
@@ -310,9 +310,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 943033174}
-        m_TargetAssemblyTypeName: ruru, Assembly-CSharp
-        m_MethodName: OnClick
+      - m_Target: {fileID: 943033175}
+        m_TargetAssemblyTypeName: Title, Assembly-CSharp
+        m_MethodName: OnClickRules
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -360,7 +360,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943033169}
   m_CullTransparentMesh: 1
---- !u!114 &943033174
+--- !u!114 &943033175
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -369,9 +369,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 943033169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e6c8e1ccadea2d45a4e27e94028e98e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e5c21ff1c38ba240a33c3ba9affb45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuButtons: []
 --- !u!1 &1101381971
 GameObject:
   m_ObjectHideFlags: 0

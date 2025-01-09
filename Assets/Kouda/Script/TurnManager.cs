@@ -104,6 +104,7 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case TurnState.Roulette:
+                Debug.Log("RurettoÉVÅ[ÉìÇ™ì«Ç›çûÇ‹ÇÍÇ‹ÇµÇΩ");
                 yield return StartCoroutine(HandleRoulette(currentPlayer));
                 break;
 
@@ -139,7 +140,12 @@ public class TurnManager : MonoBehaviour
 
     public void OnCommandButton()
     {
-        state = TurnState.Roulette;
+        Player currentPlayer = players[currentPlayerIndex];
+
+
+        NextState(TurnState.Roulette);
+
+        StartCoroutine(HandleCommandSelect(currentPlayer));
     }
 
     private void HandleControllerInputForCommand()
@@ -201,6 +207,7 @@ public class TurnManager : MonoBehaviour
         RouletteResultHandler.SetEnd(false);
 
         yield return SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
+        
         player.camera.gameObject.SetActive(false);
 
         while (!RouletteResultHandler.IsEnd())

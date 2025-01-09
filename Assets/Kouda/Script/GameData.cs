@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public static class GameData
 {
-    public static int playerCount = 0; // プレイヤー人数
+    public static int playerCount = 1; // プレイヤー人数
     public static Character[] selectedCharacters = new Character[4]; // プレイヤー選択キャラクター
     public static List<NPCData> npcData = new List<NPCData>(); // NPCデータリスト
     public static int[] controllerAssignments = new int[4]; // プレイヤーごとのコントローラー番号

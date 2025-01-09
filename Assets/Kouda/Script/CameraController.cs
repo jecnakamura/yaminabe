@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
         Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, defaultZoom, zoomSpeed * Time.deltaTime);
     }
 
-   
+
 
     public void ToggleMapView(Vector3 mapCenter)
     {

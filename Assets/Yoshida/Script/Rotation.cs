@@ -10,7 +10,7 @@ public class Rotation : MonoBehaviour
     public float DecelerationMax;
     public float MinSpeed;
 
-    public Vector3 RayGoal; 
+    public Vector3 RayGoal;
 
     public enum State
     {
@@ -30,7 +30,7 @@ public class Rotation : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        switch(state)
+        switch (state)
         {
             case State.Standby:
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -62,7 +62,7 @@ public class Rotation : MonoBehaviour
                     state = State.Standby;
                 }
                 break;
-            
+
 
         }
     }

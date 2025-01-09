@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using System;
-using UnityEngine;
-using UnityEngine.UI;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 [Serializable]
 public class MasuData
@@ -47,11 +46,11 @@ public class MasuDB
             if (masu == null) return ret;
 
             // 1マス進める
-            foreach(var root in masu.next)
+            foreach (var root in masu.next)
             {
                 Root newRoot = new Root(root, moveRemain - 1);
                 var list = newRoot.GetDestinationIndexList(db);
-                if(moveRemain <= 0)
+                if (moveRemain <= 0)
                 {
                     ret.AddRange(list);
                 }
@@ -78,7 +77,7 @@ public class MasuDB
 
         // 行先リストからMasuDataのリストを生成
         List<MasuData> ret = new List<MasuData>();
-        foreach(var i in indexList)
+        foreach (var i in indexList)
         {
             MasuData masu = GetMasuData(i);
             ret.Add(masu);

@@ -1,9 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.UI;
 
 public class ResultManager : MonoBehaviour
 {
@@ -45,7 +44,7 @@ public class ResultManager : MonoBehaviour
         int[] test = { };
         for (int i = 0; i < 4; i++)
         {
-            result += $"{i + 1}位: プレイヤー{i+1} - スコア: {i*10}\n";
+            result += $"{i + 1}位: プレイヤー{i + 1} - スコア: {i * 10}\n";
             result += $"食材: {i}個\n";
         }
 

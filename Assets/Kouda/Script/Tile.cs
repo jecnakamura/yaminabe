@@ -18,7 +18,7 @@ public class Tile : MonoBehaviour
         // プレイヤーの状態や他のプレイヤーとのイベントを処理
         if (tileType == TileType.Normal)
         {
-           // Ingredient newIngredient = GenerateIngredient();
+            // Ingredient newIngredient = GenerateIngredient();
             //player.AddIngredient(newIngredient);
         }
         else if (tileType == TileType.Event)

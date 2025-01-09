@@ -25,6 +25,7 @@ public class TurnManager : MonoBehaviour
     public UIManager uiManager; // UI管理クラス
     public TilemapManager tilemapManager;
     public List<GameObject> commandButtons;
+    public MasuDB masuDB;
 
     private bool isGameFinished = false;
     private bool isStateEnd = false;
@@ -218,6 +219,11 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < player.MoveSteps; i++)
         {
             Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
+            MasuData branch = masuDB.GetMasuData(player.nowIndex);
+            if (branch.ev == EventType.Branch)
+            {
+                StartCoroutine(BranchEvent(player));
+            }
             yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
         }
 
@@ -259,4 +265,47 @@ public class TurnManager : MonoBehaviour
         Debug.Log("ゲーム終了！");
         SceneManager.LoadScene("ResultScene");
     }
+
+    private IEnumerator BranchEvent(Player player)
+    {
+        // 分岐先マスを取得
+        MasuData currentMasu = masuDB.GetMasuData(player.nowIndex);
+        List<int> nextIndices = currentMasu.next;
+
+        if (nextIndices == null || nextIndices.Count == 0)
+        {
+            Debug.LogWarning("分岐先がありません。");
+            yield break;
+        }
+
+        // 分岐選択UIを表示
+        uiManager.ShowBranchOptions(nextIndices);
+
+        // プレイヤーが選択するまで待つ
+        int selectedIndex = -1;
+        bool isOptionSelected = false;
+
+        uiManager.OnBranchSelected += (index) =>
+        {
+            selectedIndex = index;
+            isOptionSelected = true;
+        };
+
+        while (!isOptionSelected)
+        {
+            yield return null;
+        }
+
+        // UIを非表示にする
+        uiManager.HideBranchOptions();
+
+        // 選択された分岐先に移動
+        player.nowIndex = selectedIndex;
+
+        Debug.Log($"プレイヤー {player.ID} が分岐を選択: マス {selectedIndex}");
+
+        // 選択されたマスに移動を続行
+        yield return null;
+    }
+
 }

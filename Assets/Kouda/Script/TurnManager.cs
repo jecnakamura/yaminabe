@@ -268,7 +268,44 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator BranchEvent(Player player)
     {
+        // 分岐先マスを取得
+        MasuData currentMasu = masuDB.GetMasuData(player.nowIndex);
+        List<int> nextIndices = currentMasu.next;
 
-        yield return StartCoroutine(HandlePlayerMove(player));
+        if (nextIndices == null || nextIndices.Count == 0)
+        {
+            Debug.LogWarning("分岐先がありません。");
+            yield break;
+        }
+
+        // 分岐選択UIを表示
+        uiManager.ShowBranchOptions(nextIndices);
+
+        // プレイヤーが選択するまで待つ
+        int selectedIndex = -1;
+        bool isOptionSelected = false;
+
+        uiManager.OnBranchSelected += (index) =>
+        {
+            selectedIndex = index;
+            isOptionSelected = true;
+        };
+
+        while (!isOptionSelected)
+        {
+            yield return null;
+        }
+
+        // UIを非表示にする
+        uiManager.HideBranchOptions();
+
+        // 選択された分岐先に移動
+        player.nowIndex = selectedIndex;
+
+        Debug.Log($"プレイヤー {player.ID} が分岐を選択: マス {selectedIndex}");
+
+        // 選択されたマスに移動を続行
+        yield return null;
     }
+
 }

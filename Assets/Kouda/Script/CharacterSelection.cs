@@ -55,6 +55,7 @@ public class CharacterSelection : MonoBehaviour
         {
             characterImages[i].gameObject.SetActive(false);
             characterNames[i].gameObject.SetActive(false);
+
         }
 
         // コントローラー割り当て
@@ -104,6 +105,13 @@ public class CharacterSelection : MonoBehaviour
                 }
             }
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("End");
+
+            TestAllPlayer();
+        }
+
     }
 
     private void ShowNextCharacter(int playerIndex)
@@ -177,6 +185,20 @@ public class CharacterSelection : MonoBehaviour
         }
     }
 
+    private void TestAllPlayer()
+    {
+        for(int i = 0; i < maxPlayers; i++)
+        {
+            Character selectedCharacter = availableCharacters[currentIndices[i]];
+
+            GameData.selectedCharacters[i] = selectedCharacter;
+            Debug.Log($"Player {i + 1} selected {selectedCharacter.characterName}");
+
+            playerConfirmed[i] = true;
+
+            StartGame();
+        }
+    }
     public void StartGame()
     {
         SceneManager.LoadScene("NSScene");

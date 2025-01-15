@@ -17,6 +17,7 @@ public class TurnManager : MonoBehaviour
     }
 
     public TurnState state = TurnState.CommandSelect;
+    public Character availableCharacter;    // 全キャラクターリスト
 
     public List<Player> players; // プレイヤー（NPC含む）リスト
     private int currentPlayerIndex = 0;
@@ -49,6 +50,12 @@ public class TurnManager : MonoBehaviour
         Vector3 scale = new Vector3(0.25f, 0.25f, 1.0f);
         spawnPosition = new Vector3(-23, 3, 0);
 
+        if(GameData.selectedCharacters[0] == null)
+        {
+            Character selectedCharacter = availableCharacter;
+
+            GameData.selectedCharacters[0] = selectedCharacter;
+        }
         for (int i = 0; i < GameData.playerCount; i++)
         {
             var obj = Instantiate(Pl, spawnPosition, Quaternion.identity);

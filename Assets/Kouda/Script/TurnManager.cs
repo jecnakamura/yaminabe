@@ -258,6 +258,10 @@ public class TurnManager : MonoBehaviour
         {
             Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
             yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            if (tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Branch)
+            {
+                StartCoroutine(BranchEvent(player));
+            }
         }
 
         yield return StartCoroutine(tilemapManager.TileEvent(player));

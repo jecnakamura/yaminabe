@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class TurnManager : MonoBehaviour
     public TilemapManager tilemapManager;
     public List<GameObject> commandButtons;
     public MasuDB masuDB;
-
+    public Button RoulettteGameButton;
     private bool isGameFinished = false;
     private bool isStateEnd = false;
 
@@ -42,7 +43,8 @@ public class TurnManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(state.ToString());
+        //Debug.Log(state.ToString());
+
     }
 
     private void InitializePlayers()
@@ -99,6 +101,7 @@ public class TurnManager : MonoBehaviour
         switch (state)
         {
             case TurnState.CommandSelect:
+                RoulettteGameButton.gameObject.SetActive(true);
                 yield return StartCoroutine(HandleCommandSelect(currentPlayer));
                 break;
 
@@ -211,6 +214,8 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator HandleRoulette(Player player)
     {
+        RoulettteGameButton.gameObject.SetActive(false);
+
         RouletteResultHandler.SetEnd(false);
 
         yield return SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);

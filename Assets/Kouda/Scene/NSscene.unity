@@ -3648,6 +3648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  availableCharacter: {fileID: 11400000, guid: c78641c3c616e3549a5590596212afac, type: 2}
   players: []
   mapManager: {fileID: 1897042882}
   cameraController: {fileID: 0}

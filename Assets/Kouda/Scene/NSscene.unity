@@ -3651,13 +3651,14 @@ MonoBehaviour:
   availableCharacter: {fileID: 11400000, guid: c78641c3c616e3549a5590596212afac, type: 2}
   players: []
   mapManager: {fileID: 1897042882}
-  cameraController: {fileID: 0}
+  cameraController: {fileID: 695476521}
   uiManager: {fileID: 1897042884}
   tilemapManager: {fileID: 1218912557}
   commandButtons:
   - {fileID: 989684747}
   masuDB:
     data: []
+  RoulettteGameButton: {fileID: 989684749}
   Pl: {fileID: 7141200225084256373, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}
 --- !u!4 &1897042881
 Transform:

@@ -260,7 +260,7 @@ public class TurnManager : MonoBehaviour
             yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
             if (tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Branch)
             {
-                StartCoroutine(BranchEvent(player));
+                yield return StartCoroutine(BranchEvent(player));
             }
         }
 
@@ -319,20 +319,30 @@ public class TurnManager : MonoBehaviour
         // 分岐選択UIを表示
         uiManager.ShowBranchOptions(nextIndices);
 
-        // プレイヤーが選択するまで待つ
+        // プレイヤーが選択するまで待機
         int selectedIndex = -1;
         bool isOptionSelected = false;
 
+        // イベントリスナーを追加
         uiManager.OnBranchSelected += (index) =>
         {
             selectedIndex = index;
             isOptionSelected = true;
         };
 
+        // 選択が完了するまで待機
         while (!isOptionSelected)
         {
+            // この部分でプレイヤーの移動処理を待機
             yield return null;
         }
+
+        // イベントリスナーを解除
+        uiManager.OnBranchSelected -= (index) =>
+        {
+            selectedIndex = index;
+            isOptionSelected = true;
+        };
 
         // UIを非表示にする
         uiManager.HideBranchOptions();

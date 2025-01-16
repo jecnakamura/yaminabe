@@ -317,7 +317,7 @@ public class TurnManager : MonoBehaviour
         }
 
         // 分岐選択UIを表示
-        uiManager.ShowBranchOptions(nextIndices);
+        uiManager.ShowBranchOptions(nextIndices,player);
 
         // プレイヤーが選択するまで待機
         int selectedIndex = -1;

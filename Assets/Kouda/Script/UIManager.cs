@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     }
 
     // 分岐オプションを表示
-    public void ShowBranchOptions(List<int> nextIndices)
+    public void ShowBranchOptions(List<int> nextIndices,Player player)
     {
         branchPanel.SetActive(true);
 
@@ -36,6 +36,10 @@ public class UIManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        // 初期位置（Y軸）の設定
+        float buttonHeight = 50f;  // 各ボタンの高さ（仮の値）
+        float offsetY = 0f;
+
         // 新しいボタンを作成
         foreach (int index in nextIndices)
         {
@@ -43,12 +47,19 @@ public class UIManager : MonoBehaviour
             Button button = buttonObj.GetComponent<Button>();
             button.GetComponentInChildren<TextMeshProUGUI>().text = $"マス {index}";
 
+            // ボタンの位置をずらす
+            RectTransform buttonRectTransform = button.GetComponent<RectTransform>();
+            buttonRectTransform.anchoredPosition = new Vector2(0, offsetY);
+
             // ボタンがクリックされたときの処理
             button.onClick.AddListener(() =>
             {
                 OnBranchSelected?.Invoke(index);
                 HideBranchOptions();
             });
+
+            // 次のボタンの位置をずらす
+            offsetY -= buttonHeight;  // ボタンを下に配置するためにY軸方向にオフセット
         }
     }
 

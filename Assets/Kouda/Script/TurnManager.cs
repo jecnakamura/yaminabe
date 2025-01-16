@@ -114,7 +114,7 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case TurnState.ViewMap:
-                yield return StartCoroutine(HandleViewMap());
+                yield return StartCoroutine(HandleViewMap(currentPlayer));
                 break;
 
             case TurnState.LookList:
@@ -179,8 +179,11 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator HandleViewMap()
+    private IEnumerator HandleViewMap(Player player)
     {
+        player.camera.gameObject.SetActive(false);
+        cameraController.gameObject.SetActive(true);
+
         while (!isStateEnd)
         {
             HandleControllerInputForViewMap();
@@ -262,6 +265,11 @@ public class TurnManager : MonoBehaviour
             {
                 yield return StartCoroutine(BranchEvent(player));
             }
+            else if(tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Goal)
+            {
+                player.HasFinished = true;
+                break;
+            }
         }
 
         yield return StartCoroutine(tilemapManager.TileEvent(player));
@@ -315,58 +323,86 @@ public class TurnManager : MonoBehaviour
             Debug.LogWarning("分岐先がありません。");
             yield break;
         }
-        // 分岐選択UIを表示
-        uiManager.ShowBranchOptions(nextIndices,player);
-
-        // プレイヤーが選択するまで待機
-        int selectedIndex = -1;
-        bool isOptionSelected = false;
-
-        // イベントリスナーを追加
-        uiManager.OnBranchSelected += (index) =>
+        if (nextIndices.Count == 1)
         {
-            selectedIndex = index;
-            isOptionSelected = true;
-        };
-
-        // 選択が完了するまで待機
-        while (!isOptionSelected)
-        {
-            // この部分でプレイヤーの移動処理を待機
-            yield return null;
+            //上から真ん中へ
+            if (player.nowIndex == 13 || player.nowIndex == 50 || player.nowIndex == 81)
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, -4.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            }
+            //下から真ん中へ
+            else if (player.nowIndex == 35 || player.nowIndex == 68 || player.nowIndex == 97)
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, 4.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            }
+            //真ん中のまま
+            else
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            }
+            yield break;
         }
-
-        // イベントリスナーを解除
-        uiManager.OnBranchSelected -= (index) =>
-        {
-            selectedIndex = index;
-            isOptionSelected = true;
-        };
-
-        // UIを非表示にする
-        uiManager.HideBranchOptions();
-
-        player.nowIndex = selectedIndex;
-        Debug.Log($"プレイヤー {player.ID} が分岐を選択: マス {selectedIndex}");
-
-        // 選択された分岐先に移動
-        //上の選択肢
-        if (selectedIndex == 3 || selectedIndex == 42 || selectedIndex == 74)
-        {
-            Vector3 targetPos = player.transform.position + new Vector3(3.5f, 4.0f, 0.0f);
-            yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
-        }
-        //下の選択肢
-        else if (selectedIndex == 25 || selectedIndex == 60 || selectedIndex == 90)
-        {
-            Vector3 targetPos = player.transform.position + new Vector3(3.5f, -4.0f, 0.0f);
-            yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
-        }
-        //真ん中の選択肢
         else
         {
-            Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
-            yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            // 分岐選択UIを表示
+            uiManager.ShowBranchOptions(nextIndices, player);
+
+            // プレイヤーが選択するまで待機
+            int selectedIndex = -1;
+            bool isOptionSelected = false;
+
+            // イベントリスナーを追加
+            uiManager.OnBranchSelected += (index) =>
+            {
+                selectedIndex = index;
+                isOptionSelected = true;
+            };
+
+            // 選択が完了するまで待機
+            while (!isOptionSelected)
+            {
+                // この部分でプレイヤーの移動処理を待機
+                yield return null;
+            }
+
+            // イベントリスナーを解除
+            uiManager.OnBranchSelected -= (index) =>
+            {
+                selectedIndex = index;
+                isOptionSelected = true;
+            };
+
+            // UIを非表示にする
+            uiManager.HideBranchOptions();
+            player.nowIndex = selectedIndex;
+
+            Debug.Log($"プレイヤー {player.ID} が分岐を選択: マス {selectedIndex}");
+
+            // 選択された分岐先に移動
+            //上の選択肢
+            if (selectedIndex == 3 || selectedIndex == 42 || selectedIndex == 74)
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, 4.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            }
+            //下の選択肢
+            else if (selectedIndex == 25 || selectedIndex == 60 || selectedIndex == 90)
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, -4.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            
+            }
+            //真ん中の選択肢
+            else
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            }
+            player.nowIndex -= 1;
+
         }
     }
 }

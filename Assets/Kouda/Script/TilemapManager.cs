@@ -144,8 +144,9 @@ public class TilemapManager : MonoBehaviour
     private IEnumerator HandleMeatEvent(Player player)
     {
         Debug.Log("肉イベントが発生！");
-        // 肉に関連する処理をここに記述
-        yield return new WaitForSeconds(1);
+        scenename = "NikuRurettoScene";
+
+        yield return FoodRoulette(scenename, player);
     }
 
     private IEnumerator HandleVegetableEvent(Player player)
@@ -155,26 +156,33 @@ public class TilemapManager : MonoBehaviour
         int num = Random.Range(1, 3);
         scenename = "Yasai" + num.ToString() + "RurettoScene";
         
-        yield return  AAA(scenename, player);
+        yield return FoodRoulette(scenename, player);
 
     }
 
     private IEnumerator HandleFishEvent(Player player)
     {
         Debug.Log("魚イベントが発生！");
-        yield return new WaitForSeconds(1);
+        scenename = "GyokaiRurettoScene";
+
+        yield return FoodRoulette(scenename,player);
     }
 
     private IEnumerator HandleOtherEvent(Player player)
     {
         Debug.Log("その他イベントが発生！");
-        yield return new WaitForSeconds(1);
+        scenename = "SonotaRurettoScene";
+
+        yield return FoodRoulette(scenename,player);
+
     }
 
     private IEnumerator HandleLoseEvent(Player player)
     {
         Debug.Log("ハズレイベントが発生！");
-        yield return new WaitForSeconds(1);
+        scenename = "HazureRurettoScene";
+
+        yield return FoodRoulette(scenename, player);
     }
 
     private IEnumerator HandleRandomEvent(Player player)
@@ -186,10 +194,10 @@ public class TilemapManager : MonoBehaviour
     private IEnumerator HandleBranchEvent(Player player)
     {
         Debug.Log("分岐イベントが発生！");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0);
     }
 
-    private IEnumerator AAA(string scenename,Player player)
+    private IEnumerator FoodRoulette(string scenename,Player player)
     {
         var asyncLoad = SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
 

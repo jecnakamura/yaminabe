@@ -262,6 +262,11 @@ public class TurnManager : MonoBehaviour
             {
                 yield return StartCoroutine(BranchEvent(player));
             }
+            else if(tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Goal)
+            {
+                player.HasFinished = true;
+                break;
+            }
         }
 
         yield return StartCoroutine(tilemapManager.TileEvent(player));
@@ -317,25 +322,25 @@ public class TurnManager : MonoBehaviour
         }
         if (nextIndices.Count == 1)
         {
-            //上の選択肢
+            //上から真ん中へ
             if (player.nowIndex == 13 || player.nowIndex == 50 || player.nowIndex == 81)
             {
                 Vector3 targetPos = player.transform.position + new Vector3(3.5f, -4.0f, 0.0f);
                 yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
             }
-            //下の選択肢
+            //下から真ん中へ
             else if (player.nowIndex == 35 || player.nowIndex == 68 || player.nowIndex == 97)
             {
                 Vector3 targetPos = player.transform.position + new Vector3(3.5f, 4.0f, 0.0f);
                 yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
             }
-            //真ん中の選択肢
+            //真ん中のまま
             else
             {
                 Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
                 yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
             }
-
+            yield break;
         }
         else
         {
@@ -369,8 +374,8 @@ public class TurnManager : MonoBehaviour
 
             // UIを非表示にする
             uiManager.HideBranchOptions();
+            player.nowIndex = selectedIndex;
 
-            player.nowIndex = selectedIndex - 1;
             Debug.Log($"プレイヤー {player.ID} が分岐を選択: マス {selectedIndex}");
 
             // 選択された分岐先に移動

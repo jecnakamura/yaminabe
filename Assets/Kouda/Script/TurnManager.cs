@@ -114,7 +114,7 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case TurnState.ViewMap:
-                yield return StartCoroutine(HandleViewMap());
+                yield return StartCoroutine(HandleViewMap(currentPlayer));
                 break;
 
             case TurnState.LookList:
@@ -179,8 +179,11 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator HandleViewMap()
+    private IEnumerator HandleViewMap(Player player)
     {
+        player.camera.gameObject.SetActive(false);
+        cameraController.gameObject.SetActive(true);
+
         while (!isStateEnd)
         {
             HandleControllerInputForViewMap();

@@ -21,6 +21,8 @@ public class CameraController : MonoBehaviour
         //{
         //    FollowPlayer();//プレイヤー追従モード
         //}
+
+
     }
 
     public void FollowPlayer(Player player)

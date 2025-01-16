@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class TilemapManager : MonoBehaviour
     public static TilemapManager Instance { get { return instance; } }
 
     public RouletteController rouletteController = new RouletteController();
+
+    private string scenename;
 
     void Start()
     {
@@ -150,18 +153,9 @@ public class TilemapManager : MonoBehaviour
         Debug.Log("野菜イベントが発生！");
 
         int num = Random.Range(1, 3);
-        string scenename = "Yasai" + num.ToString() + "RurettoScene";
+        scenename = "Yasai" + num.ToString() + "RurettoScene";
         
-        yield return SceneManager.LoadSceneAsync(scenename);
-        player.camera.gameObject.SetActive(false);
-
-        rouletteController.PlayerResult(player);
-
-        yield return new WaitForSeconds(1);
-
-        yield return SceneManager.UnloadSceneAsync(scenename);
-        player.camera.gameObject.SetActive(true);
-
+        yield return  AAA(scenename, player);
 
     }
 
@@ -193,5 +187,30 @@ public class TilemapManager : MonoBehaviour
     {
         Debug.Log("分岐イベントが発生！");
         yield return new WaitForSeconds(1);
+    }
+
+    private IEnumerator AAA(string scenename,Player player)
+    {
+        var asyncLoad = SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        player.camera.gameObject.SetActive(false);
+
+        rouletteController = GameObject.Find("RouletteController").GetComponent<RouletteController>();
+        while (!rouletteController.isFinish)
+        {
+            yield return null;
+        }
+
+        rouletteController.PlayerResult(player);
+
+        yield return new WaitForSeconds(1);
+
+        SceneManager.UnloadSceneAsync(scenename);
+        player.camera.gameObject.SetActive(true);
     }
 }

@@ -15,6 +15,7 @@ public class RouletteController : MonoBehaviour
     private int frameCount;
     private bool isPlaying;
     private bool isStop;
+    public bool isFinish = false;
     [SerializeField] private Text resultText;
     [SerializeField] private Button startButton;
     [SerializeField] private Button stopButton;
@@ -69,7 +70,8 @@ public class RouletteController : MonoBehaviour
         {
             isPlaying = false;
             ShowResult(roulette.transform.eulerAngles.z);
-            PlayerResult(player);
+            //PlayerResult(player);
+            isFinish = true;
         }
     }
 

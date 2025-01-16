@@ -30,59 +30,7 @@ public class TilemapManager : MonoBehaviour
         Vector3Int playerCell = tilemap.WorldToCell(player.transform.position);
         TileBase currentTile = tilemap.GetTile(playerCell);
 
-        if (currentTile != null)
-        {
-            Debug.Log("現在のタイル: " + currentTile.name);
-
-            // タイルに応じた処理
-            if (currentTile == startTile)
-            {
-                Debug.Log("スタートマス");
-            }
-            else if (currentTile == goalTile)
-            {
-                Debug.Log("ゴールマス");
-            }
-            else if (currentTile == nikuTile)
-            {
-                Debug.Log("肉食材マス");
-                //NIKU.GetNIKU(player.Ingredient);
-                yield return StartCoroutine(HandleMeatEvent(player));
-            }
-            else if (currentTile == sakanaTile)
-            {
-                Debug.Log("魚食材マス");
-                yield return StartCoroutine(HandleFishEvent(player));
-            }
-            else if (currentTile == yasaiTile)
-            {
-                Debug.Log("野菜食材マス");
-                yield return StartCoroutine(HandleVegetableEvent(player));
-            }
-            else if (currentTile == hazureTile)
-            {
-                Debug.Log("ハズレ食材マス");
-                yield return StartCoroutine(HandleLoseEvent(player));
-            }
-            else if (currentTile == bunnkiTile)
-            {
-                Debug.Log("分岐マス");
-                yield return StartCoroutine(HandleBranchEvent(player));
-            }
-            else if (currentTile == eventTile)
-            {
-                Debug.Log("イベントマス");
-                yield return StartCoroutine(HandleOtherEvent(player));
-            }
-            else
-            {
-                Debug.Log("不明なタイル");
-            }
-        }
-        else
-        {
-            Debug.Log("タイルが見つかりませんでした。");
-        }
+        
 
         // プレイヤーの現在位置に対応するマス情報を取得
         MasuData masu = masuDB.GetMasuData(player.nowIndex); // プレイヤーの位置に対応するMasuDataを取得

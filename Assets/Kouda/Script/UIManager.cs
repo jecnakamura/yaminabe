@@ -36,30 +36,27 @@ public class UIManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        // 初期位置（Y軸）の設定
-        float buttonHeight = 50f;  // 各ボタンの高さ（仮の値）
-        float offsetY = 0f;
+        // ボタンを配置するY座標の初期値
+        float[] yPositions = new float[] { 450f, 0f, -450f };
 
         // 新しいボタンを作成
-        foreach (int index in nextIndices)
+        for (int i = 0; i < nextIndices.Count; i++)
         {
             GameObject buttonObj = Instantiate(branchButtonPrefab, branchButtonContainer);
             Button button = buttonObj.GetComponent<Button>();
-            button.GetComponentInChildren<TextMeshProUGUI>().text = $"マス {index}";
+            button.GetComponentInChildren<TextMeshProUGUI>().text = $"マス {nextIndices[i]}";
 
-            // ボタンの位置をずらす
+            // ボタンの位置調整 (X座標を375、Y座標をyPositionsで変更)
             RectTransform buttonRectTransform = button.GetComponent<RectTransform>();
-            buttonRectTransform.anchoredPosition = new Vector2(0, offsetY);
+            buttonRectTransform.anchoredPosition = new Vector2(375f, yPositions[i]);  // X = 375, YはyPositions[i]
 
             // ボタンがクリックされたときの処理
+            int index = nextIndices[i];  // 関数内のインデックスを使うためにローカル変数に格納
             button.onClick.AddListener(() =>
             {
                 OnBranchSelected?.Invoke(index);
                 HideBranchOptions();
             });
-
-            // 次のボタンの位置をずらす
-            offsetY -= buttonHeight;  // ボタンを下に配置するためにY軸方向にオフセット
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class TilemapManager : MonoBehaviour
     static TilemapManager instance = null;
     public static TilemapManager Instance { get { return instance; } }
 
+    public RouletteController rouletteController = new RouletteController();
+
     void Start()
     {
         // 必要な初期化処理をここに追加
@@ -19,7 +22,7 @@ public class TilemapManager : MonoBehaviour
 
     public IEnumerator TileEvent(Player player)
     {
-        /*
+
         // プレイヤーの位置をセル座標に変換
         Vector3Int playerCell = tilemap.WorldToCell(player.transform.position);
         TileBase currentTile = tilemap.GetTile(playerCell);
@@ -77,7 +80,7 @@ public class TilemapManager : MonoBehaviour
         {
             Debug.Log("タイルが見つかりませんでした。");
         }
-        */
+
         // プレイヤーの現在位置に対応するマス情報を取得
         MasuData masu = masuDB.GetMasuData(player.nowIndex); // プレイヤーの位置に対応するMasuDataを取得
         if (masu != null)
@@ -145,7 +148,21 @@ public class TilemapManager : MonoBehaviour
     private IEnumerator HandleVegetableEvent(Player player)
     {
         Debug.Log("野菜イベントが発生！");
+
+        int num = Random.Range(1, 3);
+        string scenename = "Yasai" + num.ToString() + "RurettoScene";
+        
+        yield return SceneManager.LoadSceneAsync(scenename);
+        player.camera.gameObject.SetActive(false);
+
+        rouletteController.PlayerResult(player);
+
         yield return new WaitForSeconds(1);
+
+        yield return SceneManager.UnloadSceneAsync(scenename);
+        player.camera.gameObject.SetActive(true);
+
+
     }
 
     private IEnumerator HandleFishEvent(Player player)

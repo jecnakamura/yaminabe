@@ -69,7 +69,7 @@ public class RouletteController : MonoBehaviour
         {
             isPlaying = false;
             ShowResult(roulette.transform.eulerAngles.z);
-            //  PlayerResult(player);
+            PlayerResult(player);
         }
     }
 
@@ -144,9 +144,9 @@ public class RouletteController : MonoBehaviour
 
 
     }
-    //public void PlayerResult(Player player)
-    //{
-    //    player.AddIngredient(new Ingredient(id, csvDatas[id][1], csvDatas[id][2], int.Parse(csvDatas[id][3])));
-    //   // Debug.Log(player.ingredients[]);
-    //}
+    public void PlayerResult(Player player)
+    {
+        player.AddIngredient(new Ingredient(id, csvDatas[id][1], csvDatas[id][2], int.Parse(csvDatas[id][3])));
+        // Debug.Log(player.ingredients[]);
+    }
 }

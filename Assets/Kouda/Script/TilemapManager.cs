@@ -12,6 +12,8 @@ public class TilemapManager : MonoBehaviour
     static TilemapManager instance = null;
     public static TilemapManager Instance { get { return instance; } }
 
+    public RouletteController rouletteController = new RouletteController();
+
     void Start()
     {
         // 必要な初期化処理をここに追加
@@ -146,8 +148,23 @@ public class TilemapManager : MonoBehaviour
     private IEnumerator HandleVegetableEvent(Player player)
     {
         Debug.Log("野菜イベントが発生！");
-        yield return SceneManager.LoadSceneAsync("Yasai1RurettoScene");
+
+        RouletteResultHandler.SetEnd(false);
+
+        int num = Random.Range(1, 3);
+        string scenename = "Yasai" + num.ToString() + "RurettoScene";
+        yield return SceneManager.LoadSceneAsync(scenename);
+
+        player.camera.gameObject.SetActive(false);
+
+        rouletteController.PlayerResult(player);
+
         yield return new WaitForSeconds(1);
+
+        yield return SceneManager.UnloadSceneAsync(scenename);
+        player.camera.gameObject.SetActive(true);
+
+
     }
 
     private IEnumerator HandleFishEvent(Player player)

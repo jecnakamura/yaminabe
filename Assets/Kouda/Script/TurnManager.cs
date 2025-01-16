@@ -390,6 +390,7 @@ public class TurnManager : MonoBehaviour
             {
                 Vector3 targetPos = player.transform.position + new Vector3(3.5f, -4.0f, 0.0f);
                 yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            
             }
             //^‚ñ’†‚Ì‘I‘ğˆ
             else
@@ -397,6 +398,7 @@ public class TurnManager : MonoBehaviour
                 Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
                 yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
             }
+            player.nowIndex -= 1;
 
         }
     }

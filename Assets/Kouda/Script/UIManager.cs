@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     }
 
     // 分岐オプションを表示
-    public void ShowBranchOptions(List<int> nextIndices)
+    public void ShowBranchOptions(List<int> nextIndices,Player player)
     {
         branchPanel.SetActive(true);
 

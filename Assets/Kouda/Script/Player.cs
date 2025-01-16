@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public List<Ingredient> ingredients;
 
     public SpriteRenderer display;
-    public int nowIndex;
+    public int nowIndex = 0;
 
     private int controllerIndex; // 割り当てられたコントローラー番号
 

@@ -26,20 +26,20 @@ public class Event : MonoBehaviour
     {
         switch (count)
         {
-            case 0:
+            case 0: if(ruleimage.sprite = rulesprite[0])
                 ruleimage.sprite = rulesprite[1];//2枚目のルール紹介画面へ
                 count++;
                 break;
-            case 1:
+            case 1: if (ruleimage.sprite = rulesprite[1])
                 ruleimage.sprite = rulesprite[2];//3枚目のルール紹介画面へ
                 count++;
                 break;
-            case 2:
-                ruleimage.sprite = rulesprite[3];//4枚目のルール紹介画面へ
+            case 2: if (ruleimage.sprite = rulesprite[2])
+                    ruleimage.sprite = rulesprite[3];//4枚目のルール紹介画面へ
                 count++;
                 break;
-            case 3:
-                ruleimage.sprite = rulesprite[4];//5枚目のルール紹介画面へ
+            case 3: if (ruleimage.sprite = rulesprite[3])
+                    ruleimage.sprite = rulesprite[4];//5枚目のルール紹介画面へ
                 count++;
                 break;
         }

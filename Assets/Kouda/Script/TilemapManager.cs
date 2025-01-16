@@ -149,12 +149,10 @@ public class TilemapManager : MonoBehaviour
     {
         Debug.Log("野菜イベントが発生！");
 
-        RouletteResultHandler.SetEnd(false);
-
         int num = Random.Range(1, 3);
         string scenename = "Yasai" + num.ToString() + "RurettoScene";
+        
         yield return SceneManager.LoadSceneAsync(scenename);
-
         player.camera.gameObject.SetActive(false);
 
         rouletteController.PlayerResult(player);

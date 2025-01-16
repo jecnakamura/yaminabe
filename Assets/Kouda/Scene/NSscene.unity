@@ -3657,7 +3657,310 @@ MonoBehaviour:
   commandButtons:
   - {fileID: 989684747}
   masuDB:
-    data: []
+    data:
+    - index: 0
+      ev: 8
+      next: 01000000
+    - index: 1
+      ev: 4
+      next: 02000000
+    - index: 2
+      ev: 7
+      next: 030000000e00000019000000
+    - index: 3
+      ev: 7
+      next: 04000000
+    - index: 4
+      ev: 1
+      next: 05000000
+    - index: 5
+      ev: 1
+      next: 06000000
+    - index: 6
+      ev: 2
+      next: 07000000
+    - index: 7
+      ev: 1
+      next: 08000000
+    - index: 8
+      ev: 1
+      next: 09000000
+    - index: 9
+      ev: 3
+      next: 00000000
+    - index: 10
+      ev: 1
+      next: 00000000
+    - index: 11
+      ev: 1
+      next: 0c000000
+    - index: 12
+      ev: 1
+      next: 0d000000
+    - index: 13
+      ev: 7
+      next: 24000000
+    - index: 14
+      ev: 7
+      next: 0f000000
+    - index: 15
+      ev: 3
+      next: 10000000
+    - index: 16
+      ev: 3
+      next: 11000000
+    - index: 17
+      ev: 1
+      next: 12000000
+    - index: 18
+      ev: 3
+      next: 13000000
+    - index: 19
+      ev: 3
+      next: 14000000
+    - index: 20
+      ev: 2
+      next: 15000000
+    - index: 21
+      ev: 3
+      next: 16000000
+    - index: 22
+      ev: 3
+      next: 17000000
+    - index: 23
+      ev: 3
+      next: 18000000
+    - index: 24
+      ev: 7
+      next: 24000000
+    - index: 25
+      ev: 7
+      next: 1a000000
+    - index: 26
+      ev: 2
+      next: 1b000000
+    - index: 27
+      ev: 2
+      next: 1c000000
+    - index: 28
+      ev: 3
+      next: 1d000000
+    - index: 29
+      ev: 2
+      next: 1e000000
+    - index: 30
+      ev: 2
+      next: 1f000000
+    - index: 31
+      ev: 1
+      next: 20000000
+    - index: 32
+      ev: 2
+      next: 21000000
+    - index: 33
+      ev: 2
+      next: 22000000
+    - index: 34
+      ev: 2
+      next: 23000000
+    - index: 35
+      ev: 7
+      next: 24000000
+    - index: 36
+      ev: 7
+      next: 25000000
+    - index: 37
+      ev: 6
+      next: 26000000
+    - index: 38
+      ev: 5
+      next: 27000000
+    - index: 39
+      ev: 6
+      next: 28000000
+    - index: 40
+      ev: 6
+      next: 29000000
+    - index: 41
+      ev: 7
+      next: 2a000000330000003c000000
+    - index: 42
+      ev: 7
+      next: 2b000000
+    - index: 43
+      ev: 1
+      next: 2c000000
+    - index: 44
+      ev: 1
+      next: 2d000000
+    - index: 45
+      ev: 2
+      next: 2e000000
+    - index: 46
+      ev: 1
+      next: 2f000000
+    - index: 47
+      ev: 1
+      next: 00000000
+    - index: 48
+      ev: 3
+      next: 31000000
+    - index: 49
+      ev: 1
+      next: 32000000
+    - index: 50
+      ev: 7
+      next: 45000000
+    - index: 51
+      ev: 3
+      next: 34000000
+    - index: 52
+      ev: 3
+      next: 35000000
+    - index: 53
+      ev: 1
+      next: 36000000
+    - index: 54
+      ev: 3
+      next: 37000000
+    - index: 55
+      ev: 3
+      next: 38000000
+    - index: 56
+      ev: 3
+      next: 39000000
+    - index: 57
+      ev: 2
+      next: 00000000
+    - index: 58
+      ev: 3
+      next: 3b000000
+    - index: 59
+      ev: 7
+      next: 45000000
+    - index: 60
+      ev: 7
+      next: 3d000000
+    - index: 61
+      ev: 2
+      next: 3e000000
+    - index: 62
+      ev: 2
+      next: 3f000000
+    - index: 63
+      ev: 3
+      next: 40000000
+    - index: 64
+      ev: 2
+      next: 41000000
+    - index: 65
+      ev: 2
+      next: 42000000
+    - index: 66
+      ev: 1
+      next: 43000000
+    - index: 67
+      ev: 2
+      next: 44000000
+    - index: 68
+      ev: 7
+      next: 45000000
+    - index: 69
+      ev: 7
+      next: 46000000
+    - index: 70
+      ev: 5
+      next: 47000000
+    - index: 71
+      ev: 6
+      next: 48000000
+    - index: 72
+      ev: 5
+      next: 49000000
+    - index: 73
+      ev: 7
+      next: 4a000000520000005a000000
+    - index: 74
+      ev: 7
+      next: 4b000000
+    - index: 75
+      ev: 1
+      next: 4c000000
+    - index: 76
+      ev: 1
+      next: 4d000000
+    - index: 77
+      ev: 3
+      next: 4e000000
+    - index: 78
+      ev: 1
+      next: 4f000000
+    - index: 79
+      ev: 2
+      next: 50000000
+    - index: 80
+      ev: 1
+      next: 51000000
+    - index: 81
+      ev: 7
+      next: 62000000
+    - index: 82
+      ev: 7
+      next: 53000000
+    - index: 83
+      ev: 3
+      next: 54000000
+    - index: 84
+      ev: 3
+      next: 55000000
+    - index: 85
+      ev: 2
+      next: 56000000
+    - index: 86
+      ev: 3
+      next: 57000000
+    - index: 87
+      ev: 1
+      next: 58000000
+    - index: 88
+      ev: 3
+      next: 00000000
+    - index: 89
+      ev: 7
+      next: 62000000
+    - index: 90
+      ev: 7
+      next: 5b000000
+    - index: 91
+      ev: 2
+      next: 5c000000
+    - index: 92
+      ev: 2
+      next: 5d000000
+    - index: 93
+      ev: 3
+      next: 5e000000
+    - index: 94
+      ev: 2
+      next: 5f000000
+    - index: 95
+      ev: 1
+      next: 60000000
+    - index: 96
+      ev: 2
+      next: 61000000
+    - index: 97
+      ev: 7
+      next: 62000000
+    - index: 98
+      ev: 7
+      next: 63000000
+    - index: 99
+      ev: 5
+      next: 64000000
+    - index: 100
+      ev: 9
+      next: 
   RoulettteGameButton: {fileID: 989684749}
   Pl: {fileID: 7141200225084256373, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}
 --- !u!4 &1897042881

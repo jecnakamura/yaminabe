@@ -275,7 +275,9 @@ public class TurnManager : MonoBehaviour
         yield return StartCoroutine(tilemapManager.TileEvent(player));
         player.MoveSteps = 0;
 
+        
         NextState(TurnState.Event);
+        NextPlayer();
         StartCoroutine(TurnCycle());
     }
 

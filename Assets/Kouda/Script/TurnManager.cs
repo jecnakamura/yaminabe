@@ -186,6 +186,8 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
+            commandButtons[0].SetActive(false) ;
+            commandButtons[1].SetActive(false) ;
             commandButtons[2].SetActive(true);
         }
 
@@ -273,6 +275,7 @@ public class TurnManager : MonoBehaviour
 
         yield return SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
 
+        ToggleCommandButtons(false);
         player.camera.gameObject.SetActive(false);
 
         while (!RouletteResultHandler.IsEnd())
@@ -283,6 +286,7 @@ public class TurnManager : MonoBehaviour
 
         int result = RouletteResultHandler.GetResult();
         player.MoveSteps = result;
+        yield return new WaitForSeconds(2);
 
         yield return SceneManager.UnloadSceneAsync("Ruretto");
         player.camera.gameObject.SetActive(true);
@@ -462,7 +466,8 @@ public class TurnManager : MonoBehaviour
     {
         int sceneNum = UnityEngine.Random.Range(0, 6);
 
-        string scenename = Enum.GetName(typeof(RouletteNameFile), sceneNum)+"Ruretto";
+        string scenename = Enum.GetName(typeof(RouletteNameFile), sceneNum)+"RurettoScene";
+        ToggleCommandButtons(false);
         yield return StartCoroutine(tilemapManager.FoodRoulette(scenename, player));
         NextState(TurnState.CommandSelect);
         NextPlayer();

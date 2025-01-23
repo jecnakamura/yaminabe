@@ -36,7 +36,7 @@ public class ResultManager : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             var player = players[i];
-            result += $"{i + 1}位: プレイヤー{player.ID} - スコア: {player.CalculateScore():F2}\n";
+            result += $"{i + 1}位: プレイヤー{player.ID + 1} - スコア: {player.CalculateScore():F2}\n";
             result += $"食材: {player.ingredients.Count}個\n";
         }
 

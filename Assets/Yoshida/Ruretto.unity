@@ -4398,8 +4398,10 @@ MonoBehaviour:
   DecelerationMin: 0.98
   DecelerationMax: 0.99
   MinSpeed: 1
+  DecelerationFactor: 0.7
   RayGoal: {x: 0, y: 0, z: 0}
   startButton: {fileID: 1305147828}
+  stopButton: {fileID: 192082093}
 --- !u!114 &1602980500
 MonoBehaviour:
   m_ObjectHideFlags: 0

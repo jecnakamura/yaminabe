@@ -41,6 +41,7 @@ public class TurnManager : MonoBehaviour
     public CameraController cameraController; // カメラ管理クラス
     public UIManager uiManager; // UI管理クラス
     public TilemapManager tilemapManager;
+    public PlayerInventory playerInventory;
     public List<GameObject> commandButtons;
     public MasuDB masuDB;
     public Button RoulettteGameButton;
@@ -138,6 +139,7 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator HandleState(Player currentPlayer)
     {
+        playerInventory.Start(currentPlayer);
         switch (state)
         {
             case TurnState.CommandSelect:

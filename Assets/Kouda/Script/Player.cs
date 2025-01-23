@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
 
     public void AddIngredient(Ingredient ingredient)
     {
-        //Ingredients.Add();
+        Ingredients.Add(ingredient);
     }
 
     public void RemoveRandomIngredient()

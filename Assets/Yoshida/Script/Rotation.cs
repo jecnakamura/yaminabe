@@ -10,7 +10,7 @@ public class Rotation : MonoBehaviour
     public float DecelerationMin;
     public float DecelerationMax;
     public float MinSpeed;
-    public float DecelerationFactor = 0.7f;
+    public float DecelerationFactor = 0.99f;
 
     public Vector3 RayGoal;
     public Button startButton;
@@ -66,7 +66,7 @@ public class Rotation : MonoBehaviour
                 transform.Rotate(0, 0, this.rotSpeed);
                 break;
             case State.Decelerating:
-                if (rotSpeed < MinSpeed)
+                if (rotSpeed > MinSpeed)
                 {
                     // Œ¸‘¬‚ð“K—p‚µ‚Ä‰ñ“]‚³‚¹‚é
                     rotSpeed *= DecelerationFactor;

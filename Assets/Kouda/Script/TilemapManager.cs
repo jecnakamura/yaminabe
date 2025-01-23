@@ -145,7 +145,7 @@ public class TilemapManager : MonoBehaviour
         yield return new WaitForSeconds(0);
     }
 
-    private IEnumerator FoodRoulette(string scenename,Player player)
+    public IEnumerator FoodRoulette(string scenename,Player player)
     {
         var asyncLoad = SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
 

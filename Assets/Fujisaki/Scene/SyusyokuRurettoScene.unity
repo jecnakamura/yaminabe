@@ -433,6 +433,7 @@ MonoBehaviour:
   rotatePerRoulette: 0
   rMaker: {fileID: 0}
   id: 0
+  isFinish: 0
   resultText: {fileID: 1607426213}
   startButton: {fileID: 1405490467}
   stopButton: {fileID: 1395773083}
@@ -1052,7 +1053,7 @@ RectTransform:
   m_GameObject: {fileID: 1607426210}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.7066426, y: 6.7066426, z: 6.7066426}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 816081687}
@@ -1061,7 +1062,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 20, y: -372}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 800, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1607426212
 CanvasRenderer:

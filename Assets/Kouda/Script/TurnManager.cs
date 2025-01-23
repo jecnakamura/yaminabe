@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,27 @@ public class TurnManager : MonoBehaviour
 {
     public enum TurnState
     {
-        CommandSelect,
-        ViewMap,
-        LookList,
-        Roulette,
-        PlayerMove,
-        Event,
-        End,
+        CommandSelect,  //0
+        ViewMap,        //1
+        LookList,       //2
+        Roulette,       //3
+        PlayerMove,     //4
+        Event,          //5
+        End,            //6
+        Bonus,          //7
+    }
+
+    public enum RouletteNameFile
+    {
+        Gyokai,
+        Niku,
+        Syusyoku,
+        Yasai1,
+        Yasai2,
+        Yasai3,
+        Sonota,
+        Hazure,
+        
     }
 
     public TurnState state = TurnState.CommandSelect;
@@ -44,9 +59,9 @@ public class TurnManager : MonoBehaviour
     private void Update()
     {
         //Debug.Log(state.ToString());
-        if(state == TurnState.CommandSelect)
+        if (state == TurnState.CommandSelect)
         {
-            if(Input.GetKeyDown(KeyCode.LeftAlt))
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
             {
                 Player currentPlayer = players[currentPlayerIndex];
                 NextState(TurnState.Roulette);
@@ -60,7 +75,7 @@ public class TurnManager : MonoBehaviour
         Vector3 scale = new Vector3(0.25f, 0.25f, 1.0f);
         spawnPosition = new Vector3(-23, 3, 0);
 
-        if(GameData.selectedCharacters[0] == null)
+        if (GameData.selectedCharacters[0] == null)
         {
             Character selectedCharacter = availableCharacter;
 
@@ -137,15 +152,28 @@ public class TurnManager : MonoBehaviour
             case TurnState.End:
                 isGameFinished = true;
                 break;
+
+            case TurnState.Bonus:
+                yield return StartCoroutine(HandleGoalBouns(currentPlayer));
+                break;
         }
     }
 
     private IEnumerator HandleCommandSelect(Player player)
     {
-        ToggleCommandButtons(true);
+        if (player.HasFinished == false)
+        {
+            ToggleCommandButtons(true);
+            commandButtons[2].SetActive(false);
 
-        
-        
+        }
+        else
+        {
+            commandButtons[2].SetActive(true);
+        }
+
+
+
         while (!isStateEnd)
         {
             HandleControllerInputForCommand();
@@ -227,7 +255,7 @@ public class TurnManager : MonoBehaviour
         RouletteResultHandler.SetEnd(false);
 
         yield return SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
-        
+
         player.camera.gameObject.SetActive(false);
 
         while (!RouletteResultHandler.IsEnd())
@@ -265,7 +293,7 @@ public class TurnManager : MonoBehaviour
             {
                 yield return StartCoroutine(BranchEvent(player));
             }
-            else if(tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Goal)
+            else if (tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Goal)
             {
                 player.HasFinished = true;
                 break;
@@ -275,7 +303,7 @@ public class TurnManager : MonoBehaviour
         yield return StartCoroutine(tilemapManager.TileEvent(player));
         player.MoveSteps = 0;
 
-        
+
         NextState(TurnState.Event);
         NextPlayer();
         StartCoroutine(TurnCycle());
@@ -395,7 +423,7 @@ public class TurnManager : MonoBehaviour
             {
                 Vector3 targetPos = player.transform.position + new Vector3(3.5f, -4.0f, 0.0f);
                 yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
-            
+
             }
             //ê^ÇÒíÜÇÃëIëéà
             else
@@ -406,5 +434,16 @@ public class TurnManager : MonoBehaviour
             player.nowIndex -= 1;
 
         }
+    }
+
+    private IEnumerator HandleGoalBouns(Player player)
+    {
+        int sceneNum = UnityEngine.Random.Range(0, 6);
+
+        string scenename = Enum.GetName(typeof(RouletteNameFile), sceneNum)+"Ruretto";
+        yield return StartCoroutine(tilemapManager.FoodRoulette(scenename, player));
+        NextState(TurnState.CommandSelect);
+        NextPlayer();
+        yield return StartCoroutine(TurnCycle());
     }
 }

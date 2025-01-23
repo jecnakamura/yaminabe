@@ -10,10 +10,15 @@ public class CharacterSelection : MonoBehaviour
     public List<Character> availableCharacters;    // 全キャラクターリスト
     public List<Image> characterImages;            // 各プレイヤーのキャラクター画像
     public List<TextMeshProUGUI> characterNames;   // 各プレイヤーのキャラクター名
+    public List<Button> nextButtons;               // 「＞」ボタン
+    public List<Button> prevButtons;               // 「＜」ボタン
+    public List<Button> confirmButtons;            // 決定ボタン
+
     public List<GameObject> npcStrengthSelectors;  // NPCの強さ選択オブジェクト
     public Button startGameButton;                 // ゲームスタートボタン
     private int[] currentIndices;                  // 各プレイヤーの現在インデックス
     private int activePlayerCount;                 // 有効なプレイヤー数
+    private int activePlayerIndex;
     private int maxPlayers = 4;
     private bool[] playerConfirmed;                // プレイヤーのキャラ決定状態
     private Dictionary<int, int> controllerAssignments; // コントローラー番号 -> プレイヤー番号
@@ -55,6 +60,9 @@ public class CharacterSelection : MonoBehaviour
         {
             characterImages[i].gameObject.SetActive(false);
             characterNames[i].gameObject.SetActive(false);
+            nextButtons[i].gameObject.SetActive(false);
+            prevButtons[i].gameObject.SetActive(false);
+            confirmButtons[i].gameObject.SetActive(false);
         }
 
         // コントローラー割り当て
@@ -104,6 +112,13 @@ public class CharacterSelection : MonoBehaviour
                 }
             }
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("End");
+
+            TestAllPlayer();
+        }
+
     }
 
     private void ShowNextCharacter(int playerIndex)
@@ -144,7 +159,7 @@ public class CharacterSelection : MonoBehaviour
         Debug.Log($"Player {playerIndex + 1} selected {selectedCharacter.characterName}");
 
         playerConfirmed[playerIndex] = true;
-
+        activePlayerIndex++;
         CheckAllPlayersConfirmed();
     }
 
@@ -170,13 +185,29 @@ public class CharacterSelection : MonoBehaviour
 
     private void CheckAllPlayersConfirmed()
     {
-        if (playerConfirmed.All(confirmed => confirmed))
+        if(activePlayerIndex == activePlayerCount)
         {
-            Debug.Log("All players confirmed. Game can start.");
-            startGameButton.gameObject.SetActive(true);
+                Debug.Log("All players confirmed. Game can start.");
+
+                startGameButton.gameObject.SetActive(true);
         }
+
     }
 
+    private void TestAllPlayer()
+    {
+        for(int i = 0; i < maxPlayers; i++)
+        {
+            Character selectedCharacter = availableCharacters[currentIndices[i]];
+
+            GameData.selectedCharacters[i] = selectedCharacter;
+            Debug.Log($"Player {i + 1} selected {selectedCharacter.characterName}");
+
+            playerConfirmed[i] = true;
+
+            StartGame();
+        }
+    }
     public void StartGame()
     {
         SceneManager.LoadScene("NSScene");

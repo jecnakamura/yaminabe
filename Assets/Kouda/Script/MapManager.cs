@@ -25,6 +25,9 @@ public class MapManager : MonoBehaviour
     {
         player.transform.DOMove(targetPosition, MoveDuration).SetEase(Ease.OutQuad);
         yield return new WaitForSeconds(MoveDuration);
+
+        var masu = TilemapManager.Instance.masuDB.GetOffsetMasuData(1, player.nowIndex);
+        player.nowIndex = masu[0].index;
     }
 
     public IEnumerator HandleTileEvent(Player player, List<Player> allPlayers)

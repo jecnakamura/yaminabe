@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class TurnManager : MonoBehaviour
     }
 
     public TurnState state = TurnState.CommandSelect;
+    public Character availableCharacter;    // 全キャラクターリスト
 
     public List<Player> players; // プレイヤー（NPC含む）リスト
     private int currentPlayerIndex = 0;
@@ -26,7 +28,7 @@ public class TurnManager : MonoBehaviour
     public TilemapManager tilemapManager;
     public List<GameObject> commandButtons;
     public MasuDB masuDB;
-
+    public Button RoulettteGameButton;
     private bool isGameFinished = false;
     private bool isStateEnd = false;
 
@@ -41,7 +43,16 @@ public class TurnManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(state.ToString());
+        //Debug.Log(state.ToString());
+        if(state == TurnState.CommandSelect)
+        {
+            if(Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                Player currentPlayer = players[currentPlayerIndex];
+                NextState(TurnState.Roulette);
+                StartCoroutine(HandleState(currentPlayer));
+            }
+        }
     }
 
     private void InitializePlayers()
@@ -49,6 +60,12 @@ public class TurnManager : MonoBehaviour
         Vector3 scale = new Vector3(0.25f, 0.25f, 1.0f);
         spawnPosition = new Vector3(-23, 3, 0);
 
+        if(GameData.selectedCharacters[0] == null)
+        {
+            Character selectedCharacter = availableCharacter;
+
+            GameData.selectedCharacters[0] = selectedCharacter;
+        }
         for (int i = 0; i < GameData.playerCount; i++)
         {
             var obj = Instantiate(Pl, spawnPosition, Quaternion.identity);
@@ -92,11 +109,12 @@ public class TurnManager : MonoBehaviour
         switch (state)
         {
             case TurnState.CommandSelect:
+                RoulettteGameButton.gameObject.SetActive(true);
                 yield return StartCoroutine(HandleCommandSelect(currentPlayer));
                 break;
 
             case TurnState.ViewMap:
-                yield return StartCoroutine(HandleViewMap());
+                yield return StartCoroutine(HandleViewMap(currentPlayer));
                 break;
 
             case TurnState.LookList:
@@ -138,14 +156,11 @@ public class TurnManager : MonoBehaviour
         NextState(state);
     }
 
-    public void OnCommandButton()
+    public void OnButtonClick(int type)
     {
         Player currentPlayer = players[currentPlayerIndex];
-
-
-        NextState(TurnState.Roulette);
-
-        StartCoroutine(HandleCommandSelect(currentPlayer));
+        NextState((TurnState)type);
+        StartCoroutine(HandleState(currentPlayer));
     }
 
     private void HandleControllerInputForCommand()
@@ -164,8 +179,11 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator HandleViewMap()
+    private IEnumerator HandleViewMap(Player player)
     {
+        player.camera.gameObject.SetActive(false);
+        cameraController.gameObject.SetActive(true);
+
         while (!isStateEnd)
         {
             HandleControllerInputForViewMap();
@@ -204,6 +222,8 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator HandleRoulette(Player player)
     {
+        RoulettteGameButton.gameObject.SetActive(false);
+
         RouletteResultHandler.SetEnd(false);
 
         yield return SceneManager.LoadSceneAsync("Ruretto", LoadSceneMode.Additive);
@@ -223,6 +243,8 @@ public class TurnManager : MonoBehaviour
         player.camera.gameObject.SetActive(true);
 
         NextState(player.MoveSteps == 0 ? TurnState.CommandSelect : TurnState.PlayerMove);
+
+        StartCoroutine(HandleState(player));
     }
 
     private void HandleControllerInputForRoulette()
@@ -238,18 +260,23 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < player.MoveSteps; i++)
         {
             Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
-            MasuData branch = masuDB.GetMasuData(player.nowIndex);
-            if (branch.ev == EventType.Branch)
-            {
-                StartCoroutine(BranchEvent(player));
-            }
             yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            if (tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Branch)
+            {
+                yield return StartCoroutine(BranchEvent(player));
+            }
+            else if(tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Goal)
+            {
+                player.HasFinished = true;
+                break;
+            }
         }
 
         yield return StartCoroutine(tilemapManager.TileEvent(player));
         player.MoveSteps = 0;
 
         NextState(TurnState.Event);
+        StartCoroutine(TurnCycle());
     }
 
     private IEnumerator HandleEvent(Player player)
@@ -296,35 +323,86 @@ public class TurnManager : MonoBehaviour
             Debug.LogWarning("分岐先がありません。");
             yield break;
         }
-
-        // 分岐選択UIを表示
-        uiManager.ShowBranchOptions(nextIndices);
-
-        // プレイヤーが選択するまで待つ
-        int selectedIndex = -1;
-        bool isOptionSelected = false;
-
-        uiManager.OnBranchSelected += (index) =>
+        if (nextIndices.Count == 1)
         {
-            selectedIndex = index;
-            isOptionSelected = true;
-        };
-
-        while (!isOptionSelected)
-        {
-            yield return null;
+            //上から真ん中へ
+            if (player.nowIndex == 13 || player.nowIndex == 50 || player.nowIndex == 81)
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, -4.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            }
+            //下から真ん中へ
+            else if (player.nowIndex == 35 || player.nowIndex == 68 || player.nowIndex == 97)
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, 4.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            }
+            //真ん中のまま
+            else
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            }
+            yield break;
         }
+        else
+        {
+            // 分岐選択UIを表示
+            uiManager.ShowBranchOptions(nextIndices, player);
 
-        // UIを非表示にする
-        uiManager.HideBranchOptions();
+            // プレイヤーが選択するまで待機
+            int selectedIndex = -1;
+            bool isOptionSelected = false;
 
-        // 選択された分岐先に移動
-        player.nowIndex = selectedIndex;
+            // イベントリスナーを追加
+            uiManager.OnBranchSelected += (index) =>
+            {
+                selectedIndex = index;
+                isOptionSelected = true;
+            };
 
-        Debug.Log($"プレイヤー {player.ID} が分岐を選択: マス {selectedIndex}");
+            // 選択が完了するまで待機
+            while (!isOptionSelected)
+            {
+                // この部分でプレイヤーの移動処理を待機
+                yield return null;
+            }
 
-        // 選択されたマスに移動を続行
-        yield return null;
+            // イベントリスナーを解除
+            uiManager.OnBranchSelected -= (index) =>
+            {
+                selectedIndex = index;
+                isOptionSelected = true;
+            };
+
+            // UIを非表示にする
+            uiManager.HideBranchOptions();
+            player.nowIndex = selectedIndex;
+
+            Debug.Log($"プレイヤー {player.ID} が分岐を選択: マス {selectedIndex}");
+
+            // 選択された分岐先に移動
+            //上の選択肢
+            if (selectedIndex == 3 || selectedIndex == 42 || selectedIndex == 74)
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, 4.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            }
+            //下の選択肢
+            else if (selectedIndex == 25 || selectedIndex == 60 || selectedIndex == 90)
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, -4.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            
+            }
+            //真ん中の選択肢
+            else
+            {
+                Vector3 targetPos = player.transform.position + new Vector3(3.5f, 0.0f, 0.0f);
+                yield return StartCoroutine(mapManager.MovePlayerAnimation(player, targetPos));
+            }
+            player.nowIndex -= 1;
+
+        }
     }
-
 }

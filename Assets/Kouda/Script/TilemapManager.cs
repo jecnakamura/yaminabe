@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
+using System.Threading;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -8,73 +10,30 @@ public class TilemapManager : MonoBehaviour
     public Sprite sprite, startTile, goalTile, nikuTile, sakanaTile, yasaiTile, hazureTile, bunnkiTile, eventTile;
     public MasuDB masuDB = new MasuDB(); // MasuDBのインスタンスを追加
 
+    static TilemapManager instance = null;
+    public static TilemapManager Instance { get { return instance; } }
+
+    public RouletteController rouletteController = new RouletteController();
+
+    private string scenename;
+
     void Start()
     {
         // 必要な初期化処理をここに追加
+        instance = this;
     }
 
     public IEnumerator TileEvent(Player player)
     {
+
         // プレイヤーの位置をセル座標に変換
         Vector3Int playerCell = tilemap.WorldToCell(player.transform.position);
         TileBase currentTile = tilemap.GetTile(playerCell);
 
-        if (currentTile != null)
-        {
-            Debug.Log("現在のタイル: " + currentTile.name);
-
-            // タイルに応じた処理
-            if (currentTile == startTile)
-            {
-                Debug.Log("スタートマス");
-            }
-            else if (currentTile == goalTile)
-            {
-                Debug.Log("ゴールマス");
-            }
-            else if (currentTile == nikuTile)
-            {
-                Debug.Log("肉食材マス");
-                //NIKU.GetNIKU(player.Ingredient);
-                yield return StartCoroutine(HandleMeatEvent(player));
-            }
-            else if (currentTile == sakanaTile)
-            {
-                Debug.Log("魚食材マス");
-                yield return StartCoroutine(HandleFishEvent(player));
-            }
-            else if (currentTile == yasaiTile)
-            {
-                Debug.Log("野菜食材マス");
-                yield return StartCoroutine(HandleVegetableEvent(player));
-            }
-            else if (currentTile == hazureTile)
-            {
-                Debug.Log("ハズレ食材マス");
-                yield return StartCoroutine(HandleLoseEvent(player));
-            }
-            else if (currentTile == bunnkiTile)
-            {
-                Debug.Log("分岐マス");
-                yield return StartCoroutine(HandleBranchEvent(player));
-            }
-            else if (currentTile == eventTile)
-            {
-                Debug.Log("イベントマス");
-                yield return StartCoroutine(HandleOtherEvent(player));
-            }
-            else
-            {
-                Debug.Log("不明なタイル");
-            }
-        }
-        else
-        {
-            Debug.Log("タイルが見つかりませんでした。");
-        }
+        
 
         // プレイヤーの現在位置に対応するマス情報を取得
-        MasuData masu = masuDB.GetMasuData((int)player.transform.position.x); // プレイヤーの位置に対応するMasuDataを取得
+        MasuData masu = masuDB.GetMasuData(player.nowIndex); // プレイヤーの位置に対応するMasuDataを取得
         if (masu != null)
         {
             Debug.Log($"マス {masu.index} のイベントが発動");
@@ -86,7 +45,7 @@ public class TilemapManager : MonoBehaviour
                     yield return StartCoroutine(HandleMeatEvent(player));
                     break;
 
-                case EventType.Vegetable:
+                case EventType.Vegetable: 
                     yield return StartCoroutine(HandleVegetableEvent(player));
                     break;
 
@@ -133,32 +92,45 @@ public class TilemapManager : MonoBehaviour
     private IEnumerator HandleMeatEvent(Player player)
     {
         Debug.Log("肉イベントが発生！");
-        // 肉に関連する処理をここに記述
-        yield return new WaitForSeconds(1);
+        scenename = "NikuRurettoScene";
+
+        yield return FoodRoulette(scenename, player);
     }
 
     private IEnumerator HandleVegetableEvent(Player player)
     {
         Debug.Log("野菜イベントが発生！");
-        yield return new WaitForSeconds(1);
+
+        int num = Random.Range(1, 3);
+        scenename = "Yasai" + num.ToString() + "RurettoScene";
+        
+        yield return FoodRoulette(scenename, player);
+
     }
 
     private IEnumerator HandleFishEvent(Player player)
     {
         Debug.Log("魚イベントが発生！");
-        yield return new WaitForSeconds(1);
+        scenename = "GyokaiRurettoScene";
+
+        yield return FoodRoulette(scenename,player);
     }
 
     private IEnumerator HandleOtherEvent(Player player)
     {
         Debug.Log("その他イベントが発生！");
-        yield return new WaitForSeconds(1);
+        scenename = "SonotaRurettoScene";
+
+        yield return FoodRoulette(scenename,player);
+
     }
 
     private IEnumerator HandleLoseEvent(Player player)
     {
         Debug.Log("ハズレイベントが発生！");
-        yield return new WaitForSeconds(1);
+        scenename = "HazureRurettoScene";
+
+        yield return FoodRoulette(scenename, player);
     }
 
     private IEnumerator HandleRandomEvent(Player player)
@@ -170,6 +142,31 @@ public class TilemapManager : MonoBehaviour
     private IEnumerator HandleBranchEvent(Player player)
     {
         Debug.Log("分岐イベントが発生！");
+        yield return new WaitForSeconds(0);
+    }
+
+    private IEnumerator FoodRoulette(string scenename,Player player)
+    {
+        var asyncLoad = SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        player.camera.gameObject.SetActive(false);
+
+        rouletteController = GameObject.Find("RouletteController").GetComponent<RouletteController>();
+        while (!rouletteController.isFinish)
+        {
+            yield return null;
+        }
+
+        rouletteController.PlayerResult(player);
+
         yield return new WaitForSeconds(1);
+
+        SceneManager.UnloadSceneAsync(scenename);
+        player.camera.gameObject.SetActive(true);
     }
 }

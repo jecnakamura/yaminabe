@@ -11,7 +11,7 @@ public class Title : MonoBehaviour
     private void Start()
     {
         // ‰Šúó‘Ô‚ÅÅ‰‚Ìƒ{ƒ^ƒ“‚ğ‘I‘ğ
-        UpdateButtonSelection();
+        //UpdateButtonSelection();
     }
 
     private void Update()

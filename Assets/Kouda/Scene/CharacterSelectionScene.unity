@@ -6562,15 +6562,15 @@ MonoBehaviour:
   - {fileID: 826899014}
   - {fileID: 886261073}
   nextButtons:
-  - {fileID: 367420790}
-  - {fileID: 1226729404}
-  - {fileID: 977818763}
-  - {fileID: 1563423461}
-  prevButtons:
   - {fileID: 1050658780}
   - {fileID: 1038278437}
   - {fileID: 715586671}
   - {fileID: 836293978}
+  prevButtons:
+  - {fileID: 367420790}
+  - {fileID: 1226729404}
+  - {fileID: 977818763}
+  - {fileID: 1563423461}
   confirmButtons:
   - {fileID: 739718825}
   - {fileID: 468220607}

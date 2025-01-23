@@ -21,6 +21,9 @@ public class ResultManager : MonoBehaviour
             return;
         }
 
+        // スコア順に並び替え（降順）
+        players.Sort((p1, p2) => p2.CalculateScore().CompareTo(p1.CalculateScore()));
+
         // ランキングを表示
         DisplayRanking(players);
 
@@ -33,11 +36,24 @@ public class ResultManager : MonoBehaviour
     {
         string result = "結果発表！\n";
 
+        int rank = 1; // 順位の初期値
+        float previousScore = -1; // 前のスコア（同点処理用）
+
         for (int i = 0; i < players.Count; i++)
         {
             var player = players[i];
-            result += $"{i + 1}位: プレイヤー{player.ID + 1} - スコア: {player.CalculateScore():F2}\n";
+            float currentScore = player.CalculateScore();
+
+            // 同点の場合は順位を変更せず、前の順位を保持
+            if (currentScore != previousScore)
+            {
+                rank = i + 1; // スコアが変わったら順位を更新
+            }
+
+            result += $"{rank}位: プレイヤー{player.ID + 1} - スコア: {currentScore:F2}\n";
             result += $"食材: {player.ingredients.Count}個\n";
+
+            previousScore = currentScore; // 前回のスコアを更新
         }
 
         rankingText.text = result;

@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 569057}
   - component: {fileID: 569056}
   - component: {fileID: 569055}
+  - component: {fileID: 569058}
   m_Layer: 5
   m_Name: L
   m_TagString: Untagged
@@ -160,7 +161,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -806, y: 34.997}
+  m_AnchoredPosition: {x: -809.2, y: 34.997}
   m_SizeDelta: {x: 160, y: 143.51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &569055
@@ -207,9 +208,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1403382661}
-        m_TargetAssemblyTypeName: siyou, Assembly-CSharp
-        m_MethodName: L
+      - m_Target: {fileID: 569058}
+        m_TargetAssemblyTypeName: PhotoBack, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -257,6 +258,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569053}
   m_CullTransparentMesh: 1
+--- !u!114 &569058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6226ae96db7077949876f9c3b134aec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &123766612
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,7 +742,6 @@ GameObject:
   - component: {fileID: 881757944}
   - component: {fileID: 881757948}
   - component: {fileID: 881757947}
-  - component: {fileID: 881757946}
   - component: {fileID: 881757945}
   m_Layer: 5
   m_Name: Image
@@ -775,24 +787,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
---- !u!114 &881757946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 881757943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c767641ce0470f34ba0e67a2c206c2d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rulesprite:
-  - {fileID: 21300000, guid: 03e3545c93c36dd46b3474eda4dbab7c, type: 3}
-  - {fileID: 21300000, guid: b70aed5e2b1415b4896eb089f7ef4a7f, type: 3}
-  - {fileID: 21300000, guid: 5eb1cb56bb683964cb1ca041dd11d1be, type: 3}
-  - {fileID: 21300000, guid: 6e4ae458e7230424b86043a48872771f, type: 3}
-  - {fileID: 21300000, guid: 14baf071da10be443807d4dfe2f49a67, type: 3}
 --- !u!114 &881757947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -813,7 +807,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: abf993f9ffd854d478bf84ea57135441, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1138,9 +1132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d798c154a49431a43a74c0e39aedb902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ruleimage: {fileID: 0}
-  rulesprite: []
-  count: 0
 --- !u!4 &1403382662
 Transform:
   m_ObjectHideFlags: 0
@@ -1326,8 +1317,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1831546169}
-        m_TargetAssemblyTypeName: Event, Assembly-CSharp
-        m_MethodName: TapDownUI
+        m_TargetAssemblyTypeName: PhotoChange, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1384,10 +1375,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1831546164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c767641ce0470f34ba0e67a2c206c2d8, type: 3}
+  m_Script: {fileID: 11500000, guid: a2c733b5cd1f8294f9299edd9bdbed9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rulesprite: []
+  count: 1
 --- !u!1 &1844929854
 GameObject:
   m_ObjectHideFlags: 0

@@ -101,6 +101,12 @@ public class TurnManager : MonoBehaviour
         Player currentPlayer = players[currentPlayerIndex];
         ActivateCamera(currentPlayer);
         uiManager.ShowTurnInfo(currentPlayer);
+        // ここで全プレイヤーのHasFinishedを確認
+        if (AllPlayersFinished())
+        {
+            EndGame();
+            yield break; // ゲーム終了後はターンループを終了
+        }
 
         while (!isGameFinished)
         {
@@ -109,7 +115,18 @@ public class TurnManager : MonoBehaviour
 
         EndGame();
     }
-
+    private bool AllPlayersFinished()
+    {
+        // 全プレイヤーがHasFinished == trueかどうかをチェック
+        foreach (var player in players)
+        {
+            if (!player.HasFinished)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     private void ActivateCamera(Player player)
     {
         foreach (var p in players)
@@ -339,6 +356,11 @@ public class TurnManager : MonoBehaviour
     private void EndGame()
     {
         Debug.Log("ゲーム終了！");
+
+        // GameManager にプレイヤーデータをセット
+        GameManager.Instance.SetPlayers(players);
+
+        // 結果シーンに遷移
         SceneManager.LoadScene("ResultScene");
     }
 

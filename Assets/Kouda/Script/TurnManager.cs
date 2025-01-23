@@ -139,7 +139,7 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator HandleState(Player currentPlayer)
     {
-        playerInventory.Start(currentPlayer);
+        playerInventory.Inventory(currentPlayer);
         switch (state)
         {
             case TurnState.CommandSelect:

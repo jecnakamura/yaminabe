@@ -8,7 +8,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject textPrefab;
     public Transform InventoryPanel;
 
-    public void Start(Player player)
+    public void Inventory(Player player)
     {
         foreach(Transform child in InventoryPanel)
         {

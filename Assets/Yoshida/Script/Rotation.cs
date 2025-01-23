@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Rotation : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class Rotation : MonoBehaviour
     public float MinSpeed;
 
     public Vector3 RayGoal;
-
+    public Button startButton;
     public enum State
     {
         Standby,
@@ -25,19 +26,31 @@ public class Rotation : MonoBehaviour
         Application.targetFrameRate = 60;
         RayGoal = this.gameObject.transform.position;
         RayGoal.y = 2;
-    }
 
+        if (startButton != null)
+        {
+            startButton.onClick.AddListener(OnStartButtonClicked);
+        }
+    }
+    private void OnStartButtonClicked()
+    {
+        if (state == State.Standby)
+        {
+            this.rotSpeed = Random.Range(FirstSpeedMin, FirstSpeedMax);
+            state = State.Rotate;
+        }
+    }
     // Update is called once per frame
     public void Update()
     {
         switch (state)
         {
             case State.Standby:
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    this.rotSpeed = Random.Range(FirstSpeedMin, FirstSpeedMax);
-                    state = State.Rotate;
-                }
+                //if (Input.GetKeyDown(KeyCode.Space))
+                //{
+                //    this.rotSpeed = Random.Range(FirstSpeedMin, FirstSpeedMax);
+                //    state = State.Rotate;
+                //}
                 break;
 
             case State.Rotate:

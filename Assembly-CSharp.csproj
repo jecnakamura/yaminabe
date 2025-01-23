@@ -54,8 +54,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-    <Analyzer Include="D:\23ci0126\sugoroku\Assets\Plugins\Demigiant\DOTween\Editor\DOTweenEditor.dll" />
-    <Analyzer Include="D:\23ci0126\sugoroku\Assets\Plugins\Demigiant\DOTween\DOTween.dll" />
+    <Analyzer Include="D:\23ci0115\yaminabe\Assets\Plugins\Demigiant\DOTween\Editor\DOTweenEditor.dll" />
+    <Analyzer Include="D:\23ci0115\yaminabe\Assets\Plugins\Demigiant\DOTween\DOTween.dll" />
     <Analyzer Include="C:\Program Files\Unity 2022.2.9f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity 2022.2.9f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -956,13 +956,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{A0485A96-5F93-88FF-2BA5-8644C7510B43}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
->>>>>>> 2c52e55c99f0b5edfaf0d3af772fbbb4967b9146
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

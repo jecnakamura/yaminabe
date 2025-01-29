@@ -116,7 +116,7 @@ public class ResultManager : MonoBehaviour
     void RestartGame()
     {
         // スタートシーンに戻る
-        SceneManager.LoadScene("TiteScene");
+        SceneManager.LoadScene("TiteScens");
     }
 
     void QuitGame()

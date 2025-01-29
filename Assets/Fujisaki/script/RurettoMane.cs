@@ -16,18 +16,18 @@ public class RurettoMane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            kari = true;
-        }
-        if (kari == true)
-        {
-            seconds += Time.deltaTime;
-            if (seconds >= 6f)
-            {
-                SceneManager.UnloadSceneAsync("Ruretto");
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    kari = true;
+        //}
+        //if (kari == true)
+        //{
+        //    seconds += Time.deltaTime;
+        //    if (seconds >= 6f)
+        //    {
+        //        SceneManager.UnloadSceneAsync("Ruretto");
+        //    }
+        //}
 
     }
     public void OnClick()

@@ -20,9 +20,12 @@ public class Player : MonoBehaviour
 
     private int controllerIndex; // 割り当てられたコントローラー番号
 
+    public List<string> RouletteHistory { get; set; } //回したルーレットの履歴
+
     public Player()
     {
         Ingredients = new List<Ingredient>();
+        RouletteHistory = new List<string>();
         HasKey = false;
         HasFinished = false;
         MoveSteps = 0;
@@ -86,5 +89,20 @@ public class Player : MonoBehaviour
     public void SetCharaImage()
     {
         display.sprite = chara.image;
+    }
+    // ルーレットの結果を追加
+    public void AddRouletteResult(string rouletteType)
+    {
+        RouletteHistory.Add(rouletteType);
+    }
+
+    // ルーレット履歴のカウント
+    public string GetMostFrequentRoulette()
+    {
+        var frequency = RouletteHistory.GroupBy(x => x)
+                                       .OrderByDescending(g => g.Count())
+                                       .FirstOrDefault();
+
+        return frequency?.Key ?? "None";  // 最も多く回されたルーレットの種類
     }
 }

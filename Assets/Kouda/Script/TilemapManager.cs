@@ -101,14 +101,14 @@ public class TilemapManager : MonoBehaviour
     {
         Debug.Log("肉イベントが発生！");
         scenename = "NikuRurettoScene";
-
+        player.AddRouletteResult("Meat");
         yield return FoodRoulette(scenename, player);
     }
 
     private IEnumerator HandleVegetableEvent(Player player)
     {
         Debug.Log("野菜イベントが発生！");
-
+        player.AddRouletteResult("Vegetable");
         int num = Random.Range(1, 3);
         scenename = "Yasai" + num.ToString() + "RurettoScene";
         
@@ -120,7 +120,7 @@ public class TilemapManager : MonoBehaviour
     {
         Debug.Log("魚イベントが発生！");
         scenename = "GyokaiRurettoScene";
-
+        player.AddRouletteResult("Fish");
         yield return FoodRoulette(scenename,player);
     }
 
@@ -146,7 +146,10 @@ public class TilemapManager : MonoBehaviour
         Debug.Log("ランダムイベントが発生！");
         int sceneNum = Random.Range(0, 6);
         scenename = Enum.GetName(typeof(RouletteNameFile), sceneNum) + "RurettoScene";
+        string rouletteType = Enum.GetName(typeof(RouletteNameFile), sceneNum);
 
+        // ルーレットの種類をプレイヤーに追加
+        player.AddRouletteResult(rouletteType);
         yield return FoodRoulette(scenename, player);
     }
 
@@ -155,15 +158,18 @@ public class TilemapManager : MonoBehaviour
         Debug.Log("分岐イベントが発生！");
         int sceneNum = Random.Range(0, 6);
         scenename = Enum.GetName(typeof(RouletteNameFile), sceneNum) + "RurettoScene";
+        string rouletteType = Enum.GetName(typeof(RouletteNameFile), sceneNum);
 
+        // ルーレットの種類をプレイヤーに追加
+        player.AddRouletteResult(rouletteType);
         yield return FoodRoulette(scenename, player);
     }
 
     public IEnumerator FoodRoulette(string scenename,Player player)
     {
 
-        TilemapRenderer sort = Tile.GetComponent<TilemapRenderer>();
-        sort.sortingOrder = -2;
+        //TilemapRenderer sort = Tile.GetComponent<TilemapRenderer>();
+        //sort.sortingOrder = -2;
         var asyncLoad = SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
 
         while (!asyncLoad.isDone)
@@ -185,6 +191,6 @@ public class TilemapManager : MonoBehaviour
 
         SceneManager.UnloadSceneAsync(scenename);
         player.camera.gameObject.SetActive(true);
-        sort.sortingOrder = 5;
+        //sort.sortingOrder = 5;
     }
 }

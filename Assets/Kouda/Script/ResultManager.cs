@@ -6,9 +6,16 @@ using UnityEngine.UI;
 
 public class ResultManager : MonoBehaviour
 {
-    public TextMeshProUGUI rankingText; // ランキングを表示するUIテキスト
+    public List<TextMeshProUGUI> rankingTexts; // プレイヤー毎の順位テキスト表示用リスト
     public Button restartButton; // もう一度遊ぶボタン
     public Button quitButton;    // 終了ボタン
+
+    public List<Image> potImage;  // 鍋のイラスト用
+
+    public Sprite meatPotSprite; // 肉の鍋イラスト
+    public Sprite fishPotSprite; // 魚の鍋イラスト
+    public Sprite vegetablePotSprite; // 野菜の鍋イラスト
+    public Sprite defaultPotSprite; // デフォルトの鍋イラスト
 
     void Start()
     {
@@ -21,6 +28,16 @@ public class ResultManager : MonoBehaviour
             return;
         }
 
+        int maxPlayers = 4;
+        int activePlayerCount = GameData.playerCount;
+
+        // プレイヤー以外のUIは非表示
+        for (int i = activePlayerCount; i < maxPlayers; i++)
+        {
+            potImage[i].gameObject.SetActive(false);
+            rankingTexts[i].gameObject.SetActive(false);
+        }
+
         // スコア順に並び替え（降順）
         players.Sort((p1, p2) => p2.CalculateScore().CompareTo(p1.CalculateScore()));
 
@@ -30,12 +47,13 @@ public class ResultManager : MonoBehaviour
         // ボタンのイベントを設定
         restartButton.onClick.AddListener(RestartGame);
         quitButton.onClick.AddListener(QuitGame);
+
+        // 鍋の画像を設定
+        UpdatePotImages(players);
     }
 
     public void DisplayRanking(List<Player> players)
     {
-        string result = "結果発表！\n";
-
         int rank = 1; // 順位の初期値
         float previousScore = -1; // 前のスコア（同点処理用）
 
@@ -50,12 +68,49 @@ public class ResultManager : MonoBehaviour
                 rank = i + 1; // スコアが変わったら順位を更新
             }
 
-            result += $"{rank}位: プレイヤー{player.ID + 1} - スコア: {currentScore:F2}\n";
+            // プレイヤーの順位とスコアを対応するテキストに設定
+            if (i < rankingTexts.Count)
+            {
+                rankingTexts[i].text = $"{rank}位: プレイヤー{player.ID + 1} - スコア: {currentScore:F2}";
+            }
 
             previousScore = currentScore; // 前回のスコアを更新
         }
+    }
 
-        rankingText.text = result;
+    void UpdatePotImages(List<Player> players)
+    {
+        // 各プレイヤーごとに鍋の画像を設定
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player player = players[i];
+            string mostFrequentRoulette = player.GetMostFrequentRoulette();
+
+            // 最も多く回されたルーレットに対応する鍋を選択
+            Sprite selectedPotSprite = defaultPotSprite; // デフォルトの鍋に設定
+
+            switch (mostFrequentRoulette)
+            {
+                case "Meat":
+                    selectedPotSprite = meatPotSprite;
+                    break;
+                case "Fish":
+                    selectedPotSprite = fishPotSprite;
+                    break;
+                case "Vegetable":
+                    selectedPotSprite = vegetablePotSprite;
+                    break;
+                default:
+                    selectedPotSprite = defaultPotSprite;
+                    break;
+            }
+
+            // プレイヤーの順位に基づいて鍋を設定 (1位 -> potImage[0], 2位 -> potImage[1] 等)
+            if (i < potImage.Count)
+            {
+                potImage[i].sprite = selectedPotSprite;
+            }
+        }
     }
 
     void RestartGame()

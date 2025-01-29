@@ -95,6 +95,7 @@ public class TurnManager : MonoBehaviour
 
             players.Add(player);
             player.SetCharaImage();
+
         }
     }
 
@@ -141,6 +142,13 @@ public class TurnManager : MonoBehaviour
     private IEnumerator HandleState(Player currentPlayer)
     {
         playerInventory.Inventory(currentPlayer);
+
+        foreach (var p in players)
+        {
+            p.display.sortingOrder = 5;
+        }
+        currentPlayer.display.sortingOrder = 6;
+
         switch (state)
         {
             case TurnState.CommandSelect:

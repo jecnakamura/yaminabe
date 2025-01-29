@@ -51,7 +51,6 @@ public class ResultManager : MonoBehaviour
             }
 
             result += $"{rank}位: プレイヤー{player.ID + 1} - スコア: {currentScore:F2}\n";
-            result += $"食材: {player.ingredients.Count}個\n";
 
             previousScore = currentScore; // 前回のスコアを更新
         }

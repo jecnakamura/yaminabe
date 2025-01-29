@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 using System.Threading;
+using Unity.VisualScripting;
+using static TurnManager;
+using System;
+using Random = UnityEngine.Random;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -17,10 +21,14 @@ public class TilemapManager : MonoBehaviour
 
     private string scenename;
 
+    public Tilemap Tile;
+
+
     void Start()
     {
         // 必要な初期化処理をここに追加
         instance = this;
+
     }
 
     public IEnumerator TileEvent(Player player)
@@ -93,14 +101,14 @@ public class TilemapManager : MonoBehaviour
     {
         Debug.Log("肉イベントが発生！");
         scenename = "NikuRurettoScene";
-
+        player.AddRouletteResult("Meat");
         yield return FoodRoulette(scenename, player);
     }
 
     private IEnumerator HandleVegetableEvent(Player player)
     {
         Debug.Log("野菜イベントが発生！");
-
+        player.AddRouletteResult("Vegetable");
         int num = Random.Range(1, 3);
         scenename = "Yasai" + num.ToString() + "RurettoScene";
         
@@ -112,7 +120,7 @@ public class TilemapManager : MonoBehaviour
     {
         Debug.Log("魚イベントが発生！");
         scenename = "GyokaiRurettoScene";
-
+        player.AddRouletteResult("Fish");
         yield return FoodRoulette(scenename,player);
     }
 
@@ -136,17 +144,32 @@ public class TilemapManager : MonoBehaviour
     private IEnumerator HandleRandomEvent(Player player)
     {
         Debug.Log("ランダムイベントが発生！");
-        yield return new WaitForSeconds(1);
+        int sceneNum = Random.Range(0, 6);
+        scenename = Enum.GetName(typeof(RouletteNameFile), sceneNum) + "RurettoScene";
+        string rouletteType = Enum.GetName(typeof(RouletteNameFile), sceneNum);
+
+        // ルーレットの種類をプレイヤーに追加
+        player.AddRouletteResult(rouletteType);
+        yield return FoodRoulette(scenename, player);
     }
 
     private IEnumerator HandleBranchEvent(Player player)
     {
         Debug.Log("分岐イベントが発生！");
-        yield return new WaitForSeconds(0);
+        int sceneNum = Random.Range(0, 6);
+        scenename = Enum.GetName(typeof(RouletteNameFile), sceneNum) + "RurettoScene";
+        string rouletteType = Enum.GetName(typeof(RouletteNameFile), sceneNum);
+
+        // ルーレットの種類をプレイヤーに追加
+        player.AddRouletteResult(rouletteType);
+        yield return FoodRoulette(scenename, player);
     }
 
     public IEnumerator FoodRoulette(string scenename,Player player)
     {
+
+        //TilemapRenderer sort = Tile.GetComponent<TilemapRenderer>();
+        //sort.sortingOrder = -2;
         var asyncLoad = SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
 
         while (!asyncLoad.isDone)
@@ -168,5 +191,6 @@ public class TilemapManager : MonoBehaviour
 
         SceneManager.UnloadSceneAsync(scenename);
         player.camera.gameObject.SetActive(true);
+        //sort.sortingOrder = 5;
     }
 }

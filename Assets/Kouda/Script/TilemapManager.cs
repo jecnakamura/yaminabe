@@ -20,10 +20,12 @@ public class TilemapManager : MonoBehaviour
 
     public Tilemap Tile;
 
+
     void Start()
     {
         // •K—v‚È‰Šú‰»ˆ—‚ğ‚±‚±‚É’Ç‰Á
         instance = this;
+
     }
 
     public IEnumerator TileEvent(Player player)
@@ -150,7 +152,9 @@ public class TilemapManager : MonoBehaviour
 
     public IEnumerator FoodRoulette(string scenename,Player player)
     {
-        //TilemapRenderer sort = Tile.GetComponent<TilemapManager>();
+
+        TilemapRenderer sort = Tile.GetComponent<TilemapRenderer>();
+        sort.sortingOrder = -2;
         var asyncLoad = SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
 
         while (!asyncLoad.isDone)
@@ -172,6 +176,6 @@ public class TilemapManager : MonoBehaviour
 
         SceneManager.UnloadSceneAsync(scenename);
         player.camera.gameObject.SetActive(true);
-        //Tile.layer = 5;
+        sort.sortingOrder = 5;
     }
 }

@@ -78,6 +78,7 @@ public class Rotation : MonoBehaviour
                 transform.Rotate(0, 0, this.rotSpeed);
                 break;
             case State.Decelerating:
+                startButton.gameObject.SetActive(false);
                 if (rotSpeed > MinSpeed)
                 {
                     // Œ¸‘¬‚ð“K—p‚µ‚Ä‰ñ“]‚³‚¹‚é

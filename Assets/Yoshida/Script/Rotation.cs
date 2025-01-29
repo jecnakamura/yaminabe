@@ -28,6 +28,7 @@ public class Rotation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        state = State.Standby;
         Application.targetFrameRate = 60;
         RayGoal = this.gameObject.transform.position;
         RayGoal.y = 2;
@@ -104,7 +105,6 @@ public class Rotation : MonoBehaviour
                         Debug.Log(piece.No);
                     }
 
-                    state = State.Standby;
                 }
                 break;
         }

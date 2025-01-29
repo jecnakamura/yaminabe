@@ -45,6 +45,7 @@ public class TurnManager : MonoBehaviour
     public List<GameObject> commandButtons;
     public MasuDB masuDB;
     public Button RoulettteGameButton;
+    public GameObject Tile;
     private bool isGameFinished = false;
     private bool isStateEnd = false;
 

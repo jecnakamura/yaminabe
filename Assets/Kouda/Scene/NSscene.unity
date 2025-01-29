@@ -2869,7 +2869,7 @@ MonoBehaviour:
       ev: 7
       next: 25000000
     - index: 37
-      ev: 6
+      ev: 9
       next: 26000000
     - index: 38
       ev: 5
@@ -3061,6 +3061,7 @@ MonoBehaviour:
       ev: 9
       next: 
   rouletteController: {fileID: 0}
+  Tile: {fileID: 1218912556}
 --- !u!19719996 &1218912558
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -4221,6 +4222,7 @@ MonoBehaviour:
       ev: 9
       next: 
   RoulettteGameButton: {fileID: 989684749}
+  Tile: {fileID: 1218912553}
   Pl: {fileID: 7141200225084256373, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}
 --- !u!4 &1897042881
 Transform:

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 using System.Threading;
+using Unity.VisualScripting;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class TilemapManager : MonoBehaviour
     public RouletteController rouletteController = new RouletteController();
 
     private string scenename;
+
+    public Tilemap Tile;
 
     void Start()
     {
@@ -147,6 +150,7 @@ public class TilemapManager : MonoBehaviour
 
     public IEnumerator FoodRoulette(string scenename,Player player)
     {
+        //TilemapRenderer sort = Tile.GetComponent<TilemapManager>();
         var asyncLoad = SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
 
         while (!asyncLoad.isDone)
@@ -168,5 +172,6 @@ public class TilemapManager : MonoBehaviour
 
         SceneManager.UnloadSceneAsync(scenename);
         player.camera.gameObject.SetActive(true);
+        //Tile.layer = 5;
     }
 }

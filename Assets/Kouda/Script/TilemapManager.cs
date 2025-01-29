@@ -4,6 +4,9 @@ using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 using System.Threading;
 using Unity.VisualScripting;
+using static TurnManager;
+using System;
+using Random = UnityEngine.Random;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -141,13 +144,19 @@ public class TilemapManager : MonoBehaviour
     private IEnumerator HandleRandomEvent(Player player)
     {
         Debug.Log("ランダムイベントが発生！");
-        yield return new WaitForSeconds(1);
+        int sceneNum = Random.Range(0, 6);
+        scenename = Enum.GetName(typeof(RouletteNameFile), sceneNum) + "RurettoScene";
+
+        yield return FoodRoulette(scenename, player);
     }
 
     private IEnumerator HandleBranchEvent(Player player)
     {
         Debug.Log("分岐イベントが発生！");
-        yield return new WaitForSeconds(0);
+        int sceneNum = Random.Range(0, 6);
+        scenename = Enum.GetName(typeof(RouletteNameFile), sceneNum) + "RurettoScene";
+
+        yield return FoodRoulette(scenename, player);
     }
 
     public IEnumerator FoodRoulette(string scenename,Player player)

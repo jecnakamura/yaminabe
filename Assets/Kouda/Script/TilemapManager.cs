@@ -137,7 +137,7 @@ public class TilemapManager : MonoBehaviour
     {
         Debug.Log("ハズレイベントが発生！");
         scenename = "HazureRurettoScene";
-
+        player.AddRouletteResult("Bad");
         yield return FoodRoulette(scenename, player);
     }
 

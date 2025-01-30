@@ -10,6 +10,7 @@ public class ResultManager : MonoBehaviour
     public Button restartButton; // もう一度遊ぶボタン
     public Button quitButton;    // 終了ボタン
 
+    public List<Image> charaImage;  // キャラクターのイラスト用
     public List<Image> potImage;  // 鍋のイラスト用
 
     public Sprite meatPotSprite; // 肉の鍋イラスト
@@ -36,6 +37,7 @@ public class ResultManager : MonoBehaviour
         {
             potImage[i].gameObject.SetActive(false);
             rankingTexts[i].gameObject.SetActive(false);
+            charaImage[i].gameObject.SetActive(false);
         }
 
         // スコア順に並び替え（降順）
@@ -47,6 +49,9 @@ public class ResultManager : MonoBehaviour
         // ボタンのイベントを設定
         restartButton.onClick.AddListener(RestartGame);
         quitButton.onClick.AddListener(QuitGame);
+
+        //キャラクターの画像を設定
+        UpdateCharaImages(players);
 
         // 鍋の画像を設定
         UpdatePotImages(players);
@@ -75,6 +80,19 @@ public class ResultManager : MonoBehaviour
             }
 
             previousScore = currentScore; // 前回のスコアを更新
+        }
+    }
+    void UpdateCharaImages(List<Player> players)
+    {
+        // 各プレイヤーごとのキャラクターの画像を設定
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player player = players[i];
+            // プレイヤーの順位に基づいてキャラ画像を設定
+            if (i < charaImage.Count)
+            {
+                charaImage[i].sprite = player.chara.image;
+            }
         }
     }
 

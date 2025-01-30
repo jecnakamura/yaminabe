@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TurnManager : MonoBehaviour
 {
@@ -41,33 +42,30 @@ public class TurnManager : MonoBehaviour
     public CameraController cameraController; // カメラ管理クラス
     public UIManager uiManager; // UI管理クラス
     public TilemapManager tilemapManager;
+    public PlayerInventory playerInventory;
     public List<GameObject> commandButtons;
     public MasuDB masuDB;
     public Button RoulettteGameButton;
+    public GameObject Tile;
     private bool isGameFinished = false;
     private bool isStateEnd = false;
 
     [SerializeField] GameObject Pl;
     Vector3 spawnPosition;
 
+    public RectTransform TextPos;
+    public Text GoalText;
+
     void Start()
     {
+        TextPos = GoalText.rectTransform;
         InitializePlayers();
         StartCoroutine(TurnCycle());
     }
 
     private void Update()
     {
-        //Debug.Log(state.ToString());
-        if (state == TurnState.CommandSelect)
-        {
-            if (Input.GetKeyDown(KeyCode.LeftAlt))
-            {
-                Player currentPlayer = players[currentPlayerIndex];
-                NextState(TurnState.Roulette);
-                StartCoroutine(HandleState(currentPlayer));
-            }
-        }
+        Debug.Log(TextPos.anchoredPosition.y);
     }
 
     private void InitializePlayers()
@@ -93,6 +91,7 @@ public class TurnManager : MonoBehaviour
 
             players.Add(player);
             player.SetCharaImage();
+
         }
     }
 
@@ -138,6 +137,14 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator HandleState(Player currentPlayer)
     {
+        playerInventory.Inventory(currentPlayer);
+
+        foreach (var p in players)
+        {
+            p.display.sortingOrder = 5;
+        }
+        currentPlayer.display.sortingOrder = 6;
+
         switch (state)
         {
             case TurnState.CommandSelect:
@@ -208,6 +215,12 @@ public class TurnManager : MonoBehaviour
         Player currentPlayer = players[currentPlayerIndex];
         NextState((TurnState)type);
         StartCoroutine(HandleState(currentPlayer));
+    }
+
+    public void RouletteButton()
+    {
+        NextState(TurnState.Roulette);
+        StartCoroutine(HandleState(players[currentPlayerIndex]));
     }
 
     private void HandleControllerInputForCommand()
@@ -316,6 +329,9 @@ public class TurnManager : MonoBehaviour
             }
             else if (tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Goal)
             {
+                Debug.Log("ゴールに到達");
+                //TextPos.anchoredPosition.y.DOMoveY(0, 2.0f).SetEase(Ease.InOutQuad);
+                yield return new WaitForSeconds(1.0f);
                 player.HasFinished = true;
                 break;
             }

@@ -159,6 +159,10 @@ public class CharacterSelection : MonoBehaviour
         Debug.Log($"Player {playerIndex + 1} selected {selectedCharacter.characterName}");
 
         playerConfirmed[playerIndex] = true;
+        nextButtons[playerIndex].gameObject.SetActive(false);
+        prevButtons[playerIndex].gameObject.SetActive(false);
+        confirmButtons[playerIndex].gameObject.SetActive(false);
+
         activePlayerIndex++;
         CheckAllPlayersConfirmed();
     }

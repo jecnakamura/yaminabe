@@ -28,6 +28,7 @@ public class Rotation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        state = State.Standby;
         Application.targetFrameRate = 60;
         RayGoal = this.gameObject.transform.position;
         RayGoal.y = 2;
@@ -41,6 +42,8 @@ public class Rotation : MonoBehaviour
             stopButton.onClick.AddListener(OnStopButtonClicked);
         }
     }
+
+
     private void OnStartButtonClicked()
     {
         if (state == State.Standby)
@@ -57,15 +60,26 @@ public class Rotation : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    state = State.Rotate;
+        //}
+
         switch (state)
         {
             case State.Standby:
+                startButton.gameObject.SetActive(true);
+                stopButton.gameObject.SetActive(false);
                 break;
 
             case State.Rotate:
+                stopButton.gameObject.SetActive(true);
+                startButton.gameObject.SetActive(false);
                 transform.Rotate(0, 0, this.rotSpeed);
                 break;
             case State.Decelerating:
+                startButton.gameObject.SetActive(false);
                 if (rotSpeed > MinSpeed)
                 {
                     // Œ¸‘¬‚ð“K—p‚µ‚Ä‰ñ“]‚³‚¹‚é
@@ -91,7 +105,6 @@ public class Rotation : MonoBehaviour
                         Debug.Log(piece.No);
                     }
 
-                    state = State.Standby;
                 }
                 break;
         }

@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     }
 
     // 分岐オプションを表示
-    public void ShowBranchOptions(List<int> nextIndices,Player player)
+    public void ShowBranchOptions(List<int> nextIndices, Player player)
     {
         branchPanel.SetActive(true);
 
@@ -38,13 +38,16 @@ public class UIManager : MonoBehaviour
 
         // ボタンを配置するY座標の初期値
         float[] yPositions = new float[] { 450f, 0f, -450f };
+        string[] labels = new string[] { "上", "真ん中", "下" }; // 上、真ん中、下のラベル
 
         // 新しいボタンを作成
         for (int i = 0; i < nextIndices.Count; i++)
         {
             GameObject buttonObj = Instantiate(branchButtonPrefab, branchButtonContainer);
             Button button = buttonObj.GetComponent<Button>();
-            button.GetComponentInChildren<TextMeshProUGUI>().text = $"マス {nextIndices[i]}";
+
+            // インデックスに応じてラベルを設定
+            button.GetComponentInChildren<TextMeshProUGUI>().text = labels[i];
 
             // ボタンの位置調整 (X座標を375、Y座標をyPositionsで変更)
             RectTransform buttonRectTransform = button.GetComponent<RectTransform>();

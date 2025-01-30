@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CameraMove : MonoBehaviour
 {
-    [SerializeField, Range(0.1f, 10.0f)]
+    [SerializeField, Range(0.1f, 20.0f)]
     private float move = 2.0f;
 
     private bool cameraMoveActive = false;
@@ -21,7 +21,7 @@ public class CameraMove : MonoBehaviour
     {
         camTransform = this.gameObject.transform;
         style = new GUIStyle();
-        style.fontSize = 100;
+        style.fontSize = 80;
     }
 
     // Update is called once per frame
@@ -33,6 +33,8 @@ public class CameraMove : MonoBehaviour
         {
             CameraPositionKeyControl();
         }
+
+
     }
 
     public void OnClick()
@@ -47,12 +49,19 @@ public class CameraMove : MonoBehaviour
     private void CameraPositionKeyControl()
     {
         Vector3 campos = camTransform.position;
-
-        if (Input.GetKey(KeyCode.RightArrow)) { campos += camTransform.right * Time.deltaTime * move; }
-        if (Input.GetKey(KeyCode.LeftArrow)) { campos -= camTransform.right * Time.deltaTime * move; }
-        if (Input.GetKey(KeyCode.UpArrow)) { campos += camTransform.forward * Time.deltaTime * move; }
-        if (Input.GetKey(KeyCode.DownArrow)) { campos -= camTransform.forward * Time.deltaTime * move; }
-
+        if(campos.x<109&&campos.x>2)
+        {
+            if (Input.GetKey(KeyCode.RightArrow)) { campos += camTransform.right * Time.deltaTime * move; }
+            if (Input.GetKey(KeyCode.LeftArrow)) { campos -= camTransform.right * Time.deltaTime * move; }
+        }
+        else if(campos.x >= 109)
+        {
+            campos.x = 108.9999f; 
+        }
+        else if (campos.x <= 2)
+        {
+            campos.x = 2.0001f;
+        }
         camTransform.position = campos;
     }
 
@@ -72,12 +81,7 @@ public class CameraMove : MonoBehaviour
     {
         if (cameraMoveActive == true)
         {
-            GUI.Label(new Rect(Screen.width / 4-50, Screen.height - 1000, 100, 20), "十字キーで視点の移動",style);
-        }
-
-        if (cameraMoveActive == false)
-        {
-            GUI.Label(new Rect(Screen.width / 4-50, Screen.height - 1000, 100, 20), "aaaaaaaaa",style);
+            GUI.Label(new Rect(Screen.width / 4+30, Screen.height - 300, 100, 20), "十字キーで視点の移動",style);
         }
     }
 }

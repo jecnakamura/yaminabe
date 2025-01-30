@@ -283,6 +283,7 @@ public class TurnManager : MonoBehaviour
     private IEnumerator HandleRoulette(Player player)
     {
         RoulettteGameButton.gameObject.SetActive(false);
+        
 
         RouletteResultHandler.SetEnd(false);
 
@@ -329,10 +330,7 @@ public class TurnManager : MonoBehaviour
             }
             else if (tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Goal)
             {
-                Debug.Log("ゴールに到達");
-                //TextPos.anchoredPosition.y.DOMoveY(0, 2.0f).SetEase(Ease.InOutQuad);
-                yield return new WaitForSeconds(1.0f);
-                player.HasFinished = true;
+                yield return StartCoroutine(GoalTextAnimation(player));
                 break;
             }
         }
@@ -480,6 +478,10 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator HandleGoalBouns(Player player)
     {
+        if (!player.HasFinished)
+        {
+            player.HasFinished = true;
+        }
         int sceneNum = UnityEngine.Random.Range(0, 6);
 
         string scenename = Enum.GetName(typeof(RouletteNameFile), sceneNum)+"RurettoScene";
@@ -488,5 +490,19 @@ public class TurnManager : MonoBehaviour
         NextState(TurnState.CommandSelect);
         NextPlayer();
         yield return StartCoroutine(TurnCycle());
+    }
+
+    public IEnumerator GoalTextAnimation(Player player)
+    {
+        Debug.Log("ゴールに到達");
+
+        RectTransform rectTransform = TextPos.GetComponent<RectTransform>();
+        rectTransform.DOMoveY(0f, 2.0f)  // 2秒かけてY座標を0に移動
+            .SetEase(Ease.InOutQuad);
+
+        yield return new WaitForSeconds(2.0f);  // アニメーションの待機
+
+        // ボーナス処理
+        yield return StartCoroutine(HandleGoalBouns(player));
     }
 }

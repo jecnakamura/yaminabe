@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TurnManager : MonoBehaviour
 {
@@ -52,24 +53,19 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject Pl;
     Vector3 spawnPosition;
 
+    public RectTransform TextPos;
+    public Text GoalText;
+
     void Start()
     {
+        TextPos = GoalText.rectTransform;
         InitializePlayers();
         StartCoroutine(TurnCycle());
     }
 
     private void Update()
     {
-        //Debug.Log(state.ToString());
-        //if (state == TurnState.CommandSelect)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.LeftAlt))
-        //    {
-        //        Player currentPlayer = players[currentPlayerIndex];
-        //        NextState(TurnState.Roulette);
-        //        StartCoroutine(HandleState(currentPlayer));
-        //    }
-        //}
+        Debug.Log(TextPos.anchoredPosition.y);
     }
 
     private void InitializePlayers()
@@ -333,6 +329,9 @@ public class TurnManager : MonoBehaviour
             }
             else if (tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Goal)
             {
+                Debug.Log("ÉSÅ[ÉãÇ…ìûíB");
+                //TextPos.anchoredPosition.y.DOMoveY(0, 2.0f).SetEase(Ease.InOutQuad);
+                yield return new WaitForSeconds(1.0f);
                 player.HasFinished = true;
                 break;
             }

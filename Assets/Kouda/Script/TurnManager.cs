@@ -283,6 +283,7 @@ public class TurnManager : MonoBehaviour
     private IEnumerator HandleRoulette(Player player)
     {
         RoulettteGameButton.gameObject.SetActive(false);
+        
 
         RouletteResultHandler.SetEnd(false);
 

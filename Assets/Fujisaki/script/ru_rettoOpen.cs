@@ -10,13 +10,13 @@ public class ru_rettoOpen : MonoBehaviour
     private void OpenSettingsScene()
     {
         // SettingsSceneが既にロードされているかを確認
-        Scene settingsScene = SceneManager.GetSceneByName("Ruretto");
-        if (settingsScene.isLoaded)
-        {
-            // 既にSettingsSceneがロードされている場合、何もしない
-            return;
-        }
+        //Scene settingsScene = SceneManager.GetSceneByName("Ruretto");
+        //if (settingsScene.isLoaded)
+        //{
+        //    // 既にSettingsSceneがロードされている場合、何もしない
+        //    return;
+        //}
 
-        SceneManager.LoadScene("Ruretto", LoadSceneMode.Additive);
+        //SceneManager.LoadScene("Ruretto", LoadSceneMode.Additive);
     }
 }

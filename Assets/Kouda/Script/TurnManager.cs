@@ -61,15 +61,15 @@ public class TurnManager : MonoBehaviour
     private void Update()
     {
         //Debug.Log(state.ToString());
-        if (state == TurnState.CommandSelect)
-        {
-            if (Input.GetKeyDown(KeyCode.LeftAlt))
-            {
-                Player currentPlayer = players[currentPlayerIndex];
-                NextState(TurnState.Roulette);
-                StartCoroutine(HandleState(currentPlayer));
-            }
-        }
+        //if (state == TurnState.CommandSelect)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.LeftAlt))
+        //    {
+        //        Player currentPlayer = players[currentPlayerIndex];
+        //        NextState(TurnState.Roulette);
+        //        StartCoroutine(HandleState(currentPlayer));
+        //    }
+        //}
     }
 
     private void InitializePlayers()
@@ -219,6 +219,12 @@ public class TurnManager : MonoBehaviour
         Player currentPlayer = players[currentPlayerIndex];
         NextState((TurnState)type);
         StartCoroutine(HandleState(currentPlayer));
+    }
+
+    public void RouletteButton()
+    {
+        NextState(TurnState.Roulette);
+        StartCoroutine(HandleState(players[currentPlayerIndex]));
     }
 
     private void HandleControllerInputForCommand()

@@ -15,10 +15,10 @@ public class PhotoChange : MonoBehaviour
 
     public void OnClick()
     {
-        if (count < 9)
+        if (count < 8)
             count++;
         else
-            count = 9;
+            count = 8;
 
         img.sprite = Resources.Load<Sprite>("Image/ruru" + count.ToString());
     }

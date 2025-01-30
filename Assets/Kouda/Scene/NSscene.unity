@@ -203,10 +203,10 @@ RectTransform:
   m_Father: {fileID: 1571146102}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -411}
-  m_SizeDelta: {x: 273, y: 118}
+  m_SizeDelta: {x: -1647, y: -962}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &55859718
 MonoBehaviour:
@@ -403,10 +403,10 @@ RectTransform:
   m_Father: {fileID: 1571146102}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -860, y: 311}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: -1820, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &96091721
 MonoBehaviour:
@@ -500,7 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1122,10 +1122,17 @@ RectTransform:
   m_Father: {fileID: 1571146102}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -747.99255, y: -414}
   m_SizeDelta: {x: 324.0148, y: 144.2056}
+=======
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -742, y: -414}
+  m_SizeDelta: {x: -1647, y: -962}
+>>>>>>> a9bc8d5b3a474708cdba4683a69c07a415597390
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &989684749
 MonoBehaviour:
@@ -1173,8 +1180,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1897042880}
         m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: OnButtonClick
-        m_Mode: 3
+        m_MethodName: RouletteButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1273,7 +1280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1452,10 +1459,10 @@ RectTransform:
   m_Father: {fileID: 1571146102}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -374, y: -414}
-  m_SizeDelta: {x: 273, y: 118}
+  m_SizeDelta: {x: -1647, y: -962}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1215111666
 MonoBehaviour:
@@ -3751,10 +3758,10 @@ RectTransform:
   m_Father: {fileID: 1571146102}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: -100}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -660, y: 440}
+  m_SizeDelta: {x: -1420, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1634270271
 GameObject:
@@ -4222,7 +4229,7 @@ MonoBehaviour:
       ev: 9
       next: 
   RoulettteGameButton: {fileID: 989684749}
-  Tile: {fileID: 0}
+  Tile: {fileID: 1218912553}
   Pl: {fileID: 7141200225084256373, guid: 0d6009a1a84945149a78099a7daff52c, type: 3}
 --- !u!4 &1897042881
 Transform:

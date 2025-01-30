@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbd3313da08397f468bae48a38dd4795, type: 3}
   m_Name: Character2
   m_EditorClassIdentifier: 
-  characterName: kari2
+  characterName: "\u305F\u3044\u3061"
   image: {fileID: 21300000, guid: 894131bbfe8e574408121c925b8bb471, type: 3}

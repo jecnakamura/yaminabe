@@ -986,6 +986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   move: 15
+  turnManager: {fileID: 1897042880}
 --- !u!1 &754518715
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,7 +3577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 589}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 480, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1537073365
@@ -4041,6 +4042,7 @@ MonoBehaviour:
   cameraController: {fileID: 695476521}
   uiManager: {fileID: 1897042884}
   tilemapManager: {fileID: 1218912557}
+  cameraMove: {fileID: 0}
   playerInventory: {fileID: 96091722}
   commandButtons:
   - {fileID: 989684747}

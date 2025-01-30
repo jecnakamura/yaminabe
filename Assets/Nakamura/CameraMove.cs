@@ -13,7 +13,9 @@ public class CameraMove : MonoBehaviour
     private Transform camTransform;
     //private Vector2 presentCamPos;
 
-    private bool _uiMessageActiv;
+    //private bool _uiMessageActiv;
+
+    public TurnManager turnManager;
 
     private GUIStyle style;
     // Start is called before the first frame update
@@ -22,28 +24,40 @@ public class CameraMove : MonoBehaviour
         camTransform = this.gameObject.transform;
         style = new GUIStyle();
         style.fontSize = 80;
+        cameraMoveActive = false;
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         //CamControlIsActive();
+        //cameraMoveActive = true;
 
-        if(cameraMoveActive)
+        //yield return null;
+
+        if (cameraMoveActive)
         {
             CameraPositionKeyControl();
         }
-
 
     }
 
     public void OnClick()
     {
         cameraMoveActive = !cameraMoveActive;
-        if (_uiMessageActiv == false)
+
+        if(!cameraMoveActive)
         {
-            StartCoroutine(DisplayUiMessage());
+            // 元のカメラのオブジェクトを有効にする
+            TurnManager.Instance.GetCurrentPlayer().camera.gameObject.SetActive(true);
         }
+
+        this.gameObject.SetActive(cameraMoveActive);
+        //if (_uiMessageActiv == false)
+        //{
+        //    //StartCoroutine(DisplayUiMessage());
+        //    DisplayUiMessage();
+        //}
     }
 
     private void CameraPositionKeyControl()
@@ -65,17 +79,17 @@ public class CameraMove : MonoBehaviour
         camTransform.position = campos;
     }
 
-    private IEnumerator DisplayUiMessage()
-    {
-        _uiMessageActiv = true;
-        float time = 0;
-        while (time < 2)
-        {
-            time = time + Time.deltaTime;
-            yield return null;
-        }
-        _uiMessageActiv = false;
-    }
+    //private void DisplayUiMessage()
+    //{
+    //    //_uiMessageActiv = true;
+    //    //float time = 0;
+    //    //while (time < 2)
+    //    //{
+    //    //    time = time + Time.deltaTime;
+    //    //    //yield return null;
+    //    //}
+    //    //_uiMessageActiv = false;
+    //}
 
     void OnGUI()
     {

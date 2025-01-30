@@ -33,6 +33,11 @@ public class TurnManager : MonoBehaviour
         
     }
 
+    public Player GetCurrentPlayer()
+    {
+        return players[currentPlayerIndex];
+    }
+
     public TurnState state = TurnState.CommandSelect;
     public Character availableCharacter;    // 全キャラクターリスト
 
@@ -42,6 +47,7 @@ public class TurnManager : MonoBehaviour
     public CameraController cameraController; // カメラ管理クラス
     public UIManager uiManager; // UI管理クラス
     public TilemapManager tilemapManager;
+    public CameraMove cameraMove;
     public PlayerInventory playerInventory;
     public List<GameObject> commandButtons;
     public MasuDB masuDB;
@@ -56,8 +62,12 @@ public class TurnManager : MonoBehaviour
     public RectTransform TextPos;
     public Text GoalText;
 
+    static TurnManager instance;
+    public static TurnManager Instance { get { return instance; } }
+
     void Start()
     {
+        instance = this;
         TextPos = GoalText.rectTransform;
         InitializePlayers();
         StartCoroutine(TurnCycle());
@@ -65,7 +75,7 @@ public class TurnManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(TextPos.anchoredPosition.y);
+
     }
 
     private void InitializePlayers()
@@ -95,7 +105,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator TurnCycle()
+    public IEnumerator TurnCycle()
     {
         Player currentPlayer = players[currentPlayerIndex];
         ActivateCamera(currentPlayer);
@@ -242,8 +252,9 @@ public class TurnManager : MonoBehaviour
     private IEnumerator HandleViewMap(Player player)
     {
         player.camera.gameObject.SetActive(false);
-        cameraController.gameObject.SetActive(true);
-
+        //cameraController.gameObject.SetActive(true);
+       //yield return StartCoroutine(cameraMove.Update());
+        
         while (!isStateEnd)
         {
             HandleControllerInputForViewMap();
@@ -330,7 +341,9 @@ public class TurnManager : MonoBehaviour
             }
             else if (tilemapManager.masuDB.data[player.nowIndex].ev == EventType.Goal)
             {
-                yield return StartCoroutine(GoalTextAnimation(player));
+                GoalText.gameObject.SetActive(true);
+                yield return new WaitForSeconds(1);
+                GoalText.gameObject.SetActive(false);
                 break;
             }
         }
@@ -492,17 +505,5 @@ public class TurnManager : MonoBehaviour
         yield return StartCoroutine(TurnCycle());
     }
 
-    public IEnumerator GoalTextAnimation(Player player)
-    {
-        Debug.Log("ゴールに到達");
 
-        RectTransform rectTransform = TextPos.GetComponent<RectTransform>();
-        rectTransform.DOMoveY(0f, 2.0f)  // 2秒かけてY座標を0に移動
-            .SetEase(Ease.InOutQuad);
-
-        yield return new WaitForSeconds(2.0f);  // アニメーションの待機
-
-        // ボーナス処理
-        yield return StartCoroutine(HandleGoalBouns(player));
-    }
 }
